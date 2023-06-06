@@ -1,3 +1,4 @@
+import { ReactNode } from 'react'
 export interface AppBarWebProps {
   title: string
   version: string
@@ -7,4 +8,5 @@ export interface AppBarMobileProps {
 }
 export interface MainProps {
   version: string
+  children: ReactNode
 }

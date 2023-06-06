@@ -27,7 +27,9 @@ const useStyles = makeStyles(() =>
     },
     userIcon: {
       color: colors.black,
-      margin: '2em',
+      margin: '1em',
+      marginRight: '4.7em',
+      marginLeft: '4.7em'
     },
     settingsIcon: {
       color: colors.yellow,

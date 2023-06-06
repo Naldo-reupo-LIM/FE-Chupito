@@ -7,6 +7,7 @@ import AppBarMobile from '../../components/AppBarMobile/AppBarMobile'
 import AppBarWeb from '../../components/AppBarWeb/AppBarWeb'
 import NavigationBar from '../Navigation/NavigationBar'
 import LayoutContext, { LayoutTypes } from '../../shared/contexts/LayoutContext'
+import config from '../../environment/environment'
 import { colors } from '../../styles/theme/colors'
 import { MainProps } from '../../types/types'
 
@@ -21,6 +22,7 @@ const useStyles = makeStyles((theme) =>
       [theme.breakpoints.down('sm')]: {
         marginRight: '1.5em',
         marginLeft: '1.5em',
+        marginTop: '6em',
       },
 
       overflow: 'auto',
@@ -34,7 +36,7 @@ const useStyles = makeStyles((theme) =>
   })
 )
 
-export default function Main({ version }: MainProps): JSX.Element {
+export default function Main({ version, children }: MainProps): JSX.Element {
   const { layout, title, showLogo } = useContext(LayoutContext)
 
   const classes = useStyles()
@@ -44,16 +46,19 @@ export default function Main({ version }: MainProps): JSX.Element {
   return (
     <>
       {matchesDesktopDisplay ? (
-        <AppBarWeb title={'Special Spider App'} version={''} />
+        <AppBarWeb
+          title={'Special Spider App'}
+          version={config.version || ''}
+        />
       ) : (
-        <AppBarMobile version={''} />
+        <AppBarMobile version={version} />
       )}
 
       {layout === LayoutTypes.NAVIGATION && (
         <NavigationBar title={title} showLogo={showLogo} />
       )}
       <Paper className={classes.mainContainer}>
-        <div className={classes.innerContainer}>{version}</div>
+        <div className={classes.innerContainer}>{children}</div>
       </Paper>
     </>
   )
