@@ -7,13 +7,14 @@ import UsersPage from '../../pages/Users/Users'
 import UserPage from '../../pages/User/User'
 
 // Legacy
-import OauthDashboard from '../Dashboard/OauthDashboard'
+// TODO: Insert 0auth path "/" when user is logged
+//import OauthDashboard from '../Dashboard/OauthDashboard'
 
 export default function AppRoutes(): JSX.Element {
   return (
     <>
       <Route path="/">
-        <OauthDashboard />
+        <EventsPage />
       </Route>
       <Route path="/events">
         <EventsPage />

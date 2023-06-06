@@ -1,24 +1,18 @@
-import { ReactNode, useContext } from 'react'
+import { useContext } from 'react'
 import { Paper, createStyles, makeStyles } from '@material-ui/core'
+import { useMediaQuery } from '@mui/material'
+import { useTheme } from '@mui/material/styles'
 
-// import LoginPage from '../../pages/Login/Login'
-
-import FullAppBar from '../FullAppBar/FullAppBar'
+import AppBarMobile from '../../components/AppBarMobile/AppBarMobile'
+import AppBarWeb from '../../components/AppBarWeb/AppBarWeb'
 import NavigationBar from '../Navigation/NavigationBar'
-
-import UserContext from '../../shared/contexts/UserContext'
 import LayoutContext, { LayoutTypes } from '../../shared/contexts/LayoutContext'
-
-import { Authentication } from '../../shared/api'
-
-import config from '../../environment/environment'
 import { colors } from '../../styles/theme/colors'
+import { MainProps } from '../../types/types'
 
 const useStyles = makeStyles((theme) =>
   createStyles({
-    mainContainer: {
-      // ...theme.mainContainer
-    },
+    mainContainer: {},
     innerContainer: {
       marginTop: '5em',
       marginBottom: '5em',
@@ -40,52 +34,26 @@ const useStyles = makeStyles((theme) =>
   })
 )
 
-export interface MainProps {
-  children: ReactNode
-}
-
-export default function Main({ children }: MainProps): JSX.Element {
-  // const { isLoggedIn, logout } = useContext(UserContext)
-  const { logout } = useContext(UserContext)
+export default function Main({ version }: MainProps): JSX.Element {
   const { layout, title, showLogo } = useContext(LayoutContext)
 
   const classes = useStyles()
-
-  // if (!isLoggedIn) {
-  //   return (
-  //     <Paper className={classes.mainContainer}>
-  //       <div className={classes.innerContainer}>
-  //         <LoginPage />
-  //       </div>
-  //     </Paper>
-  //   )
-  // }
-
-  const handleLogout = () => {
-    const api = Authentication()
-    api.logout()
-    .then(() => {
-      logout()
-    })
-    .catch((error) => {
-      console.error(error)
-    })
-  }
+  const theme = useTheme()
+  const matchesDesktopDisplay = useMediaQuery(theme.breakpoints.up('sm'))
 
   return (
     <>
-      {layout === LayoutTypes.FULL && (
-        <FullAppBar
-          title={title}
-          version={config.version || ''}
-          onLogout={handleLogout}
-        />
+      {matchesDesktopDisplay ? (
+        <AppBarWeb title={'Special Spider App'} version={''} />
+      ) : (
+        <AppBarMobile version={''} />
       )}
+
       {layout === LayoutTypes.NAVIGATION && (
         <NavigationBar title={title} showLogo={showLogo} />
       )}
       <Paper className={classes.mainContainer}>
-        <div className={classes.innerContainer}>{children}</div>
+        <div className={classes.innerContainer}>{version}</div>
       </Paper>
     </>
   )

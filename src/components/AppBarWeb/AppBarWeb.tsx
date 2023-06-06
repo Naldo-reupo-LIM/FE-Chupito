@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import {
   AppBar,
   IconButton,
@@ -7,17 +6,22 @@ import {
   makeStyles,
   createStyles,
 } from '@material-ui/core'
-
 import MenuIcon from '@material-ui/icons/Menu'
-
-import DrawerMenu from '../DrawerMenu/DrawerMenu'
-
+import UserIcon from '@material-ui/icons/AccountCircle'
 import { colors } from '../../styles/theme/colors'
+import { AppBarWebProps } from '../../types/types'
 
 const useStyles = makeStyles(() =>
   createStyles({
+    toolbarWeb: {
+      justifyContent: 'space-between',
+    },
     hamburgerIcon: {
       color: colors.white,
+    },
+    userWebIcon: {
+      color: colors.white,
+      justifyContent: 'end',
     },
     appTitle: {},
     version: {
@@ -30,42 +34,30 @@ const useStyles = makeStyles(() =>
   })
 )
 
-export interface FullAppBarProps {
-  title: string
-  version: string
-  onLogout: () => void
-}
-
-export default function FullAppBar({
+export default function AppBarWeb({
   title,
   version,
-  onLogout,
-}: FullAppBarProps): JSX.Element {
-  const [openDrawer, setOpenDrawer] = useState(false)
+}: AppBarWebProps): JSX.Element {
   const classes = useStyles()
 
-  const toggleDrawer = () => {
-    setOpenDrawer(!openDrawer)
-  }
+  // TODO: Add Login function
 
   return (
     <>
       <AppBar position="fixed">
-        <Toolbar>
-          <IconButton aria-label="Menu" onClick={toggleDrawer}>
+        <Toolbar className={classes.toolbarWeb}>
+          <IconButton aria-label="Menu">
             <MenuIcon className={classes.hamburgerIcon} />
           </IconButton>
           <Typography className={classes.appTitle} variant="h5">
             {title}
           </Typography>
+          <IconButton edge="end">
+            <UserIcon className={classes.userWebIcon} />
+          </IconButton>
           <label className={classes.version}>v{version}</label>
         </Toolbar>
       </AppBar>
-      <DrawerMenu
-        open={openDrawer}
-        onClose={toggleDrawer}
-        onLogout={onLogout}
-      />
     </>
   )
 }

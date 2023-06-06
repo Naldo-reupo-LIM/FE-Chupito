@@ -11,6 +11,7 @@ export const colors = {
   gray: '#9a9a9a',
   lightGray: '#f6f7f7',
   white: '#ffffff',
-  transparentWhite : '#ffffff69',
-  transparentBlack: '#0808087d'
+  transparentWhite: '#ffffff69',
+  transparentBlack: '#0808087d',
+  yellow: '#E9B741',
 } as const
