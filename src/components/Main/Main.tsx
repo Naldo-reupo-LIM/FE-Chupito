@@ -5,6 +5,7 @@ import { useTheme } from '@mui/material/styles'
 
 import AppBarMobile from '../../components/AppBarMobile/AppBarMobile'
 import AppBarWeb from '../../components/AppBarWeb/AppBarWeb'
+import NavBarMobile from '../../components/NavBarMobile/NavBarMobile'
 import NavigationBar from '../Navigation/NavigationBar'
 import LayoutContext, { LayoutTypes } from '../../shared/contexts/LayoutContext'
 import config from '../../environment/environment'
@@ -60,6 +61,7 @@ export default function Main({ version, children }: MainProps): JSX.Element {
       <Paper className={classes.mainContainer}>
         <div className={classes.innerContainer}>{children}</div>
       </Paper>
+      {!matchesDesktopDisplay ? <NavBarMobile value={'nav'} /> : null}
     </>
   )
 }
