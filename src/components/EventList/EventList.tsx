@@ -16,25 +16,10 @@ const useStyles = makeStyles(() =>
 
 export type EventListProps = {
   events: Conference[]
-  // onOpen: () => void
-  // onPause: () => void
-  // onClose: () => void
-  //onSelected: (event: Conference) => void
 }
 
-export default function EventList({
-  events,
-}: // onOpen,
-// onPause,
-// onClose,
-//onSelected,
-EventListProps): JSX.Element {
+export default function EventList({ events }: EventListProps): JSX.Element {
   const classes = useStyles()
-
-  // const handleOpen = () => onOpen
-  // const handlePause = () => onPause
-  // const handleClose = () => onClose
-  //const handleSelected = (event: Conference) => onSelected(event)
 
   if (!events || events.length === 0) {
     return (
@@ -47,14 +32,7 @@ EventListProps): JSX.Element {
   return (
     <>
       {events.map((event, index) => (
-        <EventCard
-          event={event}
-          key={index}
-          // onOpen={handleOpen}
-          // onPause={handlePause}
-          // onClose={handleClose}
-          //onSelectedEvent={handleSelected}
-        />
+        <EventCard event={event} key={index} />
       ))}
     </>
   )

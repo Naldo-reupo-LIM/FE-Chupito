@@ -19,23 +19,26 @@ const useStyles = makeStyles(() =>
   createStyles({
     header: {
       backgroundColor: 'transparent',
-      boxShadow: '0px 0px 0px 0px',
+      boxShadow: '0px 0px 0px 60px',
+      position: 'sticky',
       display: 'flex',
     },
     toolbar: {
       justifyContent: 'space-evenly',
+      position: 'fixed',
+      marginBottom: '1em',
     },
     searchIcon: {
       color: colors.black,
     },
     userIcon: {
       color: colors.black,
-      margin: '1em',
-      marginRight: '4.7em',
-      marginLeft: '4.7em',
+      marginRight: '4em',
+      marginLeft: '4em',
     },
     settingsIcon: {
       color: colors.yellow,
+      marginLeft: '1em',
     },
     version: {
       color: colors.transparentWhite,
@@ -52,7 +55,7 @@ export default function AppBarMobile({ version }: AppBarMobileProps) {
   // TODO: Add handlers for search and settings icons
   return (
     <>
-      <AppBar className={classes.header} position="fixed">
+      <AppBar className={classes.header}>
         <Toolbar className={classes.toolbar}>
           <IconButton aria-label="Menu">
             <SearchIcon className={classes.searchIcon} />

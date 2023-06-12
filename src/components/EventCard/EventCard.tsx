@@ -127,8 +127,7 @@ export default function EventCard({ event }: EventCardProps): JSX.Element {
     return dateObject.format('D MMM YYYY')
   }
 
-  const url =
-    event.images && event.images.length > 0 ? event.images[0].url : eventImage
+  const url = event.images?.[0]?.url || eventImage
 
   return (
     <Grid className={classes.cardGridItem} item xs={12} sm={5} md={4} lg={3}>
