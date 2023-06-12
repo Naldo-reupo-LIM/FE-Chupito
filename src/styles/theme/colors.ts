@@ -14,4 +14,5 @@ export const colors = {
   transparentWhite: '#ffffff69',
   transparentBlack: '#0808087d',
   yellow: '#E9B741',
+  transparentYellow: '#FEFBF5',
 } as const

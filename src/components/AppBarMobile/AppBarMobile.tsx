@@ -10,7 +10,10 @@ import UserIcon from '@material-ui/icons/AccountCircle'
 import SettingsIcon from '@material-ui/icons/Settings'
 
 import { colors } from '../../styles/theme/colors'
-import { AppBarMobileProps } from '../../types/types'
+
+export interface AppBarMobileProps {
+  version: string
+}
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -29,7 +32,7 @@ const useStyles = makeStyles(() =>
       color: colors.black,
       margin: '1em',
       marginRight: '4.7em',
-      marginLeft: '4.7em'
+      marginLeft: '4.7em',
     },
     settingsIcon: {
       color: colors.yellow,

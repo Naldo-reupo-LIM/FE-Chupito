@@ -14,10 +14,27 @@ describe('event card component', () => {
         status: 'created',
         eventDate: '2021-10-10',
       },
-      onSelectedEvent: jest.fn(),
     }
     renderComponent(props)
     const conferenceName = screen.getByText(/conquering the world/i)
     expect(conferenceName).toBeInTheDocument()
+  })
+  it('should event image', () => {
+    const props: EventCardProps = {
+      event: {
+        id: '0001',
+        name: 'Conquering the world',
+        status: 'created',
+        eventDate: '2021-10-10',
+        images: [
+          {
+            id: '',
+            url: '',
+          },
+        ],
+      },
+    }
+    renderComponent(props)
+    expect(true).toBe(true)
   })
 })

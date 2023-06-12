@@ -9,10 +9,6 @@ describe('event list component', () => {
   it('should render empty ', () => {
     const props: EventListProps = {
       events: [],
-      onOpen: () => ({}),
-      onPause: () => ({}),
-      onClose: () => ({}),
-      onSelected: () => ({}),
     }
     renderComponent(props)
 

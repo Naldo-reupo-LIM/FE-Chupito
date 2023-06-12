@@ -1,8 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import useMediaQuery from '@mui/material/useMediaQuery'
 
-import Main from './Main'
-import { MainProps } from '../../types/types'
+import Main, { MainProps } from './Main'
 
 // TODO: Make a research to handle unit tests with context
 const renderMainComponent = (props: MainProps) => render(<Main {...props} />)
@@ -11,6 +10,7 @@ describe('Main component', () => {
   it('should render all elements', () => {
     const props: MainProps = {
       version: 'v14',
+      children: <div />,
     }
     renderMainComponent(props)
     const versionMain = screen.getByText(/v14/i)
@@ -25,6 +25,7 @@ describe('Main component', () => {
     )
     const props: MainProps = {
       version: 'v14',
+      children: <div />,
     }
 
     renderMainComponent(props)

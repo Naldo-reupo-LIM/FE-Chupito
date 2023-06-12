@@ -1,11 +1,9 @@
-import { render, screen, fireEvent, waitFor } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 
-import AppBarMobile from '../../components/AppBarMobile/AppBarMobile'
-import { AppBarMobileProps } from '../../types/types'
+import AppBarMobile, { AppBarMobileProps } from './AppBarMobile'
 
 const renderComponent = (props: AppBarMobileProps) =>
   render(<AppBarMobile {...props} />)
-const openSettings = jest.fn()
 
 describe('AppBarMobile component', () => {
   it('should render all elements', () => {

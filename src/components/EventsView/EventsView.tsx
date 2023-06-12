@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { makeStyles, createStyles, Grid, Fab } from '@material-ui/core'
 import AddIcon from '@material-ui/icons/Add'
+import { useMediaQuery } from '@mui/material'
+import { useTheme } from '@mui/material/styles'
 
 import FullLayout from '../../hocs/FullLayout'
 import EventList from '../EventList/EventList'
@@ -44,10 +46,6 @@ export interface EventsViewProps {
   loadingHeadquarters: boolean
   isAdmin: boolean
   selectedHeadquarter?: string
-  // onOpen: () => void
-  // onPause: () => void
-  // onClose: () => void
-  onSelectedEvent: (event: Conference) => void
 }
 
 export default function EventsView({
@@ -57,16 +55,12 @@ export default function EventsView({
   loadingHeadquarters,
   isAdmin,
   selectedHeadquarter = '-1',
-  // onOpen,
-  // onPause,
-  // onClose,
-  onSelectedEvent,
 }: EventsViewProps): JSX.Element {
   const [allEvents] = useState<Conference[]>(events)
   const [filteredEvents, setFilteredEvents] = useState<Conference[]>(events)
   const classes = useStyles()
-
-  const handleSelected = (event: Conference) => onSelectedEvent(event)
+  const theme = useTheme()
+  const matchesDesktopDisplay = useMediaQuery(theme.breakpoints.up('sm'))
 
   const handleChangeFilters = (filters: ConferenceFilters) => {
     if (filters.sortBy) {
@@ -101,33 +95,30 @@ export default function EventsView({
     <>
       {!loadingEvents && (
         <FullLayout title="Special Spider App">
-          <h1 className={classes.title}>Events</h1>
+          {matchesDesktopDisplay ? (
+            <h1 className={classes.title}>Events</h1>
+          ) : null}
           <Grid
             container
             justifyContent="center"
             className={classes.headquarterFilter}
           >
             {loadingEvents && <>Loading Headquarters...</>}
-            {!loadingEvents && (
+            {!loadingEvents && matchesDesktopDisplay ? (
               <Headquarters
                 onChangeHeadquarter={handleHeadquarterChanged}
                 allHeadquarters={allHeadquarters}
                 selectedHeadquarter={selectedHeadquarter}
                 loading={loadingHeadquarters}
               />
-            )}
-            <DashboardFilters onChangeFilters={handleChangeFilters} />
+            ) : null}
+            {matchesDesktopDisplay ? (
+              <DashboardFilters onChangeFilters={handleChangeFilters} />
+            ) : null}
           </Grid>
           <Grid container>
-            <EventList
-              events={filteredEvents}
-              // onOpen={onOpen}
-              // onPause={onPause}
-              // onClose={onClose}
-              onSelected={handleSelected}
-            />
+            <EventList events={filteredEvents} />
           </Grid>
-          {/* <h1 className={classes.title}>Accounts</h1> */}
           {isAdmin && (
             <NavigationWrapper path="/event/add">
               <Fab className={classes.add} color="primary">
@@ -135,7 +126,6 @@ export default function EventsView({
               </Fab>
             </NavigationWrapper>
           )}
-          {/*this.renderPreviewEvent()*/}
         </FullLayout>
       )}
     </>

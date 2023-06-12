@@ -1,5 +1,5 @@
 import { useState, useContext, useEffect } from 'react'
-import { useHistory } from 'react-router-dom'
+//import { useHistory } from 'react-router-dom'
 import { createStyles, Fab, makeStyles } from '@material-ui/core'
 import AddIcon from '@material-ui/icons/Add'
 
@@ -40,7 +40,7 @@ export default function EventsPage(): JSX.Element {
   const apiConferences = ConferenceAPI()
 
   const { user } = useContext(UserContext)
-  const history = useHistory()
+  //const history = useHistory()
   const classes = useStyles()
 
   const fetchHeadquarters = () => {
@@ -100,9 +100,9 @@ export default function EventsPage(): JSX.Element {
   //   fetchEvents()
   // }
 
-  const handleEnterClicked = (event: Conference) => {
-    history.push(`/play-event/${event.id}`)
-  }
+  // const handleEnterClicked = (event: Conference) => {
+  //   history.push(`/play-event/${event.id}`)
+  // }
 
   if (loading) {
     return <>Loading events</>
@@ -117,7 +117,7 @@ export default function EventsPage(): JSX.Element {
           loadingEvents={loading}
           loadingHeadquarters={loadingHeadquarters}
           isAdmin={user?.isAdmin || false}
-          onSelectedEvent={handleEnterClicked}
+          //onSelectedEvent={handleEnterClicked}
         />
       )}
 

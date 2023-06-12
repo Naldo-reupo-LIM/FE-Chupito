@@ -1,7 +1,6 @@
 import { render, screen } from '@testing-library/react'
 
-import AppBarWeb from './AppBarWeb'
-import { AppBarWebProps } from '../../types/types'
+import AppBarWeb, { AppBarWebProps } from './AppBarWeb'
 
 const renderComponent = (props: AppBarWebProps) =>
   render(<AppBarWeb {...props} />)

@@ -1,20 +1,24 @@
-// import { withRouter } from 'react-router-dom'
 import Moment from 'moment'
 import {
   Card,
-  CardActionArea,
-  // CardMedia,
+  CardActions,
+  CardMedia,
   createStyles,
   Grid,
   makeStyles,
+  Button,
+  Link,
+  Typography,
+  Avatar,
+  Fab,
+  Box,
 } from '@material-ui/core'
+import AddIcon from '@material-ui/icons/Add'
 
 import ConferenceStatusSection from './ConferenceStatusSection'
-
-// import { withUserContext } from '../../hocs/UserContext'
 import { Conference } from '../../shared/entities'
-
 import { colors } from '../../styles/theme/colors'
+import eventImage from '../../assets/programmingImg.png'
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -22,146 +26,157 @@ const useStyles = makeStyles(() =>
       width: '100%',
       height: '20em',
       overflow: 'hidden',
-      position: 'relative',
-      display: 'flex',
+      backgroundColor: colors.transparentYellow,
     },
     cardGridItem: {
-      padding: '0.2em',
+      padding: '0.3em',
     },
     image: {
-      width: '100%',
-      height: '20em',
+      width: '90%',
       objectFit: 'cover',
-    },
-    location: {
-      backgroundColor: colors.dark,
-      paddingLeft: '0.5em',
-      paddingRight: '0.5em',
-      borderRadius: '5%',
-      color: colors.white,
-    },
-    locationName: {
-      marginTop: '1em',
-      marginBottom: '1em',
-      marginLeft: '0.5em',
-      marginRight: '0.5em',
+      borderRadius: '0.2em',
+      marginRight: '1em',
+      marginLeft: '1em',
     },
     date: {
-      position: 'absolute',
-      top: '1em',
-      right: '1em',
-      backgroundColor: colors.white,
-      paddingTop: '0.25em',
-      paddingBottom: '0.25em',
+      paddingTop: '0.5em',
       paddingLeft: '1em',
       paddingRight: '1em',
-      borderRadius: '5%',
     },
     day: {
       color: colors.orange,
       fontFamily: 'Exo',
       margin: 0,
-      textAlign: 'center',
     },
-    month: {
-      textTransform: 'uppercase',
-      fontFamily: 'Exo',
-      margin: 0,
-    },
-    bottom: {
-      display: 'grid',
+    top: {
+      display: 'flex',
+      flexDirection: 'row',
       width: '100%',
-      padding: '1em',
-      backgroundColor: colors.transparentBlack,
+      padding: '0.7em',
+      backgroundColor: colors.black,
+      bottom: '20em',
+    },
+    titleSection: {
+      display: 'flex',
+      justifyContent: 'start',
+      overflow: 'hidden',
     },
     title: {
       color: colors.white,
       fontFamily: 'Exo',
       whiteSpace: 'nowrap',
       margin: 0,
+      marginRight: '1em',
+      textOverflow: 'ellipsis',
+      fontWeight: 'bold',
     },
     eventStatus: {
-      position: 'absolute',
-      right: '0.5em',
-    }
+      display: 'flex',
+      justifyContent: 'right',
+    },
+    userActionsSection: {
+      display: 'flex',
+      flexDirection: 'column',
+      marginRight: '1em',
+      marginLeft: '1em',
+    },
+    button: {
+      display: 'flex',
+      position: 'relative',
+      color: colors.white,
+      backgroundColor: colors.yellow,
+      marginLeft: '15em',
+    },
+    link: {
+      position: 'relative',
+      left: '6.4em',
+      color: colors.blue,
+    },
+    subscribersSection: {
+      display: 'flex',
+    },
+    subscribedUserIcon: {
+      color: colors.black,
+      backgroundColor: colors.white,
+      left: '0.8em',
+      bottom: '3.2em',
+      position: 'relative',
+    },
+    subscribedUsersNumber: {
+      bottom: '4.5em',
+      position: 'relative',
+    },
+    text: {
+      color: colors.black,
+      left: '0.5em',
+      bottom: '3.5em',
+      position: 'relative',
+    },
   })
 )
 
-type DateParts = 'day' | 'month'
-
 export interface EventCardProps {
   event: Conference
-  onSelectedEvent: (event: Conference) => void
 }
 
-export default function EventCard({
-  event,
-  onSelectedEvent,
-}: EventCardProps): JSX.Element {
+export default function EventCard({ event }: EventCardProps): JSX.Element {
   const classes = useStyles()
 
-  const handleCardClicked = () => {
-    //     const {event, history, userContext, onSelectedEvent} = this.props;
-    //     const {isAdmin, role} = userContext.user;
-    //     if (isAdmin || role === 'Marketing') {
-    //       history.push(`/event/update/${event.id}`);
-    //       return;
-    //     }
-
-    //     if (!onSelectedEvent) {
-    //       return;
-    //     }
-    onSelectedEvent(event)
-  }
-
-  const getDatePart = (date: string, part: DateParts) => {
+  const getDatePart = (date: string) => {
     const dateObject = Moment(date, 'YYYY-MM-DD')
-
-    if (part === 'day') {
-      return dateObject.format('D')
-    }
-
-    if (part === 'month') {
-      return dateObject.format('MMM')
-    }
-
     return dateObject.format('D MMM YYYY')
   }
 
-  //     const url = event.images && event.images.length > 0
-  //       ? event.images[0].url
-  //       : '/images/NoImage.png';
+  const url =
+    event.images && event.images.length > 0 ? event.images[0].url : eventImage
 
   return (
     <Grid className={classes.cardGridItem} item xs={12} sm={5} md={4} lg={3}>
       <Card className={classes.card}>
-        <CardActionArea onClick={handleCardClicked}>
-          {/* <CardMedia
+        <Box className={classes.top}>
+          <Box className={classes.titleSection}>
+            <Typography variant="h5" className={classes.title}>
+              {event.name}
+            </Typography>
+          </Box>
+          <Box className={classes.eventStatus}>
+            <ConferenceStatusSection status={event.status} />
+          </Box>
+        </Box>
+        <Box className={classes.date}>
+          <Typography variant="h6" className={classes.day}>
+            {getDatePart(event.eventDate)}
+          </Typography>
+        </Box>
+
+        <CardMedia
           className={classes.image}
           component="img"
-          image={
-            event.images && event.images.length > 0
-              ? event.images[0]?.url
-              : '/images/NoImage.png'
-          }
+          image={url}
+          height={150}
           title={event.name}
-        /> */}
-          <div className={classes.location}></div>
-          <div className={classes.date}>
-            <h1 className={classes.day}>
-              {getDatePart(event.eventDate, 'day')}
-            </h1>
-            <h3 className={classes.month}>
-              {getDatePart(event.eventDate, 'month')}
-            </h3>
+        />
+        <CardActions className={classes.userActionsSection}>
+          <Button variant="contained" className={classes.button}>
+            {'Register'}
+          </Button>
+          <Link underline="always" className={classes.link} href="#">
+            {'+more info '}
+          </Link>
+        </CardActions>
+        <div className={classes.subscribersSection}>
+          <Avatar
+            className={classes.subscribedUserIcon}
+            src={'/avatar.png'}
+          ></Avatar>
+          <Fab size="small" className={classes.subscribedUsersNumber}>
+            <AddIcon />
+            {+15}
+          </Fab>
+          <div className={classes.text}>
+            <Typography>{'Joined'}</Typography>
           </div>
-          <div className={classes.bottom}>
-            <h2 className={classes.title}>{event.name}</h2>
-            <div className={classes.eventStatus}>
-              <ConferenceStatusSection status={event.status} />
-            </div>            
-          </div>
-        </CardActionArea>
+        </div>
       </Card>
     </Grid>
   )

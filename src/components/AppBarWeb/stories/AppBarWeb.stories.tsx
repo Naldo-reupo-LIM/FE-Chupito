@@ -1,6 +1,5 @@
 import { Story, Meta } from '@storybook/react/types-6-0'
-import AppBarWeb from '../AppBarWeb'
-import { AppBarWebProps } from '../../../types/types'
+import AppBarWeb, { AppBarWebProps } from '../AppBarWeb'
 
 export default {
   title: 'AppBarWeb',

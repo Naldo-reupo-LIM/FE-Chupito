@@ -1,6 +1,7 @@
 import { Story, Meta } from '@storybook/react/types-6-0'
-import AppBarMobile from '../../AppBarMobile/AppBarMobile'
-import { AppBarMobileProps } from '../../../types/types'
+import AppBarMobile, {
+  AppBarMobileProps,
+} from '../../AppBarMobile/AppBarMobile'
 
 export default {
   version: '14.1',

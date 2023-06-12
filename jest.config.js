@@ -1,8 +1,10 @@
 module.exports = {
   transform: {
     '^.+\\.[t|j]sx?$': 'babel-jest',
+    '\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$':
+      '<rootDir>/fileTransformer.js',
   },
-  testEnvironment: "jsdom",
+  testEnvironment: 'jsdom',
   testPathIgnorePatterns: ['<rootDir>/node_modules/'],
   // setupFiles: ['<rootDir>/jest/jest.setup.ts'],
   setupFilesAfterEnv: ['<rootDir>/jest/jest.setupAfterEnv.ts'],

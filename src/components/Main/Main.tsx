@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useContext, ReactNode } from 'react'
 import { Paper, createStyles, makeStyles } from '@material-ui/core'
 import { useMediaQuery } from '@mui/material'
 import { useTheme } from '@mui/material/styles'
@@ -10,7 +10,11 @@ import NavigationBar from '../Navigation/NavigationBar'
 import LayoutContext, { LayoutTypes } from '../../shared/contexts/LayoutContext'
 import config from '../../environment/environment'
 import { colors } from '../../styles/theme/colors'
-import { MainProps } from '../../types/types'
+
+export interface MainProps {
+  version: string
+  children: ReactNode
+}
 
 const useStyles = makeStyles((theme) =>
   createStyles({

@@ -19,22 +19,22 @@ export type EventListProps = {
   // onOpen: () => void
   // onPause: () => void
   // onClose: () => void
-  onSelected: (event: Conference) => void
+  //onSelected: (event: Conference) => void
 }
 
 export default function EventList({
   events,
-  // onOpen,
-  // onPause,
-  // onClose,
-  onSelected,
-}: EventListProps): JSX.Element {
+}: // onOpen,
+// onPause,
+// onClose,
+//onSelected,
+EventListProps): JSX.Element {
   const classes = useStyles()
 
   // const handleOpen = () => onOpen
   // const handlePause = () => onPause
   // const handleClose = () => onClose
-  const handleSelected = (event: Conference) => onSelected(event)
+  //const handleSelected = (event: Conference) => onSelected(event)
 
   if (!events || events.length === 0) {
     return (
@@ -53,7 +53,7 @@ export default function EventList({
           // onOpen={handleOpen}
           // onPause={handlePause}
           // onClose={handleClose}
-          onSelectedEvent={handleSelected}
+          //onSelectedEvent={handleSelected}
         />
       ))}
     </>

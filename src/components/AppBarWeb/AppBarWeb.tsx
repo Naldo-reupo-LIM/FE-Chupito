@@ -9,7 +9,11 @@ import {
 import MenuIcon from '@material-ui/icons/Menu'
 import UserIcon from '@material-ui/icons/AccountCircle'
 import { colors } from '../../styles/theme/colors'
-import { AppBarWebProps } from '../../types/types'
+
+export interface AppBarWebProps {
+  title: string
+  version: string
+}
 
 const useStyles = makeStyles(() =>
   createStyles({

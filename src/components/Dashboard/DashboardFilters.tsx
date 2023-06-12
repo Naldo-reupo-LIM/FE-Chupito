@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) =>
       [theme.breakpoints.up('sm')]: {
         marginTop: '-0.5em',
       },
-      border: "0px solid #f00",
+      border: '0px solid #f00',
       maxWidth: '100px',
     },
   })
