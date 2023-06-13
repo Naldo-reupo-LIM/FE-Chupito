@@ -1,36 +1,33 @@
-import { Conference } from '../../entities'
-
 import ConferenceAPI from './conferences'
+import { requests } from '../../../api/baseRequest'
 
-/* const mockFn = jest.fn()
-jest.mock('./base', () => ({
-  getAppCollections: () => mockFn(),
-})) */
-const mockFn = jest.fn()
+const mockResult = {
+  data: [
+    {
+      id: '01',
+      name: 'LinuxCon',
+      eventDate: '2021-12-28',
+      status: 'created',
+    },
+    {
+      id: '02',
+      name: 'KubernetesCon',
+      eventDate: '2022-10-08',
+      status: 'created',
+    },
+  ],
+}
 jest.mock('../../../api/baseRequest', () => ({
-  requests: () => mockFn(),
+  requests: {
+    get: () => jest.fn().mockResolvedValue(mockResult),
+  },
 }))
 
 describe('events api call', () => {
   it('should get all', async () => {
-    const mockResult: Conference[] = [
-      {
-        id: '01',
-        name: 'LinuxCon',
-        eventDate: '2021-12-28',
-        status: 'created',
-      },
-      {
-        id: '02',
-        name: 'KubernetesCon',
-        eventDate: '2022-10-08',
-        status: 'created',
-      },
-    ]
-    mockFn.mockResolvedValue(mockResult)
-
     const events = ConferenceAPI()
     const result = await events.getAll()
-    expect(result.length).toBe(mockResult.length)
+    expect(requests.get).toHaveBeenCalledWith('events')
+    expect(result).toBe(mockResult.data)
   })
 })
