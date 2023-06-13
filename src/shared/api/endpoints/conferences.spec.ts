@@ -2,9 +2,13 @@ import { Conference } from '../../entities'
 
 import ConferenceAPI from './conferences'
 
-const mockFn = jest.fn()
+/* const mockFn = jest.fn()
 jest.mock('./base', () => ({
   getAppCollections: () => mockFn(),
+})) */
+const mockFn = jest.fn()
+jest.mock('../../../api/baseRequest', () => ({
+  requests: () => mockFn(),
 }))
 
 describe('events api call', () => {
