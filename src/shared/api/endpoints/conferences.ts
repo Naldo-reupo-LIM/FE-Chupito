@@ -1,13 +1,15 @@
-import { getAppCollections } from './base'
-
+import { requests } from '../../../api/baseRequest'
 import { Conference } from './../../entities'
+import config from '../../../environment/environment'
 
 function ConferenceAPI() {
-  const collectionName = 'events'
-
   const getAll = async (): Promise<Conference[]> => {
-    const events = await getAppCollections(collectionName)
-    const conferences: Conference[] = events.map(event => (event as Conference))
+    const { data: myData } = await requests.get(config.eventCollectionName)
+
+    const { data: eventData } = myData
+    const conferences: Conference[] = eventData.map(
+      (event: Conference) => event
+    )
     return conferences
   }
 
