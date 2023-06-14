@@ -8,7 +8,7 @@ function ConferenceAPI() {
 
     const { data: eventData } = myData
     const conferences: Conference[] = eventData.map(
-      (event: any) => event as Conference
+      (event: Conference) => event
     )
     return conferences
   }
