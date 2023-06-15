@@ -1,4 +1,5 @@
 import Moment from 'moment'
+import { useHistory } from 'react-router-dom'
 import {
   Card,
   CardActions,
@@ -7,9 +8,9 @@ import {
   Grid,
   makeStyles,
   Button,
-  Link,
   Typography,
   Avatar,
+  Link,
   Fab,
   Box,
 } from '@material-ui/core'
@@ -126,6 +127,11 @@ export default function EventCard({ event }: EventCardProps): JSX.Element {
     const dateObject = Moment(date, 'YYYY-MM-DD')
     return dateObject.format('D MMM YYYY')
   }
+  const history = useHistory()
+
+  const handleLinkMoreInfo = () => {
+    history.push('/event-info')
+  }
 
   const url = event.images?.[0]?.url || eventImage
 
@@ -159,7 +165,11 @@ export default function EventCard({ event }: EventCardProps): JSX.Element {
           <Button variant="contained" className={classes.button}>
             {'Register'}
           </Button>
-          <Link underline="always" className={classes.link} href="#">
+          <Link
+            underline="always"
+            className={classes.link}
+            onClick={handleLinkMoreInfo}
+          >
             {'+more info '}
           </Link>
         </CardActions>

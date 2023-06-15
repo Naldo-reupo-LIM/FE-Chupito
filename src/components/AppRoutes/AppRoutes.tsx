@@ -1,4 +1,4 @@
-import { Route } from 'react-router-dom'
+import { Route, Switch } from 'react-router-dom'
 
 import EventsPage from '../../pages/Events/Events'
 import EventPage from '../../pages/Event/Event'
@@ -6,6 +6,7 @@ import PlayEventPage from '../../pages/PlayEvent/PlayEvent'
 import UsersPage from '../../pages/Users/Users'
 import UserPage from '../../pages/User/User'
 import Login from '../../pages/Login/Login'
+import EventInfoPage from '../../pages/EventInfo/EventInfo'
 
 // Legacy
 // TODO: Insert 0auth path "/" when user is logged
@@ -13,14 +14,11 @@ import Login from '../../pages/Login/Login'
 
 export default function AppRoutes(): JSX.Element {
   return (
-    <>
-      <Route path="/">
-        <EventsPage />
+    <Switch>
+      <Route path="/event-info">
+        <EventInfoPage />
       </Route>
-      <Route path="/events">
-        <EventsPage />
-      </Route>
-      <Route path="login">
+      <Route path="/login">
         <Login />
       </Route>
       <Route path="/play-event/:id">
@@ -35,6 +33,9 @@ export default function AppRoutes(): JSX.Element {
       <Route path="/user/add">
         <UserPage />
       </Route>
-    </>
+      <Route path="/">
+        <EventsPage />
+      </Route>
+    </Switch>
   )
 }
