@@ -61,7 +61,9 @@ const useStyles = makeStyles((theme) =>
     body: {
       background: colors.white,
     },
-    description: {},
+    description: {
+      marginLeft: '1em',
+    },
     subscribersSection: {
       display: 'flex',
       marginTop: theme.spacing(4),
@@ -73,9 +75,11 @@ const useStyles = makeStyles((theme) =>
     },
     text: {
       color: colors.black,
-      marginTop: '1em',
-      marginBottom: '1em',
+      marginTop: '0.5em',
+      marginBottom: '2em',
+      marginLeft: '0.5em',
     },
+    tagsContainer: { marginLeft: '1em' },
     tagPrimary: {
       backgroundColor: colors.dark,
       color: colors.white,
@@ -113,7 +117,11 @@ export default function EventInfoPage(): JSX.Element {
             {' '}
             June 19th, 2023
           </Typography>
-          <Button variant="contained" className={classes.button}>
+          <Button
+            variant="contained"
+            className={classes.button}
+            data-testid="register-button"
+          >
             {' '}
             {'Register'}
           </Button>
@@ -148,7 +156,7 @@ export default function EventInfoPage(): JSX.Element {
             </Typography>
           </Grid>
         </Grid>
-        <Stack spacing={2} direction="row">
+        <Stack spacing={2} direction="row" className={classes.tagsContainer}>
           <Chip
             label="Technology"
             variant="outlined"
@@ -169,6 +177,7 @@ export default function EventInfoPage(): JSX.Element {
           className={classes.imagesContainer}
           rowHeight="auto"
           cols={4}
+          data-testid="image-list-container"
         >
           {imageItems.map((item) => (
             <ImageListItem key={item.img}>
