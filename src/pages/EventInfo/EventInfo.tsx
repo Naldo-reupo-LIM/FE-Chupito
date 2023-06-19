@@ -1,12 +1,42 @@
 import {
   Typography,
-  Box,
   Grid,
   Button,
+  Avatar,
+  Fab,
+  Chip,
   createStyles,
   makeStyles,
 } from '@material-ui/core'
+import AddIcon from '@material-ui/icons/Add'
+import Stack from '@mui/material/Stack'
+import ImageList from '@mui/material/ImageList'
+import ImageListItem from '@mui/material/ImageListItem'
+
 import { colors } from '../../styles/theme/colors'
+import eventImage from '../../assets/programmingImg.png'
+import image1 from '../../assets/image1.jpg'
+import image2 from '../../assets/image2.jpg'
+import image3 from '../../assets/image3.jpg'
+
+const imageItems = [
+  {
+    img: eventImage,
+    title: 'Event',
+  },
+  {
+    img: image1,
+    title: 'Technology',
+  },
+  {
+    img: image2,
+    title: 'Coding',
+  },
+  {
+    img: image3,
+    title: 'Virtual',
+  },
+]
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -25,12 +55,45 @@ const useStyles = makeStyles((theme) =>
     },
     button: {
       backgroundColor: colors.yellow,
-      marginLeft: '2em',
-      marginRight: '2em',
-      justifyContent: 'center',
-      alignContent: 'center',
+      marginLeft: '3em',
+      marginRight: '3em',
     },
-    body: {},
+    body: {
+      background: colors.white,
+    },
+    description: {},
+    subscribersSection: {
+      display: 'flex',
+      marginTop: theme.spacing(4),
+    },
+    subscribedUserIcon: {
+      color: colors.black,
+      backgroundColor: colors.white,
+      left: '0.8em',
+    },
+    text: {
+      color: colors.black,
+      marginTop: '1em',
+      marginBottom: '1em',
+    },
+    tagPrimary: {
+      backgroundColor: colors.dark,
+      color: colors.white,
+    },
+    tagSecondary: {
+      backgroundColor: colors.blue,
+      color: colors.white,
+    },
+    tagOptional: {
+      backgroundColor: colors.lightOrange,
+    },
+    imagesContainer: {
+      width: '100%',
+      height: '25em',
+      padding: theme.spacing(3),
+      display: 'flex',
+      flexDirection: 'row',
+    },
   })
 )
 
@@ -56,9 +119,9 @@ export default function EventInfoPage(): JSX.Element {
           </Button>
         </Grid>
       </Grid>
-      <Grid item xs={12} sm={6}>
-        <Box className={classes.body}>
-          <Typography variant="body1">
+      <Grid className={classes.body}>
+        <Grid>
+          <Typography variant="body1" className={classes.description}>
             {' '}
             Join expert John Smith to take a deep dive into concepts of React,
             including JSX syntax and advanced patterns. By becoming fluent in
@@ -69,7 +132,55 @@ export default function EventInfoPage(): JSX.Element {
             internals and best practices like these to help you work more
             confidently with React.{' '}
           </Typography>
-        </Box>
+        </Grid>
+        <Grid className={classes.subscribersSection}>
+          <Avatar
+            className={classes.subscribedUserIcon}
+            src={'/avatar.png'}
+          ></Avatar>
+          <Fab size="small">
+            <AddIcon />
+            {+15}
+          </Fab>
+          <Grid className={classes.text}>
+            <Typography align="center" variant="body1">
+              {'Joined'}
+            </Typography>
+          </Grid>
+        </Grid>
+        <Stack spacing={2} direction="row">
+          <Chip
+            label="Technology"
+            variant="outlined"
+            className={classes.tagPrimary}
+          />
+          <Chip
+            label="React"
+            variant="outlined"
+            className={classes.tagSecondary}
+          />
+          <Chip
+            label="Front-end"
+            variant="outlined"
+            className={classes.tagOptional}
+          />
+        </Stack>
+        <ImageList
+          className={classes.imagesContainer}
+          rowHeight="auto"
+          cols={4}
+        >
+          {imageItems.map((item) => (
+            <ImageListItem key={item.img}>
+              <img
+                src={`${item.img}?w=50&h=50&fit=crop&auto=format`}
+                srcSet={`${item.img}?w=50&h=50&fit=crop&auto=format&dpr=4 4x`}
+                alt={item.title}
+                loading="lazy"
+              />
+            </ImageListItem>
+          ))}
+        </ImageList>
       </Grid>
     </>
   )
