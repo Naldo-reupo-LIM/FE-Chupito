@@ -1,3 +1,5 @@
+import { useHistory } from 'react-router-dom'
+import { useContext } from 'react'
 import {
   Typography,
   Grid,
@@ -18,6 +20,7 @@ import eventImage from '../../assets/programmingImg.png'
 import image1 from '../../assets/image1.jpg'
 import image2 from '../../assets/image2.jpg'
 import image3 from '../../assets/image3.jpg'
+import UserContext from '../../shared/contexts/UserContext'
 
 const imageItems = [
   {
@@ -103,6 +106,14 @@ const useStyles = makeStyles((theme) =>
 
 export default function EventInfoPage(): JSX.Element {
   const classes = useStyles()
+  const history = useHistory()
+
+  const { isLoggedIn } = useContext(UserContext)
+
+  const handleRegisterNavigation = () => {
+    history.push(`${isLoggedIn ? '/' : 'login'}`)
+  }
+
   return (
     <>
       <Grid className={classes.titleContainer}>
@@ -120,6 +131,7 @@ export default function EventInfoPage(): JSX.Element {
           <Button
             variant="contained"
             className={classes.button}
+            onClick={handleRegisterNavigation}
             data-testid="register-button"
           >
             {' '}

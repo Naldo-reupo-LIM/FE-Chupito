@@ -6,7 +6,11 @@ interface ContextProps {
   isLoggedIn: boolean
   defaultLocation: null | string
   user: null | UserSession
-  login: (user: UserInApp, userCredentials: UserCredentials, token: string) => void
+  login: (
+    user: UserInApp,
+    userCredentials: UserCredentials,
+    token: string
+  ) => void
   setLocation: (location: string) => void
   logout: () => void
 }
@@ -37,12 +41,16 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
     defaultState.defaultLocation
   )
 
-  const login = (user: UserInApp, userCredentials: UserCredentials, token: string) => {
+  const login = (
+    user: UserInApp,
+    userCredentials: UserCredentials,
+    token: string
+  ) => {
     setIsLoggedIn(true)
     const userData: UserSession = {
       ...user,
       ...userCredentials,
-      token
+      token,
     }
     setUser(userData)
     window.localStorage.setItem('userData', JSON.stringify(userData))

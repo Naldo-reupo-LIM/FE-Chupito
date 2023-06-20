@@ -1,4 +1,7 @@
-import { render, screen } from '@testing-library/react'
+import { fireEvent, render, screen } from '@testing-library/react'
+import { createMemoryHistory } from 'history'
+import { Router } from 'react-router-dom'
+import { UserContext } from '../../contexts/UserContext'
 
 import EventInfoPage from './EventInfo'
 
@@ -13,5 +16,25 @@ describe('Event Info Page', () => {
 
     const imageContainer = screen.getByTestId('image-list-container')
     expect(imageContainer).toBeInTheDocument()
+  })
+  it('handleRegister should navigate to login path when user is not logged in', () => {
+    const history = createMemoryHistory()
+    history.push = jest.fn()
+    //const pushMock = jest.spyOn(history, 'push')
+    const MockedComponent = () => {
+      const isLoggedIn = false
+
+      return (
+        <Router history={history}>
+          <UserContext.Provider value={{ isLoggedIn }}>
+            <EventInfoPage />
+          </UserContext.Provider>
+        </Router>
+      )
+    }
+    render(<MockedComponent />)
+
+    fireEvent.click(screen.getByText('Register'))
+    expect(history.push).toHaveBeenCalledWith('login')
   })
 })
