@@ -4,11 +4,10 @@ export default class baseRequest {
   constructor() {
     this.basePath = process.env.REACT_APP_BASE_PATH
     const storage = window.localStorage
-    const storageData = storage.getItem('userData')
+    const storageData = storage.getItem('token')
 
     if (storageData) {
-      const userData = JSON.parse(storageData)
-      const token = userData.user.token
+      const token = JSON.parse(storage.getItem('token'))
 
       axios.defaults.headers.common['Authorization'] = token
     }

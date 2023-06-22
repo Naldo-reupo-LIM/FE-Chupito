@@ -10,6 +10,7 @@ describe('login view component', () => {
     const mockOnLogin = jest.fn()
     const props: LoginProps = {
       onLogin: mockOnLogin,
+      loading: true,
     }
     renderComponent(props)
     const userField = screen.getByRole('textbox', { name: /email/i })
@@ -18,7 +19,7 @@ describe('login view component', () => {
     const passwordField = screen.getByLabelText(/password/i)
     expect(passwordField).toBeInTheDocument()
 
-    const buttonField = screen.getByRole('button', {name: /log in/i})
+    const buttonField = screen.getByRole('button', { name: /log in/i })
     expect(buttonField).toBeInTheDocument()
     expect(buttonField).not.toBeEnabled()
   })
@@ -27,6 +28,7 @@ describe('login view component', () => {
     const mockOnLogin = jest.fn()
     const props: LoginProps = {
       onLogin: mockOnLogin,
+      loading: true,
     }
     renderComponent(props)
     const userField = screen.getByRole('textbox', { name: /email/i })
@@ -35,7 +37,7 @@ describe('login view component', () => {
     const passwordField = screen.getByLabelText(/password/i)
     expect(passwordField).toBeInTheDocument()
 
-    const buttonField = screen.getByRole('button', {name: /log in/i})
+    const buttonField = screen.getByRole('button', { name: /log in/i })
     expect(buttonField).toBeInTheDocument()
 
     userEvent.type(userField, 'test@test.com')

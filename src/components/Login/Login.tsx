@@ -10,9 +10,7 @@ import {
 } from '@material-ui/core'
 
 import NoneLayout from '../../hocs/NoneLayout'
-
 import { validateEmail } from '../../tools'
-
 import { colors } from '../../styles/theme/colors'
 
 const useStyles = makeStyles((theme) =>
@@ -81,6 +79,8 @@ const useStyles = makeStyles((theme) =>
     },
     button: {
       margin: theme.spacing(2),
+      marginLeft: '2em',
+      marginRight: '2em',
     },
     loginLogo: {
       backgroundRepeat: 'no-repeat',
@@ -104,7 +104,7 @@ export default function Login({ onLogin, loading }: LoginProps): JSX.Element {
   const [userName, setUserName] = useState('')
   const [password, setPassword] = useState('')
   const [disableLogin, setDisableLogin] = useState(true)
-  
+
   const classes = useStyles()
 
   const handleUserChanged = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -127,8 +127,7 @@ export default function Login({ onLogin, loading }: LoginProps): JSX.Element {
     return !disableLogin && validateEmail(userName) && password.length > 3
   }
 
-  const handleLoginClicked = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault()
+  const handleLoginClicked = () => {
     onLogin(userName, password)
   }
 

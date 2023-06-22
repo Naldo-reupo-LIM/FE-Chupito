@@ -6,6 +6,14 @@ import { Credentials } from '../../entities'
 function Authentication() {
   const login = (credentials: Credentials) => {
     const auth = getAuth(getFirebaseApp())
+
+    signInWithEmailAndPassword(
+      auth,
+      credentials.email,
+      credentials.password
+    ).then((userCredential) => {
+      return userCredential.user
+    })
     return signInWithEmailAndPassword(
       auth,
       credentials.email,
