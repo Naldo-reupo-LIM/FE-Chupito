@@ -10,7 +10,11 @@ export default function LoginPage(): JSX.Element {
 
   const api = Authentication()
 
-  const handleLoginClicked = (userName: string, password: string) => {
+  const handleLoginClicked = (
+    userName: string,
+    password: string,
+    callback: () => void
+  ) => {
     setLoading(true)
 
     api
@@ -19,6 +23,7 @@ export default function LoginPage(): JSX.Element {
         result.user.getIdToken().then((resultToken) => {
           setLoading(false)
           window.localStorage.setItem('token', JSON.stringify(resultToken))
+          callback()
         })
 
         if (redirectURL && state) {

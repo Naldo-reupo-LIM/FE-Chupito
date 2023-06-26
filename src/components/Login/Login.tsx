@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useHistory } from 'react-router-dom'
 import {
   Paper,
   FormGroup,
@@ -96,7 +97,7 @@ const useStyles = makeStyles((theme) =>
 )
 
 export interface LoginProps {
-  onLogin: (userName: string, password: string) => void
+  onLogin: (userName: string, password: string, callback: () => void) => void
   loading: boolean
 }
 
@@ -106,6 +107,7 @@ export default function Login({ onLogin, loading }: LoginProps): JSX.Element {
   const [disableLogin, setDisableLogin] = useState(true)
 
   const classes = useStyles()
+  const history = useHistory()
 
   const handleUserChanged = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUserName(e.target.value)
@@ -128,7 +130,7 @@ export default function Login({ onLogin, loading }: LoginProps): JSX.Element {
   }
 
   const handleLoginClicked = () => {
-    onLogin(userName, password)
+    onLogin(userName, password, () => history.push('/event-info'))
   }
 
   return (
@@ -176,6 +178,7 @@ export default function Login({ onLogin, loading }: LoginProps): JSX.Element {
               type="submit"
               variant="contained"
               onClick={handleLoginClicked}
+              data-testid={'login-button'}
             >
               Log In
             </Button>
