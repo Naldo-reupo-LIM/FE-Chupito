@@ -12,6 +12,7 @@ export interface Conference {
   year?: number
   images?: ImageMediaType[]
   headquarter?: Headquarter
+  _id?: string
 }
 
 export interface ConferenceFilters {

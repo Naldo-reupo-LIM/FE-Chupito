@@ -130,7 +130,7 @@ export default function EventCard({ event }: EventCardProps): JSX.Element {
   const history = useHistory()
 
   const handleLinkMoreInfo = () => {
-    history.push('/event-info')
+    history.push(`/event-info/${event._id}`)
   }
 
   const url = event.images?.[0]?.url || eventImage

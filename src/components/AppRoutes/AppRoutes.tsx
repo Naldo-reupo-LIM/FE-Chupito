@@ -15,7 +15,7 @@ import EventInfoPage from '../../pages/EventInfo/EventInfo'
 export default function AppRoutes(): JSX.Element {
   return (
     <Switch>
-      <Route path="/event-info">
+      <Route path="/event-info/:id">
         <EventInfoPage />
       </Route>
       <Route path="/login">

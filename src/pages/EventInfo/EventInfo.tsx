@@ -1,5 +1,6 @@
-import { useHistory } from 'react-router-dom'
-import { useContext } from 'react'
+import { useHistory, useParams } from 'react-router-dom'
+import Moment from 'moment'
+import { useContext, useState, useEffect } from 'react'
 import {
   Typography,
   Grid,
@@ -21,6 +22,8 @@ import image1 from '../../assets/image1.jpg'
 import image2 from '../../assets/image2.jpg'
 import image3 from '../../assets/image3.jpg'
 import UserContext from '../../shared/contexts/UserContext'
+import EventsApi from '../../api/events'
+//import { Conference } from '../../shared/entities'
 
 const imageItems = [
   {
@@ -104,29 +107,59 @@ const useStyles = makeStyles((theme) =>
   })
 )
 
+export interface EventInfoPageProps {
+  name: string
+  id: string
+  eventDate: string
+}
+
 export default function EventInfoPage(): JSX.Element {
   const classes = useStyles()
   const history = useHistory()
+  const { id } = useParams<{ id: string }>() as { id: string }
+
+  const [eventDetails, setEventDetails] = useState<EventInfoPageProps>({
+    name: '',
+    id: '',
+    eventDate: '',
+  })
 
   const { isLoggedIn } = useContext(UserContext)
+  const getDatePart = (date: string) => {
+    const dateObject = Moment(date, 'YYYY-MM-DD')
+    return dateObject.format('D MMM YYYY')
+  }
 
   const handleRegisterNavigation = () => {
     history.push(`${isLoggedIn ? '/' : 'login'}`)
   }
+
+  const fetchEventById = async (eventId: string) => {
+    const api = new EventsApi()
+    try {
+      const response = await api.getById(eventId)
+      const { id, name, eventDate } = response
+      setEventDetails({ id, name, eventDate })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  useEffect(() => {
+    fetchEventById(id)
+  }, [id])
 
   return (
     <>
       <Grid className={classes.titleContainer}>
         <Grid xs={6} md={8} className={classes.eventTitleRow}>
           <Typography variant="h4" component="div">
-            {' '}
-            Event Title- Fluent React
+            {eventDetails?.name}
           </Typography>
         </Grid>
         <Grid xs={6} md={4} className={classes.eventDateRow}>
           <Typography variant="h5" align="center">
-            {' '}
-            June 19th, 2023
+            {getDatePart(eventDetails?.eventDate)}
           </Typography>
           <Button
             variant="contained"

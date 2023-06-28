@@ -9,6 +9,7 @@ const config = {
   appId: process.env.REACT_APP_ID,
   user: process.env.TEST_USER_EMAIL,
   password: process.env.TEST_USER_PWD,
+  baseApiPath: process.env.REACT_APP_BASE_PATH,
 }
 
 export default config
