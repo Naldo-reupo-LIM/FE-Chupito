@@ -106,6 +106,9 @@ export default function Login({ onLogin, loading }: LoginProps): JSX.Element {
   const [password, setPassword] = useState('')
   const [disableLogin, setDisableLogin] = useState(true)
 
+  const params = new URLSearchParams(window.location.search)
+  const eventId = params.get('eventId')
+
   const classes = useStyles()
   const history = useHistory()
 
@@ -130,7 +133,7 @@ export default function Login({ onLogin, loading }: LoginProps): JSX.Element {
   }
 
   const handleLoginClicked = () => {
-    onLogin(userName, password, () => history.push('/event-info'))
+    onLogin(userName, password, () => history.push(`/event-info/${eventId}`))
   }
 
   return (

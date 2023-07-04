@@ -54,6 +54,8 @@ export default class Events extends baseRequest {
   }
 
   addAttendees = (id, attendees) => {
-    return this.put(`${this.method}/${id}/attendees`, { attendees: attendees })
+    return this.put(`${this.methodAll}/${id}/attendees`, {
+      attendees: attendees,
+    })
   }
 }

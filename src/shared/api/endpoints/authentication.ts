@@ -20,6 +20,21 @@ function Authentication() {
       credentials.password
     )
   }
+  const verifyAuth = () => {
+    return new Promise<{ isAuth: boolean; user: {} | null }>(function (
+      resolve,
+      reject
+    ) {
+      const auth = getAuth(getFirebaseApp())
+      auth.onAuthStateChanged(function (user) {
+        if (user?.uid) {
+          resolve({ isAuth: true, user })
+        } else {
+          reject({ isAuth: false, user: null })
+        }
+      })
+    })
+  }
 
   const logout = () => {
     const auth = getAuth(getFirebaseApp())
@@ -29,6 +44,7 @@ function Authentication() {
   return {
     login,
     logout,
+    verifyAuth,
   }
 }
 

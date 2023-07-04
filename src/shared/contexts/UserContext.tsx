@@ -15,7 +15,7 @@ interface ContextProps {
   logout: () => void
 }
 
-const defaultState = {
+let defaultState = {
   isLoggedIn: false,
   defaultLocation: null,
   user: null,
