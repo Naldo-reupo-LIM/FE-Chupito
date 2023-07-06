@@ -1,13 +1,15 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 
 import Login from '../../components/Login/Login'
 import { Authentication } from '../../shared/api'
 import EventsApi from '../../api/events'
+import { AuthContext } from '../../contexts/Auth/AuthContext'
 
 export default function LoginPage(): JSX.Element {
   const [loading, setLoading] = useState(false)
   const params = new URLSearchParams(window.location.search)
   const eventId = params.get('eventId')
+  const { setLoginData } = useContext(AuthContext)
 
   const api = Authentication()
 
@@ -22,13 +24,16 @@ export default function LoginPage(): JSX.Element {
       const resultToken = await result.user.getIdToken()
       setLoading(false)
       window.localStorage.setItem('token', JSON.stringify(resultToken))
-      callback()
+      setLoginData({ isAuth: true, userUid: result.user.uid })
 
-      const eventsApi = new EventsApi()
-      await eventsApi.addAttendees(eventId, {
-        email: userName,
-        password,
-      })
+      if (eventId) {
+        const eventsApi = new EventsApi()
+        await eventsApi.addAttendees(eventId, {
+          email: userName,
+          password,
+        })
+      }
+      callback()
     } catch (err) {
       console.error(err)
     }

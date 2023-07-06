@@ -133,7 +133,8 @@ export default function Login({ onLogin, loading }: LoginProps): JSX.Element {
   }
 
   const handleLoginClicked = () => {
-    onLogin(userName, password, () => history.push(`/event-info/${eventId}`))
+    const redirectURL = eventId ? `/event-info/${eventId}` : `/`
+    onLogin(userName, password, () => history.push(redirectURL))
   }
 
   return (

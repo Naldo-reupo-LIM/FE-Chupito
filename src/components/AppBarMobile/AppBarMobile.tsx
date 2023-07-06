@@ -1,15 +1,18 @@
 import {
   AppBar,
   IconButton,
+  Button,
+  Typography,
   Toolbar,
   makeStyles,
   createStyles,
 } from '@material-ui/core'
 import SearchIcon from '@material-ui/icons/Search'
-import UserIcon from '@material-ui/icons/AccountCircle'
 import SettingsIcon from '@material-ui/icons/Settings'
+import { useHistory } from 'react-router-dom'
 
 import { colors } from '../../styles/theme/colors'
+import { useAuth } from '../../hook/useAuth'
 
 export interface AppBarMobileProps {
   version: string
@@ -47,10 +50,16 @@ const useStyles = makeStyles(() =>
       right: '1em',
       fontSize: 'xx-small',
     },
+    userEmail: {
+      color: colors.black,
+    },
   })
 )
 export default function AppBarMobile({ version }: AppBarMobileProps) {
   const classes = useStyles()
+  const { state } = useAuth()
+
+  const history = useHistory()
 
   // TODO: Add handlers for search and settings icons
   return (
@@ -60,9 +69,16 @@ export default function AppBarMobile({ version }: AppBarMobileProps) {
           <IconButton aria-label="Menu">
             <SearchIcon className={classes.searchIcon} />
           </IconButton>
-          <IconButton>
-            <UserIcon className={classes.userIcon} />
-          </IconButton>
+          {state.isAuth ? (
+            <Typography className={classes.userEmail} variant="caption">
+              username
+            </Typography>
+          ) : (
+            <Button variant="contained" onClick={() => history.push('/login')}>
+              LOGIN
+            </Button>
+          )}
+
           <IconButton>
             <SettingsIcon className={classes.settingsIcon} />
           </IconButton>

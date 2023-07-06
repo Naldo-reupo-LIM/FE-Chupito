@@ -1,5 +1,6 @@
 import {
   AppBar,
+  Button,
   IconButton,
   Toolbar,
   Typography,
@@ -7,8 +8,10 @@ import {
   createStyles,
 } from '@material-ui/core'
 import MenuIcon from '@material-ui/icons/Menu'
-import UserIcon from '@material-ui/icons/AccountCircle'
+import { useHistory } from 'react-router-dom'
+
 import { colors } from '../../styles/theme/colors'
+import { useAuth } from '../../hook/useAuth'
 
 export interface AppBarWebProps {
   title: string
@@ -23,10 +26,10 @@ const useStyles = makeStyles(() =>
     hamburgerIcon: {
       color: colors.white,
     },
-    userWebIcon: {
+    buttonLogin: {
       color: colors.white,
-      justifyContent: 'end',
     },
+
     appTitle: {},
     version: {
       color: colors.transparentWhite,
@@ -44,8 +47,9 @@ export default function AppBarWeb({
 }: AppBarWebProps): JSX.Element {
   const classes = useStyles()
 
-  // TODO: Add Login function
+  const { state } = useAuth()
 
+  const history = useHistory()
   return (
     <>
       <AppBar position="fixed">
@@ -56,9 +60,18 @@ export default function AppBarWeb({
           <Typography className={classes.appTitle} variant="h5">
             {title}
           </Typography>
-          <IconButton edge="end">
-            <UserIcon className={classes.userWebIcon} />
-          </IconButton>
+          {state.isAuth ? (
+            <Typography variant="h6">USERNAME</Typography>
+          ) : (
+            <Button
+              variant="contained"
+              onClick={() => history.push('/login')}
+              className={classes.buttonLogin}
+            >
+              Login
+            </Button>
+          )}
+
           <label className={classes.version}>v{version}</label>
         </Toolbar>
       </AppBar>

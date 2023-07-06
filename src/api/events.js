@@ -6,6 +6,7 @@ export default class Events extends baseRequest {
 
     this.method = 'event'
     this.methodAll = 'events'
+    this.userMethod = 'users'
   }
 
   getAll = async (year, headquarterId, showAll) => {
@@ -23,6 +24,11 @@ export default class Events extends baseRequest {
   getById = async (id) => {
     const response = await this.get(`${this.methodAll}/${id}`)
     return response.data.data
+  }
+  verifyUserEventSubscribed = async (id) => {
+    const { userMethod, method } = this
+    const { data } = await this.get(`${userMethod}/${method}/${id}`)
+    return data.data
   }
 
   add = (event) => {
