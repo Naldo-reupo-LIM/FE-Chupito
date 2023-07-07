@@ -162,8 +162,12 @@ export default function EventCard({ event }: EventCardProps): JSX.Element {
           title={event.name}
         />
         <CardActions className={classes.userActionsSection}>
-          <Button variant="contained" className={classes.button}>
-            {'Register'}
+          <Button
+            variant="contained"
+            className={classes.button}
+            disabled={event.subscribed}
+          >
+            {event.subscribed ? 'Subscribed' : 'Register'}
           </Button>
           <Link
             underline="always"

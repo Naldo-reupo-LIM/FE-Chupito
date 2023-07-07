@@ -13,6 +13,7 @@ export interface Conference {
   images?: ImageMediaType[]
   headquarter?: Headquarter
   _id?: string
+  subscribed?: boolean
 }
 
 export interface ConferenceFilters {

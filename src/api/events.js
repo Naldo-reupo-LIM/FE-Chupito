@@ -16,6 +16,12 @@ export default class Events extends baseRequest {
     return response.data.data
   }
 
+  getAllEventsAuth = async () => {
+    const { userMethod, methodAll } = this
+    const { data } = await this.get(`${userMethod}/${methodAll}`)
+    return data.data
+  }
+
   getAllWithAttendees = async (year) => {
     const response = await this.get(`${this.methodAll}/${year}/with-attendees`)
     return response.data.data

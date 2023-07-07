@@ -24,7 +24,12 @@ export default function LoginPage(): JSX.Element {
       const resultToken = await result.user.getIdToken()
       setLoading(false)
       window.localStorage.setItem('token', JSON.stringify(resultToken))
-      setLoginData({ isAuth: true, userUid: result.user.uid })
+
+      setLoginData({
+        isAuth: true,
+        userUid: result.user.uid,
+        email: result.user.email,
+      })
 
       if (eventId) {
         const eventsApi = new EventsApi()

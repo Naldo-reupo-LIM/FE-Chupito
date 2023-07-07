@@ -10,20 +10,23 @@ type Props = {
 interface VerifyApiResponse {
   isAuth: boolean
   userUid: string
+  email: string
 }
 
 export const AuthProvider = ({ children }: Props) => {
-  let initialState = { isAuth: false, userUid: '' }
+  let initialState = { isAuth: false, userUid: '', email: '' }
   const api = Authentication()
 
   const verifyUser = async () => {
     try {
-      const { isAuth, userUid }: VerifyApiResponse = await api.verifyAuth()
+      const { isAuth, userUid, email }: VerifyApiResponse =
+        await api.verifyAuth()
       dispatch({
         type: 'UPDATE_IS_AUTH',
         payload: {
           isAuth,
           userUid,
+          email,
         },
       })
       //TODO: Implement method to bring user data
@@ -31,12 +34,14 @@ export const AuthProvider = ({ children }: Props) => {
       console.log(error)
     }
   }
-  const setLoginData = ({ isAuth, userUid }: VerifyApiResponse) => {
+
+  const setLoginData = ({ isAuth, userUid, email }: VerifyApiResponse) => {
     dispatch({
       type: 'UPDATE_IS_AUTH',
       payload: {
         isAuth,
         userUid,
+        email,
       },
     })
   }

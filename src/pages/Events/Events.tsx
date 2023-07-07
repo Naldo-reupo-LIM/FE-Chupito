@@ -8,6 +8,8 @@ import NavigationWrapper from '../../components/Navigation/NavigationWrapper'
 import { HeadquarterAPI, ConferenceAPI } from '../../shared/api'
 import { Conference, Headquarter } from '../../shared/entities'
 import { sortAscending } from '../../tools/sorting'
+import { AuthContext } from '../../contexts/Auth/AuthContext'
+import Events from '../../api/events'
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -23,8 +25,10 @@ export default function EventsPage(): JSX.Element {
 
   const apiHeadquarters = HeadquarterAPI()
   const apiConferences = ConferenceAPI()
+  const apiEvents = new Events()
 
   const { user } = useContext(UserContext)
+  const { state } = useContext(AuthContext)
   const classes = useStyles()
 
   const fetchHeadquarters = () => {
@@ -61,12 +65,27 @@ export default function EventsPage(): JSX.Element {
         setLoading(false)
       })
   }
+  const fetchEventsAuth = async () => {
+    setLoading(true)
+    try {
+      const events = await apiEvents.getAllEventsAuth()
+      setEvents(sortByDate(events))
+    } catch (err) {
+      console.log(err)
+    } finally {
+      setLoading(false)
+    }
+  }
 
   useEffect(() => {
     fetchHeadquarters()
-    fetchEvents()
-    /* eslint-disable */
-  }, [])
+    if (state.isAuth) {
+      fetchEventsAuth()
+    } else {
+      fetchEvents()
+    }
+  }, [state.isAuth])
+
 
   if (loading) {
     return <>Loading events</>

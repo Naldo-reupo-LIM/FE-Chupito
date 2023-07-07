@@ -21,19 +21,23 @@ function Authentication() {
     )
   }
   const verifyAuth = () => {
-    return new Promise<{ isAuth: boolean; userUid: string }>(function (
-      resolve,
-      reject
-    ) {
-      const auth = getAuth(getFirebaseApp())
-      auth.onAuthStateChanged(function (user) {
-        if (user?.uid) {
-          resolve({ isAuth: true, userUid: user.uid })
-        } else {
-          reject({ isAuth: false, userUid: '' })
-        }
-      })
-    })
+    return new Promise<{ isAuth: boolean; userUid: string; email: string }>(
+      (resolve, reject) => {
+        const auth = getAuth(getFirebaseApp())
+        auth.onAuthStateChanged((user) => {
+          const { uid, email } = user ?? {}
+          if (uid) {
+            resolve({
+              isAuth: true,
+              userUid: uid,
+              email: email as string,
+            })
+          } else {
+            reject({ isAuth: false, userUid: '', email: '' })
+          }
+        })
+      }
+    )
   }
 
   const logout = () => {
