@@ -9,7 +9,7 @@ export default function LoginPage(): JSX.Element {
   const [loading, setLoading] = useState(false)
   const params = new URLSearchParams(window.location.search)
   const eventId = params.get('eventId')
-  const { setLoginData } = useContext(AuthContext)
+  const { setLoginData, getUserInfo } = useContext(AuthContext)
 
   const api = Authentication()
 
@@ -30,6 +30,7 @@ export default function LoginPage(): JSX.Element {
         userUid: result.user.uid,
         email: result.user.email,
       })
+      await getUserInfo(result.user.uid)
 
       if (eventId) {
         const eventsApi = new EventsApi()

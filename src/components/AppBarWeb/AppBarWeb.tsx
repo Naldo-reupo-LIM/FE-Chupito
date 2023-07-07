@@ -61,7 +61,7 @@ export default function AppBarWeb({
             {title}
           </Typography>
           {state.isAuth ? (
-            <Typography variant="h6">USERNAME</Typography>
+            <Typography variant="h6">{state.username}</Typography>
           ) : (
             <Button
               variant="contained"

@@ -13,7 +13,8 @@ export default class Users extends baseRequest {
   }
 
   getUserById = async (id) => {
-    //TODO: Add endpoint user by id
+    const response = await this.get(`${this.methodAll}/${id}`)
+    return response.data.data
   }
   getById = async (id) => {
     const response = await this.get(`${this.method}/${id}`)
