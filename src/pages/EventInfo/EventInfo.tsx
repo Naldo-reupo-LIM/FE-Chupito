@@ -16,13 +16,14 @@ import Stack from '@mui/material/Stack'
 import ImageList from '@mui/material/ImageList'
 import ImageListItem from '@mui/material/ImageListItem'
 
+import { useAuth } from '../../shared/hooks/useAuth'
+
 import { colors } from '../../styles/theme/colors'
 import eventImage from '../../assets/programmingImg.png'
 import image1 from '../../assets/image1.jpg'
 import image2 from '../../assets/image2.jpg'
 import image3 from '../../assets/image3.jpg'
 import EventsApi from '../../api/events'
-import { useAuth } from '../../hook/useAuth'
 
 const imageItems = [
   {

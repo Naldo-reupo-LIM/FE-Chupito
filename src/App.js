@@ -4,7 +4,7 @@ import Main from './components/Main/Main'
 import ThemeProvider from './providers/ThemeProvider'
 import AppRoutes from './components/AppRoutes/AppRoutes'
 import { LayoutProvider, UserProvider } from './shared/contexts'
-import { AuthProvider } from './contexts/Auth/AuthProvider'
+import { AuthProvider } from './shared/contexts/Auth/AuthProvider'
 
 function App() {
   return (

@@ -1,8 +1,8 @@
 import { useReducer, ReactNode } from 'react'
 import { AuthContext } from './AuthContext'
-import { Authentication } from '../../shared/api'
+import { Authentication } from '../../api'
 import { reducer } from './AuthReducer'
-import Users from '../../api/users'
+import Users from '../../../api/users'
 
 type Props = {
   children: ReactNode

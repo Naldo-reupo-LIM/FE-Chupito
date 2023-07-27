@@ -8,7 +8,7 @@ import NavigationWrapper from '../../components/Navigation/NavigationWrapper'
 import { HeadquarterAPI, ConferenceAPI } from '../../shared/api'
 import { Conference, Headquarter } from '../../shared/entities'
 import { sortAscending } from '../../tools/sorting'
-import { AuthContext } from '../../contexts/Auth/AuthContext'
+import { AuthContext } from '../../shared/contexts/Auth/AuthContext'
 import Events from '../../api/events'
 
 const useStyles = makeStyles(() =>

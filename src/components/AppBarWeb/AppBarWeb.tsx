@@ -11,7 +11,7 @@ import MenuIcon from '@material-ui/icons/Menu'
 import { useHistory } from 'react-router-dom'
 
 import { colors } from '../../styles/theme/colors'
-import { useAuth } from '../../hook/useAuth'
+import { useAuth } from '../../shared/hooks/useAuth'
 
 export interface AppBarWebProps {
   title: string
