@@ -1,6 +1,5 @@
 import { render, screen, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import useMediaQuery from '@mui/material/useMediaQuery'
 
 import { Conference, Headquarter } from '../../shared/entities'
 import EventsView, { EventsViewProps } from './EventsView'
@@ -44,9 +43,18 @@ const mockEvent03: Conference = {
   headquarter: mockHeadquarter02,
 }
 
+const mockUseMediaQuery = jest.fn()
+jest.mock('@mui/material', () => {
+  return {
+    useMediaQuery: () => mockUseMediaQuery()
+  }
+})
+
 describe('events view component', () => {
   describe('with loaded data', () => {
-    it('should render all elements without data', () => {
+    it('should render all elements without data on Web', () => {
+      mockUseMediaQuery.mockReturnValue(true)
+
       const mockEvents: Conference[] = []
       const mockHeadquarters: Headquarter[] = []
       const props: EventsViewProps = {
@@ -64,7 +72,9 @@ describe('events view component', () => {
       expect(headquarterTitle).toBeInTheDocument()
     })
 
-    it('should render 3 events', () => {
+    it('should render 3 events on Web', () => {
+      mockUseMediaQuery.mockReturnValue(true)
+
       const mockEvents: Conference[] = [mockEvent01, mockEvent02, mockEvent03]
       const mockHeadquarters: Headquarter[] = []
       const props: EventsViewProps = {
@@ -90,7 +100,9 @@ describe('events view component', () => {
       expect(eventElement03).toBeInTheDocument()
     })
 
-    it('should render 3 events and sorted by: ', async () => {
+    it('should render 3 events and sorted by on Web', async () => {
+      mockUseMediaQuery.mockReturnValue(true)
+
       const mockEvents: Conference[] = [mockEvent01, mockEvent02, mockEvent03]
       const mockHeadquarters: Headquarter[] = []
       const props: EventsViewProps = {
@@ -126,6 +138,8 @@ describe('events view component', () => {
     })
 
     it('should render 3 events and filtered by headquarter ', async () => {
+      mockUseMediaQuery.mockReturnValue(true)
+
       const mockEvents: Conference[] = [mockEvent01, mockEvent02, mockEvent03]
       const mockHeadquarters: Headquarter[] = [
         mockHeadquarter01,
@@ -167,12 +181,10 @@ describe('events view component', () => {
       expect(screen.queryByText(/event 02/i)).not.toBeInTheDocument()
       expect(screen.queryByText(/event 03/i)).not.toBeInTheDocument()
     })
-    it('should render title  when device is WEB', () => {
-      jest.mock('@mui/material/useMediaQuery', () =>
-        jest.fn().mockImplementation((query) => {
-          return true
-        })
-      )
+
+    it('should not render title when device is on Mobile', () => {
+      mockUseMediaQuery.mockReturnValue(false)
+
       const mockEvents: Conference[] = [mockEvent01, mockEvent02, mockEvent03]
       const mockHeadquarters: Headquarter[] = []
       const props: EventsViewProps = {
@@ -184,8 +196,8 @@ describe('events view component', () => {
       }
 
       renderComponent(props)
-      const webEventsViewVersion = screen.getByText(/events/i)
-      expect(webEventsViewVersion).toBeInTheDocument()
+      const webEventsViewVersion = screen.queryByText(/events/i)
+      expect(webEventsViewVersion).not.toBeInTheDocument()
     })
   })
 })
