@@ -1,9 +1,9 @@
 import { render, screen } from '@testing-library/react'
 
 import AppBarMobile, { AppBarMobileProps } from './AppBarMobile'
-import { useAuth } from '../../hook/useAuth'
+import { useAuth } from '../../shared/hooks/useAuth'
 
-jest.mock('../../hook/useAuth')
+jest.mock('../../shared/hooks/useAuth')
 const mockedUseAuth = useAuth as jest.Mock
 mockedUseAuth.mockReturnValue({ state: { isAuth: false, userUid: '' } })
 

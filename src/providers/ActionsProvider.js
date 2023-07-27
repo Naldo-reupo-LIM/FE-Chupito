@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {ActionsContext} from '../contexts/ActionsContext';
+import {ActionsContext} from '../shared/contexts/ActionsContext';
 
 export default class ActionsProvider extends Component {
   constructor(props) {

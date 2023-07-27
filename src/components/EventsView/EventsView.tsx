@@ -95,9 +95,7 @@ export default function EventsView({
     <>
       {!loadingEvents && (
         <FullLayout title="Special Spider App">
-          {matchesDesktopDisplay ? (
-            <h1 className={classes.title}>Events</h1>
-          ) : null}
+          {matchesDesktopDisplay && <h1 className={classes.title}>Events</h1>}
           <Grid
             container
             justifyContent="center"

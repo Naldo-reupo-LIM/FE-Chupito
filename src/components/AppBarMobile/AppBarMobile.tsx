@@ -12,7 +12,7 @@ import SettingsIcon from '@material-ui/icons/Settings'
 import { useHistory } from 'react-router-dom'
 
 import { colors } from '../../styles/theme/colors'
-import { useAuth } from '../../hook/useAuth'
+import { useAuth } from '../../shared/hooks/useAuth'
 
 export interface AppBarMobileProps {
   version: string

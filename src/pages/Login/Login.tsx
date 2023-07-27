@@ -3,7 +3,7 @@ import { useState, useContext } from 'react'
 import Login from '../../components/Login/Login'
 import { Authentication } from '../../shared/api'
 import EventsApi from '../../api/events'
-import { AuthContext } from '../../contexts/Auth/AuthContext'
+import { AuthContext } from '../../shared/contexts/Auth/AuthContext'
 
 export default function LoginPage(): JSX.Element {
   const [loading, setLoading] = useState(false)
