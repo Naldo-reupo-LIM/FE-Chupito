@@ -1,0 +1,10 @@
+import { render, screen } from '@testing-library/react'
+import EventsAdminPage from './EventsAdmin'
+
+describe('Event Info Page', () => {
+  it('should render component', () => {
+    render(<EventsAdminPage />)
+    
+    expect(screen.getByTestId('add-event')).toBeInTheDocument()
+  })
+})

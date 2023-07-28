@@ -2,12 +2,14 @@ type State = {
   isAuth: boolean
   userUid: string
   email: string
-  username: string
+  userName: string
+  isAdmin: boolean
 }
 type UpdateUsernameAction = {
-  type: 'UPDATE_USERNAME'
+  type: 'UPDATE_USER'
   payload: {
     username: string
+    isAdmin: boolean
   }
 }
 type Action =
@@ -31,11 +33,12 @@ export const reducer = (state: State, action: Action) => {
         userUid,
         email,
       }
-    case 'UPDATE_USERNAME':
-      const { username } = action.payload
+    case 'UPDATE_USER':
+      const { username, isAdmin } = action.payload
       return {
         ...state,
         username,
+        isAdmin
       }
 
     default:

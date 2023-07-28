@@ -11,11 +11,12 @@ interface VerifyApiResponse {
   isAuth: boolean
   userUid: string
   email: string
-  username?: string | null
+  userName?: string | null
+  isAdmin?: boolean | null
 }
 
 export const AuthProvider = ({ children }: Props) => {
-  let initialState = { isAuth: false, userUid: '', email: '', username: '' }
+  let initialState = { isAuth: false, userUid: '', email: '', userName: '', isAdmin: false }
   const api = Authentication()
 
   const verifyUser = async () => {
@@ -54,11 +55,12 @@ export const AuthProvider = ({ children }: Props) => {
     const usersApi = new Users()
 
     try {
-      const userResponse = await usersApi.getUserById(userUid)
+      const { firstName, isAdmin } = await usersApi.getUserById(userUid)
       dispatch({
-        type: 'UPDATE_USERNAME',
+        type: 'UPDATE_USER',
         payload: {
-          username: userResponse.firstName as string,
+          username: firstName as string,
+          isAdmin
         },
       })
     } catch (err) {
