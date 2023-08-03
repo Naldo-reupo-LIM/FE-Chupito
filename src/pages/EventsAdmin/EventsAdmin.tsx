@@ -39,6 +39,10 @@ export default function EventsAdminPage(): JSX.Element {
     history.push(`/event/add`)
   }
 
+  const updateEvents = (id: string | undefined) => {
+    setEvents(sortByDate(events.filter((x: Conference) => x._id !== id)))
+  }
+
   useEffect(() => {
     fetchHeadquarters()
     fetchEvents()
@@ -52,6 +56,7 @@ export default function EventsAdminPage(): JSX.Element {
           allHeadquarters={allHeadquarters}
           loadingEvents={loading}
           loadingHeadquarters={loadingHeadquarters}
+          updateEvents={updateEvents}
         />
 
         <Fab color="primary" onClick={handleLinkAddEvent} data-testid="add-event">

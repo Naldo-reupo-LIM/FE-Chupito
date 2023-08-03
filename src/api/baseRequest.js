@@ -53,7 +53,7 @@ export default class baseRequest {
     return axios.put(this.getUrl(method), data)
   }
 
-  delete = (method, params) => {
+  deleteEvent = (method, params) => {
     return axios.delete(this.getUrl(method), { params: params })
   }
 

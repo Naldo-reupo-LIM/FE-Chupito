@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Grid, createStyles, makeStyles } from '@material-ui/core'
-import { Button, Paper, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
+import { Box, Button, Modal, Paper, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
 import Moment from 'moment'
 
 import FullLayout from '../../hocs/FullLayout'
@@ -8,6 +8,18 @@ import Headquarters from '../Headquarters/Headquarters';
 import DashboardFilters from '../Dashboard/DashboardFilters';
 import { Conference, ConferenceFilters, Headquarter } from '../../shared/entities';
 import { sortAscending, sortDescending } from '../../tools/sorting';
+import EventsApi from '../../api/events'
+
+const modalStyle = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: '#ffffff',
+  boxShadow: 24,
+  p: 4,
+};
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -36,6 +48,7 @@ export interface EventsAdminViewProps {
   loadingEvents: boolean
   loadingHeadquarters: boolean
   selectedHeadquarter?: string
+  updateEvents:(id: string | undefined) => void
 }
 
 export default function EventAdminView({
@@ -44,9 +57,27 @@ export default function EventAdminView({
   loadingEvents,
   loadingHeadquarters,
   selectedHeadquarter,
+  updateEvents
 }: EventsAdminViewProps): JSX.Element {
   const [filteredEvents, setFilteredEvents] = useState<Conference[]>(events)
   const classes = useStyles()
+  let [idEvent, setId] = useState<string | undefined>('');
+  let [modalTitle, setTitle] = useState<string>('');
+  let [buttonSave, setButton] = useState<boolean>(true);
+
+  const [open, setOpen] = useState<boolean>(false);
+  const handleOpen = (id: string | undefined ) => {
+    setOpen(true)
+    setId(id)
+    setTitle('Delete event?')
+  }
+
+  const handleClose = () => {
+    setOpen(false)
+    setButton(true)
+    handleChangeFilters({year: '', sortBy: ''})
+  }
+
   //TODO: Create generic utility(used in components multiple)
   const getDatePart = (date: string) => {
     const dateObject = Moment(date, 'YYYY-MM-DD')
@@ -76,6 +107,25 @@ export default function EventAdminView({
     }
 
     setFilteredEvents(filteredByHeadquarter)
+  }
+
+  const removeEvent = async () => {
+    const api = new EventsApi()
+    try {
+      const data = await api.delete(idEvent)
+
+      if (data.status == 200) {
+        setTitle('Successfully added!')
+        updateEvents(idEvent)
+      } else {
+        setTitle('Delete failed')
+      }
+    } catch (error) {
+      setTitle('Delete failed')
+      console.error(error);
+    }
+
+    setButton(false)
   }
 
   if (loadingEvents) {
@@ -135,7 +185,7 @@ export default function EventAdminView({
                             edit
                           </Button>
 
-                          <Button variant="outlined">
+                          <Button variant="outlined" onClick={() => handleOpen(row._id)}>
                             remove
                           </Button>
                         </Stack>
@@ -146,6 +196,23 @@ export default function EventAdminView({
               </Table>
             </TableContainer>
           </Grid>
+
+          <Modal
+            open={open}
+            onClose={handleClose}
+          >
+            <Box sx={modalStyle}>
+              <Typography id="modal-modal-title" variant="h6" component="h2">
+                {modalTitle}
+              </Typography>
+
+              <Button variant="outlined" color="secondary" onClick={handleClose}>
+                Cancel
+              </Button>
+              
+              {buttonSave ? (<Button variant="contained" color="primary" onClick={removeEvent}>Save</Button>) :('')}
+            </Box>
+          </Modal>
         </FullLayout>
       )}
     </>

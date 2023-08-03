@@ -42,10 +42,11 @@ export default class Events extends baseRequest {
   update = (event) => {
     return this.put(`${this.method}/${event.id}`, event)
   }
-
   updateImages = (id, images) => {
     return this.put(`${this.method}/${id}/images`, { images: images })
   }
+
+  delete = (id) => (this.deleteEvent(`${this.methodAll}/${id}/delete`))
 
   deleteImage = (id, idImage) => {
     return this.delete(`${this.method}/${id}/${idImage}`)
