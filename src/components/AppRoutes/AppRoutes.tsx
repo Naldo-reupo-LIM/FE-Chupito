@@ -36,7 +36,7 @@ export default function AppRoutes(): JSX.Element {
         <UsersPage />
       </Route>
       <Route path="/event/add">
-        <EventPage />
+        <ProtectedRoutes user={user.state.isAdmin} component={EventPage} />
       </Route>
       <Route path="/user/add">
         <UserPage />

@@ -56,13 +56,13 @@ export default function EventTypes({
         onChange={handleChange}
       >
         <FormControlLabel
-          value="recruiting"
+          value="Recruiting"
           control={<Radio />}
           label="Recruiting"
           className={classes.radioOptionLabel}
         />
         <FormControlLabel
-          value="sales"
+          value="Sales"
           control={<Radio />}
           label="Sales"
           className={classes.radioOptionLabel}

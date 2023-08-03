@@ -1,38 +1,11 @@
-import { useEffect, useState } from 'react'
-
 import EventView from '../../components/EventView/EventView'
 
-import { HeadquarterAPI } from '../../shared/api'
-
-import { Headquarter } from '../../shared/entities'
+ //TODO: Get info from database (not provided)
+import { mockTags } from '../../mocks/tags'
+//TODO: Get info from database (not provided)
+import { mockHeadquarters } from '../../mocks/headquarter'
 
 export default function EventPage(): JSX.Element {
-  const [allHeadquarters, setAllHeadquarters] = useState<Headquarter[]>([])
-  const [loading, setLoading] = useState(false)
-
-  const apiHeadquarters = HeadquarterAPI()
-
-  const fetchHeadquarters = () => {
-    setLoading(true)
-    apiHeadquarters
-      .getAll()
-      .then((headquarters) => {
-        setAllHeadquarters(headquarters)
-      })
-      .catch((error) => {
-        console.log('Error retrieving all headquarters')
-        console.error(error)
-      })
-      .finally(() => {
-        setLoading(false)
-      })
-  }
-
-  useEffect(() => {
-    fetchHeadquarters()
-    /* eslint-disable */
-  }, [])
-
   const onChangeEventName = () => {}
   const onChangeEventDate = () => {}
   const onChangeAddress = () => {}
@@ -45,9 +18,12 @@ export default function EventPage(): JSX.Element {
       eventDate=""
       address=""
       phoneNumber=""
-      headquarters={allHeadquarters}
+      eventDescription=""
+      eventTag=""
+      headquarters={mockHeadquarters}
       headquarter=""
-      isLoading={loading}
+      tags={mockTags}
+      isLoading={false}
       validation={{
         name: { error: false, message: '' },
         date: { error: false, message: '' },

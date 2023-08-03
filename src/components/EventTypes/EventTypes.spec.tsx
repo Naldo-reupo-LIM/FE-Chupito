@@ -11,20 +11,20 @@ describe('event types component', () => {
       onUpdateEventType: jest.fn(),
     }
     renderComponent(props)
-    const recruitingButton = screen.getByText(/recruiting/i)
+    const recruitingButton = screen.getByText(/Recruiting/i)
     expect(recruitingButton).toBeInTheDocument()
-    const salesButton = screen.getByText(/sales/i)
+    const salesButton = screen.getByText(/Sales/i)
     expect(salesButton).toBeInTheDocument()
   })
 
   it('should show a selected option', () => {
     const props: EventTypesProps = {
-      selectedEventType: 'sales',
+      selectedEventType: 'Sales',
       onUpdateEventType: jest.fn(),
     }
     renderComponent(props)
 
-    const salesButton = screen.getByRole('radio', {name: /sales/i})
+    const salesButton = screen.getByRole('radio', {name: /Sales/i})
     expect(salesButton).toBeInTheDocument()
     expect(salesButton).toBeChecked()
   })

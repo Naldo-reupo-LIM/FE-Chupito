@@ -1,3 +1,4 @@
+import { ChangeEvent } from 'react'
 import {
   FormControl,
   FormHelperText,
@@ -34,8 +35,8 @@ export interface SelectWithLoadingProps {
   attributeOptions: ElementOption[]
   error: boolean
   errorMessage: string
-  onChange: () => void
-  onBlur: () => void
+  onChange: (event:ChangeEvent<{ name?: string | undefined; value: unknown; }>) => void
+  onBlur?: () => void
   isLoading: boolean
 }
 

@@ -37,9 +37,7 @@ export default class Events extends baseRequest {
     return data.data
   }
 
-  add = (event) => {
-    return this.post(this.method, event)
-  }
+  add = async (event) => (await this.post(this.methodAll, event))
 
   update = (event) => {
     return this.put(`${this.method}/${event.id}`, event)
