@@ -101,7 +101,7 @@ export default function EventView({
       await api.add(
         {
           "name": getName,
-          "date": getDate,
+          "eventDate": getDate,
           "headquarter": getHeadquarter,
           "address": getAddress,
           "type": getType,

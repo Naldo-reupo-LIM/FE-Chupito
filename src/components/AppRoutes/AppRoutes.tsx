@@ -10,6 +10,7 @@ import EventInfoPage from '../../pages/EventInfo/EventInfo'
 import EventsAdminPage from '../../pages/EventsAdmin/EventsAdmin'
 import ProtectedRoutes from './ProtectedRoute/ProtectedRoutes'
 import { useAuth } from '../../shared/hooks/useAuth'
+import EventEditPage from '../../pages/EventEdit/EventEdit'
 
 // Legacy
 // TODO: Insert 0auth path "/" when user is logged
@@ -37,6 +38,9 @@ export default function AppRoutes(): JSX.Element {
       </Route>
       <Route path="/event/add">
         <ProtectedRoutes user={user.state.isAdmin} component={EventPage} />
+      </Route>
+      <Route path="/event/edit/:id">
+        <ProtectedRoutes user={user.state.isAdmin} component={EventEditPage} />
       </Route>
       <Route path="/user/add">
         <UserPage />

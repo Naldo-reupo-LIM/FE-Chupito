@@ -1,7 +1,8 @@
 import { render, screen, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import EventAdminView, { EventsAdminViewProps } from './EventAdminView'
+import EventAdminView from './EventAdminView'
 import { Conference, Headquarter } from '../../shared/entities'
+import { EventsAdminViewProps } from '../../shared/entities/props/eventsAdminViewProps'
 
 const renderComponent = (props: EventsAdminViewProps) => render(<EventAdminView  {...props}/>)
 
@@ -66,7 +67,8 @@ describe('event table list component', () => {
         allHeadquarters: [],
         loadingEvents: false,
         loadingHeadquarters: false,
-        selectedHeadquarter: ""
+        selectedHeadquarter: "",
+        updateEvents: jest.fn()
     }
 
     renderComponent(props)
@@ -95,7 +97,8 @@ describe('event table list component', () => {
       events: mockEvents,
       allHeadquarters: mockHeadquarters,
       loadingEvents: false,
-      loadingHeadquarters: false
+      loadingHeadquarters: false,
+      updateEvents: jest.fn()
     }
     renderComponent(props)
     const eventsTitle = screen.getByText(/events/i)

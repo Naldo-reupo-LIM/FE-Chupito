@@ -2,13 +2,15 @@ import { useState } from 'react';
 import { Grid, createStyles, makeStyles } from '@material-ui/core'
 import { Box, Button, Modal, Paper, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
 import Moment from 'moment'
+import { useHistory } from 'react-router-dom';
 
 import FullLayout from '../../hocs/FullLayout'
 import Headquarters from '../Headquarters/Headquarters';
 import DashboardFilters from '../Dashboard/DashboardFilters';
-import { Conference, ConferenceFilters, Headquarter } from '../../shared/entities';
+import { Conference, ConferenceFilters } from '../../shared/entities';
 import { sortAscending, sortDescending } from '../../tools/sorting';
 import EventsApi from '../../api/events'
+import { EventsAdminViewProps } from '../../shared/entities/props/eventsAdminViewProps';
 
 const modalStyle = {
   position: 'absolute',
@@ -42,15 +44,6 @@ const useStyles = makeStyles(() =>
   })
 )
 
-export interface EventsAdminViewProps {
-  events: Conference[]
-  allHeadquarters: Headquarter[]
-  loadingEvents: boolean
-  loadingHeadquarters: boolean
-  selectedHeadquarter?: string
-  updateEvents:(id: string | undefined) => void
-}
-
 export default function EventAdminView({
   events,
   allHeadquarters,
@@ -79,10 +72,7 @@ export default function EventAdminView({
   }
 
   //TODO: Create generic utility(used in components multiple)
-  const getDatePart = (date: string) => {
-    const dateObject = Moment(date, 'YYYY-MM-DD')
-    return dateObject.format('D MMM YYYY')
-  }
+  const getDatePart = (date: string) => (Moment(date).format('D MMM YYYY'))
 
   //TODO: Create generic utility(used in components multiple)
   const handleChangeFilters = (filters: ConferenceFilters) => {
@@ -109,19 +99,23 @@ export default function EventAdminView({
     setFilteredEvents(filteredByHeadquarter)
   }
 
+  const history = useHistory()
+
+  const handleLinkEditEvent = (id: string | undefined ) => (history.push(`/event/edit/${id}`))
+
   const removeEvent = async () => {
     const api = new EventsApi()
     try {
       const data = await api.delete(idEvent)
 
-      if (data.status == 200) {
-        setTitle('Successfully added!')
+      if (data.status === 200) {
+        setTitle('Successfully deleted!')
         updateEvents(idEvent)
       } else {
-        setTitle('Delete failed')
+        setTitle('Failed delete')
       }
     } catch (error) {
-      setTitle('Delete failed')
+      setTitle('Failed delete')
       console.error(error);
     }
 
@@ -181,7 +175,7 @@ export default function EventAdminView({
                       <TableCell align="center">{row.status}</TableCell>
                       <TableCell align="center">
                         <Stack spacing={2} direction="row" justifyContent={'center'}>
-                          <Button variant="contained">
+                          <Button variant="contained" onClick={() => handleLinkEditEvent(row._id)}>
                             edit
                           </Button>
 

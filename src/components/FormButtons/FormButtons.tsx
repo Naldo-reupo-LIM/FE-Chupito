@@ -11,12 +11,16 @@ const useStyles = makeStyles((theme) =>
 )
 
 export type FormButtonsProps = {
+  roleCancel?: string
+  roleSave?: string
   disableMainButton: boolean
   onSubmit: () => void
   onCancel: () => void
 }
 
 export default function FormButtons({
+  roleCancel,
+  roleSave,
   onSubmit,
   onCancel,
 }: FormButtonsProps): JSX.Element {
@@ -32,11 +36,12 @@ export default function FormButtons({
 
   return (
     <>
-      <Button variant="outlined" color="secondary" onClick={handleCancel}>
+      <Button role={roleCancel} variant="outlined" color="secondary" onClick={handleCancel}>
         Cancel
       </Button>
       <Button
         variant="contained"
+        role={roleSave}
         color="primary"
         classes={{
           disabled: classes.disabled,

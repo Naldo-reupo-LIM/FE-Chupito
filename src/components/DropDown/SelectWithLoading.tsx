@@ -33,8 +33,8 @@ export interface SelectWithLoadingProps {
   attributeValue: string
   attributeRequired: boolean
   attributeOptions: ElementOption[]
-  error: boolean
-  errorMessage: string
+  error?: boolean
+  errorMessage?: string
   onChange: (event:ChangeEvent<{ name?: string | undefined; value: unknown; }>) => void
   onBlur?: () => void
   isLoading: boolean

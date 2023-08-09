@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react'
+import { ChangeEvent, useEffect, useState } from 'react'
 import {
   FormControl,
   FormLabel,
@@ -44,6 +44,10 @@ export default function EventTypes({
     setValue(event.target.value)
     onUpdateEventType(event.target.value)
   }
+
+  useEffect(() => {
+    setValue(selectedEventType)
+  }, [selectedEventType])
 
   return (
     <FormControl className={classes.eventTypeContainerControl}>
