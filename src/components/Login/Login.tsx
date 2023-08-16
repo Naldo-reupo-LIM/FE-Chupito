@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import {
   Paper,
@@ -13,6 +13,7 @@ import {
 import NoneLayout from '../../hocs/NoneLayout'
 import { validateEmail } from '../../tools'
 import { colors } from '../../styles/theme/colors'
+import { useAuth } from '../../shared/hooks/useAuth'
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -97,7 +98,7 @@ const useStyles = makeStyles((theme) =>
 )
 
 export interface LoginProps {
-  onLogin: (userName: string, password: string, callback: () => void) => void
+  onLogin: (userName: string, password: string) => void
   loading: boolean
 }
 
@@ -111,6 +112,7 @@ export default function Login({ onLogin, loading }: LoginProps): JSX.Element {
 
   const classes = useStyles()
   const history = useHistory()
+  const user = useAuth()
 
   const handleUserChanged = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUserName(e.target.value)
@@ -133,9 +135,23 @@ export default function Login({ onLogin, loading }: LoginProps): JSX.Element {
   }
 
   const handleLoginClicked = () => {
-    const redirectURL = eventId ? `/event-info/${eventId}` : `/`
-    onLogin(userName, password, () => history.push(redirectURL))
+    onLogin(userName, password)
   }
+
+  const handleRedirect = useCallback(() => {
+    const userState = user.state
+    let shouldRedirectTo = '/login'
+    if (userState.username) {
+      shouldRedirectTo = userState.isAdmin ? '/events/list' : '/'
+    } else if (eventId) {
+      shouldRedirectTo = `/event-info/${eventId}`
+    }
+    history.push(shouldRedirectTo)
+  }, [eventId, history, user.state])
+
+  useEffect(() => {
+    handleRedirect()
+  }, [handleRedirect])
 
   return (
     <NoneLayout>

@@ -2,10 +2,45 @@ import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
 import Login, { LoginProps } from './Login'
+import { useAuth } from '../../shared/hooks/useAuth'
+
+jest.mock('../../shared/hooks/useAuth')
+const mockedUseAuth = useAuth as jest.Mock
+mockedUseAuth.mockReturnValue({
+  state: { isAuth: false, isAdmin: false, username: '' },
+})
+
+const mockHistoryPush = jest.fn()
+
+jest.mock('react-router-dom', () => ({
+  ...jest.requireActual('react'),
+  ...jest.requireActual('react-router-dom'),
+  useHistory: () => ({
+    push: mockHistoryPush,
+  }),
+}))
 
 const renderComponent = (props: LoginProps) => render(<Login {...props} />)
 
 describe('login view component', () => {
+  it('redirect conditional', () => {
+    const mockOnLogin = jest.fn()
+    const props: LoginProps = {
+      onLogin: mockOnLogin,
+      loading: true,
+    }
+    renderComponent(props)
+
+    const user = {
+      state: {
+        isAuth: true,
+        isAdmin: true,
+        username: 'admin',
+      },
+    }
+    useAuth.mockImplementation(() => user)
+  })
+
   it('should render all elements', () => {
     const mockOnLogin = jest.fn()
     const props: LoginProps = {
@@ -13,6 +48,7 @@ describe('login view component', () => {
       loading: true,
     }
     renderComponent(props)
+
     const userField = screen.getByRole('textbox', { name: /email/i })
     expect(userField).toBeInTheDocument()
 

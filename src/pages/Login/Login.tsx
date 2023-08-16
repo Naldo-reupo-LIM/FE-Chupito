@@ -13,11 +13,7 @@ export default function LoginPage(): JSX.Element {
 
   const api = Authentication()
 
-  const handleLoginClicked = async (
-    userName: string,
-    password: string,
-    callback: () => void
-  ) => {
+  const handleLoginClicked = async (userName: string, password: string) => {
     setLoading(true)
     try {
       const result = await api.login({ email: userName, password })
@@ -39,7 +35,6 @@ export default function LoginPage(): JSX.Element {
           password,
         })
       }
-      callback()
     } catch (err) {
       console.error(err)
     }
