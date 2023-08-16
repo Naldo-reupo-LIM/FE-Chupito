@@ -1,15 +1,12 @@
 {
   "projects": {
-    "default": "spider-node-app"
+    "default": "chupito-c5p5t"
   },
   "targets": {
-    "spider-node-app": {
-      "hosting" : {
-        "prod": [
-          "spider-web-prod"
-        ],
+    "chupito-c5p5t": {
+      "hosting": {
         "dev": [
-          "spider-web-dev"
+          "chupito-c5p5t"
         ]
       }
     }
