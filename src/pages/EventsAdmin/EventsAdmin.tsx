@@ -1,12 +1,16 @@
-import { useEffect, useState } from "react";
-import AddIcon from '@material-ui/icons/Add';
-import { useHistory } from 'react-router-dom';
-import { Fab } from "@material-ui/core";
+import { useEffect, useState } from 'react'
+import AddIcon from '@material-ui/icons/Add'
+import { useHistory } from 'react-router-dom'
+import { Fab } from '@material-ui/core'
 
-import EventAdminView from "../../components/EventsAdminView/EventAdminView";
-import { Conference, Headquarter } from "../../shared/entities";
-import { ConferenceAPI, HeadquarterAPI } from "../../shared/api";
-import { sortAscending } from "../../tools/sorting";
+import EventAdminView from '../../components/EventsAdminView/EventAdminView'
+import {
+  Conference,
+  ConferenceStatus,
+  Headquarter,
+} from '../../shared/entities'
+import { ConferenceAPI, HeadquarterAPI } from '../../shared/api'
+import { sortAscending } from '../../tools/sorting'
 
 export default function EventsAdminPage(): JSX.Element {
   const [allHeadquarters, setAllHeadquarters] = useState<Headquarter[]>([])
@@ -17,8 +21,8 @@ export default function EventsAdminPage(): JSX.Element {
   const apiHeadquarters = HeadquarterAPI()
   const apiConferences = ConferenceAPI()
 
-  const fetchHeadquarters =  async () => {
-    try {      
+  const fetchHeadquarters = async () => {
+    try {
       setAllHeadquarters(await apiHeadquarters.getAll())
       setLoadingHeadquarters(false)
     } catch (err) {
@@ -28,7 +32,7 @@ export default function EventsAdminPage(): JSX.Element {
 
   const sortByDate = (events: Conference[]) => events.sort(sortAscending)
 
-  const fetchEvents =  async () => {
+  const fetchEvents = async () => {
     setEvents(sortByDate(await apiConferences.getAll()))
     setLoading(false)
   }
@@ -43,23 +47,40 @@ export default function EventsAdminPage(): JSX.Element {
     setEvents(sortByDate(events.filter((x: Conference) => x._id !== id)))
   }
 
+  const updateStatusEvents = (
+    id: string | undefined,
+    status: ConferenceStatus
+  ) => {
+    setEvents(
+      events.map((event: Conference) => {
+        if (event._id === id) event.status = status
+        return event
+      })
+    )
+  }
+
   useEffect(() => {
     fetchHeadquarters()
     fetchEvents()
   }, [])
-  
+
   return (
     <>
       <div>
-        <EventAdminView 
+        <EventAdminView
           events={events}
           allHeadquarters={allHeadquarters}
           loadingEvents={loading}
           loadingHeadquarters={loadingHeadquarters}
           updateEvents={updateEvents}
+          updateStatusEvents={updateStatusEvents}
         />
 
-        <Fab color="primary" onClick={handleLinkAddEvent} data-testid="add-event">
+        <Fab
+          color="primary"
+          onClick={handleLinkAddEvent}
+          data-testid="add-event"
+        >
           <AddIcon />
         </Fab>
       </div>

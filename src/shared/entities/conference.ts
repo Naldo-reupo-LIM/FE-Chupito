@@ -1,7 +1,13 @@
 import { ImageMediaType } from './media'
 import { Headquarter } from './headquarter'
 
-export type ConferenceStatus = 'created' | 'opened' | 'paused' | 'closed'
+export type ConferenceStatus =
+  | 'created'
+  | 'opened'
+  | 'paused'
+  | 'closed'
+  | 'active'
+  | 'inactive'
 
 export interface Conference {
   id: string

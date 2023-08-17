@@ -1,21 +1,12 @@
 import { useState, useContext, useEffect } from 'react'
-import { createStyles, Fab, makeStyles } from '@material-ui/core'
-import AddIcon from '@material-ui/icons/Add'
 
 import UserContext from '../../shared/contexts/UserContext'
 import EventsView from '../../components/EventsView/EventsView'
-import NavigationWrapper from '../../components/Navigation/NavigationWrapper'
 import { HeadquarterAPI, ConferenceAPI } from '../../shared/api'
 import { Conference, Headquarter } from '../../shared/entities'
 import { sortAscending } from '../../tools/sorting'
 import { AuthContext } from '../../shared/contexts/Auth/AuthContext'
 import Events from '../../api/events'
-
-const useStyles = makeStyles(() =>
-  createStyles({
-    addButton: {},
-  })
-)
 
 export default function EventsPage(): JSX.Element {
   const [allHeadquarters, setAllHeadquarters] = useState<Headquarter[]>([])
@@ -29,7 +20,6 @@ export default function EventsPage(): JSX.Element {
 
   const { user } = useContext(UserContext)
   const { state } = useContext(AuthContext)
-  const classes = useStyles()
 
   const fetchHeadquarters = () => {
     setLoadingHeadquarters(true)
@@ -86,7 +76,6 @@ export default function EventsPage(): JSX.Element {
     }
   }, [state.isAuth])
 
-
   if (loading) {
     return <>Loading events</>
   }
@@ -102,12 +91,6 @@ export default function EventsPage(): JSX.Element {
           isAdmin={user?.isAdmin || false}
         />
       )}
-
-      <NavigationWrapper path="/event/add">
-        <Fab className={classes.addButton} color="primary">
-          <AddIcon />
-        </Fab>
-      </NavigationWrapper>
     </>
   )
 }

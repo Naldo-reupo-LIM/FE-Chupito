@@ -1,16 +1,36 @@
-import { useState } from 'react';
+import { useState } from 'react'
 import { Grid, createStyles, makeStyles } from '@material-ui/core'
-import { Box, Button, Modal, Paper, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
+import {
+  Box,
+  Button,
+  Modal,
+  Paper,
+  Stack,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Typography,
+} from '@mui/material'
+import { Edit, DeleteOutline } from '@material-ui/icons'
 import Moment from 'moment'
-import { useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom'
 
 import FullLayout from '../../hocs/FullLayout'
-import Headquarters from '../Headquarters/Headquarters';
-import DashboardFilters from '../Dashboard/DashboardFilters';
-import { Conference, ConferenceFilters } from '../../shared/entities';
-import { sortAscending, sortDescending } from '../../tools/sorting';
+import Headquarters from '../Headquarters/Headquarters'
+import DashboardFilters from '../Dashboard/DashboardFilters'
+import {
+  Conference,
+  ConferenceFilters,
+  ConferenceStatus,
+} from '../../shared/entities'
+import { sortAscending, sortDescending } from '../../tools/sorting'
 import EventsApi from '../../api/events'
-import { EventsAdminViewProps } from '../../shared/entities/props/eventsAdminViewProps';
+import { EventsAdminViewProps } from '../../shared/entities/props/eventsAdminViewProps'
+import { buttonIcon } from '../../shared/themes/buttons'
+import { StatusEnum } from '../../shared/constants/status'
 
 const modalStyle = {
   position: 'absolute',
@@ -21,7 +41,7 @@ const modalStyle = {
   bgcolor: '#ffffff',
   boxShadow: 24,
   p: 4,
-};
+}
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -40,7 +60,6 @@ const useStyles = makeStyles(() =>
       marginLeft: 'auto',
       paddingTop: '3em',
     },
-    add: {},
   })
 )
 
@@ -50,16 +69,18 @@ export default function EventAdminView({
   loadingEvents,
   loadingHeadquarters,
   selectedHeadquarter,
-  updateEvents
+  updateEvents,
+  updateStatusEvents,
 }: EventsAdminViewProps): JSX.Element {
+  const api = new EventsApi()
   const [filteredEvents, setFilteredEvents] = useState<Conference[]>(events)
   const classes = useStyles()
-  let [idEvent, setId] = useState<string | undefined>('');
-  let [modalTitle, setTitle] = useState<string>('');
-  let [buttonSave, setButton] = useState<boolean>(true);
+  const [open, setOpen] = useState<boolean>(false)
+  let [idEvent, setId] = useState<string | undefined>('')
+  let [modalTitle, setTitle] = useState<string>('')
+  let [buttonSave, setButton] = useState<boolean>(true)
 
-  const [open, setOpen] = useState<boolean>(false);
-  const handleOpen = (id: string | undefined ) => {
+  const handleOpen = (id: string | undefined) => {
     setOpen(true)
     setId(id)
     setTitle('Delete event?')
@@ -68,31 +89,34 @@ export default function EventAdminView({
   const handleClose = () => {
     setOpen(false)
     setButton(true)
-    handleChangeFilters({year: '', sortBy: ''})
+    handleChangeFilters({ year: '', sortBy: '' })
   }
 
   //TODO: Create generic utility(used in components multiple)
-  const getDatePart = (date: string) => (Moment(date).format('D MMM YYYY'))
+  const getDatePart = (date: string) => Moment(date).format('D MMM YYYY')
 
   //TODO: Create generic utility(used in components multiple)
   const handleChangeFilters = (filters: ConferenceFilters) => {
     if (filters.sortBy) {
-      const sortedAllEvents = filters.sortBy === 'newest' ? Array.from(events).sort(sortDescending) : Array.from(events).sort(sortAscending)
+      const sortedAllEvents =
+        filters.sortBy === 'newest'
+          ? Array.from(events).sort(sortDescending)
+          : Array.from(events).sort(sortAscending)
 
       setFilteredEvents(sortedAllEvents)
     } else {
       setFilteredEvents(events)
     }
   }
-  
+
   //TODO: Create generic utility(used in components multiple)
   const handleHeadquarterChanged = (selectedHeadquarter: string) => {
     let filteredByHeadquarter: Conference[] = events
 
     if (selectedHeadquarter !== '-1') {
       filteredByHeadquarter = filteredByHeadquarter.filter(
-        ({ headquarter,  id}: Conference) =>
-        headquarter && id === selectedHeadquarter
+        ({ headquarter, id }: Conference) =>
+          headquarter && id === selectedHeadquarter
       )
     }
 
@@ -101,10 +125,10 @@ export default function EventAdminView({
 
   const history = useHistory()
 
-  const handleLinkEditEvent = (id: string | undefined ) => (history.push(`/event/edit/${id}`))
+  const handleLinkEditEvent = (id: string | undefined) =>
+    history.push(`/event/edit/${id}`)
 
   const removeEvent = async () => {
-    const api = new EventsApi()
     try {
       const data = await api.delete(idEvent)
 
@@ -116,11 +140,21 @@ export default function EventAdminView({
       }
     } catch (error) {
       setTitle('Failed delete')
-      console.error(error);
+      console.error(error)
     }
 
     setButton(false)
   }
+
+  const updateStatus = async (event: Conference) => {
+    let status: ConferenceStatus = StatusEnum.inactive
+    if (event.status !== StatusEnum.active) status = StatusEnum.active
+    const data = await api.update(event._id, { status })
+    if (data.status === 200) updateStatusEvents(event._id, status)
+  }
+
+  const validateStatus = (status: ConferenceStatus) =>
+    status !== StatusEnum.active
 
   if (loadingEvents) {
     return <>Loading...</>
@@ -137,7 +171,6 @@ export default function EventAdminView({
             justifyContent="center"
             className={classes.headquarterFilter}
           >
-
             {!loadingEvents ? (
               <Headquarters
                 onChangeHeadquarter={handleHeadquarterChanged}
@@ -153,34 +186,61 @@ export default function EventAdminView({
           <Grid container justifyContent="center">
             <TableContainer component={Paper}>
               <Table sx={{ minWidth: 650 }} aria-label="simple table">
-
                 <TableHead>
                   <TableRow>
                     <TableCell>Name</TableCell>
                     <TableCell align="center">Date</TableCell>
                     <TableCell align="center"># subscriptions</TableCell>
                     <TableCell align="center">Status</TableCell>
+                    <TableCell align="center">Publish</TableCell>
                     <TableCell align="center">Actions</TableCell>
                   </TableRow>
                 </TableHead>
 
                 <TableBody>
                   {filteredEvents.map((row) => (
-                    <TableRow
-                      key={row.id}
-                    >
-                      <TableCell component="th" scope="row">{row.name}</TableCell>
-                      <TableCell align="center">{getDatePart(row.eventDate)}</TableCell>
+                    <TableRow key={row.id}>
+                      <TableCell component="th" scope="row">
+                        {row.name}
+                      </TableCell>
+                      <TableCell align="center">
+                        {getDatePart(row.eventDate)}
+                      </TableCell>
                       <TableCell align="center">15</TableCell>
                       <TableCell align="center">{row.status}</TableCell>
                       <TableCell align="center">
-                        <Stack spacing={2} direction="row" justifyContent={'center'}>
-                          <Button variant="contained" onClick={() => handleLinkEditEvent(row._id)}>
-                            edit
+                        <Stack direction="row" justifyContent={'center'}>
+                          <Button
+                            variant={
+                              validateStatus(row.status)
+                                ? 'contained'
+                                : 'outlined'
+                            }
+                            color="success"
+                            onClick={() => updateStatus(row)}
+                          >
+                            {validateStatus(row.status) ? 'enable' : 'disable'}
+                          </Button>
+                        </Stack>
+                      </TableCell>
+                      <TableCell align="center">
+                        <Stack
+                          spacing={2}
+                          direction="row"
+                          justifyContent={'center'}
+                        >
+                          <Button
+                            sx={buttonIcon}
+                            onClick={() => handleLinkEditEvent(row._id)}
+                          >
+                            <Edit />
                           </Button>
 
-                          <Button variant="outlined" onClick={() => handleOpen(row._id)}>
-                            remove
+                          <Button
+                            sx={buttonIcon}
+                            onClick={() => handleOpen(row._id)}
+                          >
+                            <DeleteOutline />
                           </Button>
                         </Stack>
                       </TableCell>
@@ -191,20 +251,31 @@ export default function EventAdminView({
             </TableContainer>
           </Grid>
 
-          <Modal
-            open={open}
-            onClose={handleClose}
-          >
+          <Modal open={open} onClose={handleClose}>
             <Box sx={modalStyle}>
               <Typography id="modal-modal-title" variant="h6" component="h2">
                 {modalTitle}
               </Typography>
 
-              <Button variant="outlined" color="secondary" onClick={handleClose}>
+              <Button
+                variant="outlined"
+                color="secondary"
+                onClick={handleClose}
+              >
                 Cancel
               </Button>
-              
-              {buttonSave ? (<Button variant="contained" color="primary" onClick={removeEvent}>Save</Button>) :('')}
+
+              {buttonSave ? (
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={removeEvent}
+                >
+                  Save
+                </Button>
+              ) : (
+                ''
+              )}
             </Box>
           </Modal>
         </FullLayout>

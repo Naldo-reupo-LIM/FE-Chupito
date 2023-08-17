@@ -1,5 +1,5 @@
-import { Conference } from "../conference"
-import { Headquarter } from "../headquarter"
+import { Conference, ConferenceStatus } from '../conference'
+import { Headquarter } from '../headquarter'
 
 export interface EventsAdminViewProps {
   events: Conference[]
@@ -7,5 +7,6 @@ export interface EventsAdminViewProps {
   loadingEvents: boolean
   loadingHeadquarters: boolean
   selectedHeadquarter?: string
-  updateEvents:(id: string | undefined) => void
+  updateEvents: (id: string | undefined) => void
+  updateStatusEvents: (id: string | undefined, status: ConferenceStatus) => void
 }

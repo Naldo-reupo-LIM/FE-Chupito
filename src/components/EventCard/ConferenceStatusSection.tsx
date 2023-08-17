@@ -57,7 +57,7 @@ export default function ConferenceStatusSection({
   const getStatusClasses = () => {
     const statusClasses = [classes.status]
 
-    if (status === 'created') {
+    if (status === 'created' || status === 'active') {
       statusClasses.push(classes.statusCreated)
     }
 

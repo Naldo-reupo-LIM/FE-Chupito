@@ -4,7 +4,8 @@ import EventAdminView from './EventAdminView'
 import { Conference, Headquarter } from '../../shared/entities'
 import { EventsAdminViewProps } from '../../shared/entities/props/eventsAdminViewProps'
 
-const renderComponent = (props: EventsAdminViewProps) => render(<EventAdminView  {...props}/>)
+const renderComponent = (props: EventsAdminViewProps) =>
+  render(<EventAdminView {...props} />)
 
 const mockHeadquarter01: Headquarter = {
   id: '0001',
@@ -20,7 +21,7 @@ const mockEvent01: Conference = {
   id: '0001',
   eventDate: '2023-01-19',
   name: 'Event 01',
-  status: 'created',
+  status: 'active',
   year: 2023,
   headquarter: mockHeadquarter01,
 }
@@ -42,33 +43,48 @@ const mockEvent03: Conference = {
   headquarter: mockHeadquarter02,
 }
 
+jest.mock('axios')
+const mockHistoryPush = jest.fn()
+jest.mock('react-router-dom', () => ({
+  ...jest.requireActual('react'),
+  ...jest.requireActual('react-router-dom'),
+  useParams: () => ({
+    id: '64cc04d273db4bafb6f93af0',
+  }),
+  useRouteMatch: () => ({ url: '/event/edit/64cc04d273db4bafb6f93af0' }),
+
+  useHistory: () => ({
+    push: mockHistoryPush,
+  }),
+}))
+
 describe('event table list component', () => {
   it('should render a table with 2 elements', () => {
     const props: EventsAdminViewProps = {
-        events: [
-            {
-                id: "64bed5f1cf2066a1af25c54e",
-                address: "121 Main Street",
-                eventDate: "2023-06-15T17:00:00.000",
-                name: "Development Day",
-                status: "created",
-                year: 2023,
-
-            },
-            {
-                id: "64bed5f1cf2066a1af25c54f",
-                address: "122 Main Street",
-                eventDate: "2023-03-15T17:00:00.000",
-                name: "Storm",
-                status: "created",
-                year: 2023,
-            },
-        ],
-        allHeadquarters: [],
-        loadingEvents: false,
-        loadingHeadquarters: false,
-        selectedHeadquarter: "",
-        updateEvents: jest.fn()
+      events: [
+        {
+          id: '64bed5f1cf2066a1af25c54e',
+          address: '121 Main Street',
+          eventDate: '2023-06-15T17:00:00.000',
+          name: 'Development Day',
+          status: 'created',
+          year: 2023,
+        },
+        {
+          id: '64bed5f1cf2066a1af25c54f',
+          address: '122 Main Street',
+          eventDate: '2023-03-15T17:00:00.000',
+          name: 'Storm',
+          status: 'created',
+          year: 2023,
+        },
+      ],
+      allHeadquarters: [],
+      loadingEvents: false,
+      loadingHeadquarters: false,
+      selectedHeadquarter: '',
+      updateEvents: jest.fn(),
+      updateStatusEvents: jest.fn((mockEvent01) => mockEvent01),
     }
 
     renderComponent(props)
@@ -88,17 +104,18 @@ describe('event table list component', () => {
   })
 
   it('should render 3 events and filtered by headquarter ', async () => {
-      const mockEvents: Conference[] = [mockEvent01, mockEvent02, mockEvent03]
-      const mockHeadquarters: Headquarter[] = [
-        mockHeadquarter01,
-        mockHeadquarter02,
-      ]
+    const mockEvents: Conference[] = [mockEvent01, mockEvent02, mockEvent03]
+    const mockHeadquarters: Headquarter[] = [
+      mockHeadquarter01,
+      mockHeadquarter02,
+    ]
     const props: EventsAdminViewProps = {
       events: mockEvents,
       allHeadquarters: mockHeadquarters,
       loadingEvents: false,
       loadingHeadquarters: false,
-      updateEvents: jest.fn()
+      updateEvents: jest.fn(),
+      updateStatusEvents: jest.fn((mockEvent01) => mockEvent01),
     }
     renderComponent(props)
     const eventsTitle = screen.getByText(/events/i)
@@ -129,5 +146,4 @@ describe('event table list component', () => {
     expect(screen.queryByText(/event 02/i)).not.toBeInTheDocument()
     expect(screen.queryByText(/event 03/i)).not.toBeInTheDocument()
   })
-
 })
