@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { createStyles, makeStyles, Grid, TextField } from '@material-ui/core'
+import { Grid, TextField } from '@material-ui/core'
 import { useHistory, useParams } from 'react-router-dom'
 import { Box } from '@mui/material'
 
@@ -8,23 +8,11 @@ import SelectWithLoading from '../DropDown/SelectWithLoading'
 import TextFieldWithValidation from '../TextField/TextFieldWithValidation'
 import FormButtons from '../FormButtons/FormButtons'
 import EventsApi from '../../api/events'
-import { EventEditViewProps } from '../../shared/entities/props/eventEditViewProps'
-
-const useStyles = makeStyles(() =>
-  createStyles({
-    disabled: {
-      pointerEvents: 'none',
-    },
-    container: {
-      flexFlow: 'column',
-      textAlign: 'center',
-    },
-    textField: {
-      width: '100%',
-    },
-    wideInput: {},
-  })
-)
+import {
+  EventEditViewProps,
+  InputLabelProps,
+} from '../../shared/entities/props/eventEditViewProps'
+import { eventStyle } from '../../shared/styles/eventsAdmin'
 
 export default function EventEditView({
   headquarters,
@@ -33,7 +21,7 @@ export default function EventEditView({
   isLoading,
 }: EventEditViewProps): JSX.Element {
   const [getData, setData] = useState<{ [key: string]: string }>({})
-  const classes = useStyles()
+  const classes = eventStyle()
   const history = useHistory()
   const { id } = useParams<string>()
 
@@ -89,8 +77,10 @@ export default function EventEditView({
   //TODO: ccomponent table refactor(create), use in add event and edit event
   return (
     <Box component="form" autoComplete="off">
-      <Grid container className={classes.container}>
-        <Grid item xs={12} sm={6}>
+      <Grid container className={classes.container} xs={12} sm={6}>
+        <h1>Edit event</h1>
+
+        <Grid>
           <TextFieldWithValidation
             id="eventName"
             className={classes.textField}
@@ -100,10 +90,11 @@ export default function EventEditView({
             error={validation.name.error}
             helperText={validation.name.message}
             onChange={(e) => setData({ ...getData, name: e.target.value })}
+            InputLabelProps={InputLabelProps}
           />
         </Grid>
 
-        <Grid item xs={12} sm={6}>
+        <Grid>
           <TextFieldWithValidation
             id="eventDescription"
             className={classes.textField}
@@ -115,10 +106,11 @@ export default function EventEditView({
             onChange={(e) =>
               setData({ ...getData, description: e.target.value })
             }
+            InputLabelProps={InputLabelProps}
           />
         </Grid>
 
-        <Grid item xs={12} sm={6}>
+        <Grid>
           <TextFieldWithValidation
             id="eventDate"
             className={classes.textField}
@@ -135,7 +127,7 @@ export default function EventEditView({
           />
         </Grid>
 
-        <Grid item xs={12} sm={6}>
+        <Grid>
           <SelectWithLoading
             attributeValue={getData.headquarter ? getData.headquarter : ''}
             attributeRequired={true}
@@ -149,7 +141,7 @@ export default function EventEditView({
           />
         </Grid>
 
-        <Grid item xs={12} sm={6}>
+        <Grid>
           <TextField
             id="eventAddress"
             name="address"
@@ -158,10 +150,11 @@ export default function EventEditView({
             value={getData.address}
             margin="dense"
             onChange={(e) => setData({ ...getData, address: e.target.value })}
+            InputLabelProps={InputLabelProps}
           />
         </Grid>
 
-        <Grid item xs={12} sm={6}>
+        <Grid>
           <TextField
             name="phoneNumber"
             className={classes.textField}
@@ -171,10 +164,11 @@ export default function EventEditView({
             onChange={(e) =>
               setData({ ...getData, phoneNumber: e.target.value })
             }
+            InputLabelProps={InputLabelProps}
           />
         </Grid>
 
-        <Grid item xs={12} sm={6} className={classes.disabled}>
+        <Grid className={classes.disabled}>
           <SelectWithLoading
             attributeValue={getData.tags ? getData.tags : ''}
             attributeRequired={true}
@@ -188,20 +182,22 @@ export default function EventEditView({
           />
         </Grid>
 
-        <Grid item xs={12} sm={6} className={classes.disabled}>
+        <Grid>
           <EventTypes
             selectedEventType={getData.type}
             onUpdateEventType={(e) => setData({ ...getData, type: e })}
           />
         </Grid>
 
-        <FormButtons
-          roleSave="edit"
-          roleCancel="redirect"
-          disableMainButton={false}
-          onCancel={redirectButton}
-          onSubmit={handleSubmitButton}
-        />
+        <Grid className={classes.contentButton}>
+          <FormButtons
+            roleSave="edit"
+            roleCancel="redirect"
+            disableMainButton={false}
+            onCancel={redirectButton}
+            onSubmit={handleSubmitButton}
+          />
+        </Grid>
       </Grid>
     </Box>
   )

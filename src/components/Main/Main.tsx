@@ -18,7 +18,9 @@ export interface MainProps {
 
 const useStyles = makeStyles((theme) =>
   createStyles({
-    mainContainer: {},
+    mainContainer: {
+      boxShadow: 'none',
+    },
     innerContainer: {
       marginTop: '5em',
       marginBottom: '5em',
@@ -31,7 +33,7 @@ const useStyles = makeStyles((theme) =>
       },
 
       overflow: 'auto',
-      backgroundColor: colors.lightGray,
+      backgroundColor: colors.white,
     },
     full: {
       margin: '0',

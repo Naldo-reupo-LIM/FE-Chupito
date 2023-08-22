@@ -16,7 +16,6 @@ const useStyles = makeStyles((theme) =>
     textField: {
       display: 'flex',
       marginTop: theme.spacing(1),
-      marginRight: theme.spacing(2),
     },
     wideInput: {},
   })

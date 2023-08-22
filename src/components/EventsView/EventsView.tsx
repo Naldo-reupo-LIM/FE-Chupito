@@ -26,6 +26,8 @@ const useStyles = makeStyles(() =>
     },
     headquarterFilter: {
       marginBottom: '1em',
+      paddingBottom: '20px',
+      boxShadow: '0px 1px 1px #cdcdcd',
     },
     centeredContent: {
       justifyContent: 'center',
@@ -35,7 +37,6 @@ const useStyles = makeStyles(() =>
       marginLeft: 'auto',
       paddingTop: '3em',
     },
-    add: {},
   })
 )
 
@@ -119,7 +120,7 @@ export default function EventsView({
           </Grid>
           {isAdmin && (
             <NavigationWrapper path="/event/add">
-              <Fab className={classes.add} color="primary">
+              <Fab color="primary">
                 <AddIcon />
               </Fab>
             </NavigationWrapper>

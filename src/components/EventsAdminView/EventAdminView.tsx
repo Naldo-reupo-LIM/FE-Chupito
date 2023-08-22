@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Grid, createStyles, makeStyles } from '@material-ui/core'
+import { Grid } from '@material-ui/core'
 import {
   Box,
   Button,
@@ -31,37 +31,8 @@ import EventsApi from '../../api/events'
 import { EventsAdminViewProps } from '../../shared/entities/props/eventsAdminViewProps'
 import { buttonIcon } from '../../shared/themes/buttons'
 import { StatusEnum } from '../../shared/constants/status'
-
-const modalStyle = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 400,
-  bgcolor: '#ffffff',
-  boxShadow: 24,
-  p: 4,
-}
-
-const useStyles = makeStyles(() =>
-  createStyles({
-    title: {
-      margin: '0',
-      marginBottom: '0.5em',
-    },
-    headquarterFilter: {
-      marginBottom: '1em',
-    },
-    centeredContent: {
-      justifyContent: 'center',
-    },
-    noResults: {
-      marginRight: 'auto',
-      marginLeft: 'auto',
-      paddingTop: '3em',
-    },
-  })
-)
+import { modalStyle, title } from '../../shared/themes/modal'
+import { eventStyle } from '../../shared/styles/eventsAdmin'
 
 export default function EventAdminView({
   events,
@@ -74,7 +45,7 @@ export default function EventAdminView({
 }: EventsAdminViewProps): JSX.Element {
   const api = new EventsApi()
   const [filteredEvents, setFilteredEvents] = useState<Conference[]>(events)
-  const classes = useStyles()
+  const classes = eventStyle()
   const [open, setOpen] = useState<boolean>(false)
   let [idEvent, setId] = useState<string | undefined>('')
   let [modalTitle, setTitle] = useState<string>('')
@@ -83,7 +54,7 @@ export default function EventAdminView({
   const handleOpen = (id: string | undefined) => {
     setOpen(true)
     setId(id)
-    setTitle('Delete event?')
+    setTitle('Are you sure?')
   }
 
   const handleClose = () => {
@@ -184,7 +155,7 @@ export default function EventAdminView({
           </Grid>
 
           <Grid container justifyContent="center">
-            <TableContainer component={Paper}>
+            <TableContainer component={Paper} className={classes.table}>
               <Table sx={{ minWidth: 650 }} aria-label="simple table">
                 <TableHead>
                   <TableRow>
@@ -253,25 +224,22 @@ export default function EventAdminView({
 
           <Modal open={open} onClose={handleClose}>
             <Box sx={modalStyle}>
-              <Typography id="modal-modal-title" variant="h6" component="h2">
+              <Typography
+                id="modal-modal-title"
+                variant="h6"
+                component="h2"
+                sx={title}
+              >
                 {modalTitle}
               </Typography>
 
-              <Button
-                variant="outlined"
-                color="secondary"
-                onClick={handleClose}
-              >
-                Cancel
+              <Button variant="outlined" color="info" onClick={handleClose}>
+                Close
               </Button>
 
               {buttonSave ? (
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={removeEvent}
-                >
-                  Save
+                <Button variant="contained" color="error" onClick={removeEvent}>
+                  Delete
                 </Button>
               ) : (
                 ''

@@ -1,5 +1,5 @@
 import { ChangeEvent, Dispatch, SetStateAction, useState } from 'react'
-import { createStyles, makeStyles, Grid, TextField } from '@material-ui/core'
+import { Grid, TextField } from '@material-ui/core'
 import { useHistory } from 'react-router-dom'
 import { Box } from '@mui/material'
 
@@ -11,19 +11,7 @@ import FormButtons from '../FormButtons/FormButtons'
 import { ConferenceDataValidation, Headquarter } from '../../shared/entities'
 import EventsApi from '../../api/events'
 import { Tag } from '../../shared/entities/tag'
-
-const useStyles = makeStyles(() =>
-  createStyles({
-    container: {
-      flexFlow: 'column',
-      textAlign: 'center',
-    },
-    textField: {
-      width: '100%',
-    },
-    wideInput: {},
-  })
-)
+import { eventStyle } from '../../shared/styles/eventsAdmin'
 
 export interface EventViewProps {
   headquarters: Headquarter[]
@@ -67,7 +55,7 @@ export default function EventView({
     return setValue(event.target.value as string)
   }
 
-  const classes = useStyles()
+  const classes = eventStyle()
   const history = useHistory()
 
   const [getName, setEventName] = useState<string>(eventName)
@@ -117,12 +105,11 @@ export default function EventView({
   }
 
   return (
-    <Box
-      component="form"
-      autoComplete="off"
-    >
-      <Grid container className={classes.container}>
-        <Grid item xs={12} sm={6}>
+    <Box component="form" autoComplete="off">
+      <Grid container className={classes.container} xs={12} sm={6}>
+        <h1>Add event</h1>
+
+        <Grid>
           <TextFieldWithValidation
             id="eventName"
             className={classes.textField}
@@ -135,7 +122,7 @@ export default function EventView({
           />
         </Grid>
 
-        <Grid item xs={12} sm={6}>
+        <Grid>
           <TextFieldWithValidation
             id="eventDescription"
             className={classes.textField}
@@ -148,7 +135,7 @@ export default function EventView({
           />
         </Grid>
 
-        <Grid item xs={12} sm={6}>
+        <Grid>
           <TextFieldWithValidation
             id="eventDate"
             className={classes.textField}
@@ -165,7 +152,7 @@ export default function EventView({
           />
         </Grid>
 
-        <Grid item xs={12} sm={6}>
+        <Grid>
           <SelectWithLoading
             attributeValue={getHeadquarter}
             attributeRequired={true}
@@ -179,7 +166,7 @@ export default function EventView({
           />
         </Grid>
 
-        <Grid item xs={12} sm={6}>
+        <Grid>
           <TextField
             id="eventAddress"
             name="address"
@@ -191,7 +178,7 @@ export default function EventView({
           />
         </Grid>
 
-        <Grid item xs={12} sm={6}>
+        <Grid>
           <TextField
             name="phoneNumber"
             className={classes.textField}
@@ -202,7 +189,7 @@ export default function EventView({
           />
         </Grid>
 
-        <Grid item xs={12} sm={6}>
+        <Grid>
           <SelectWithLoading
             attributeValue={getTag}
             attributeRequired={true}
@@ -216,18 +203,20 @@ export default function EventView({
           />
         </Grid>
 
-        <Grid item xs={12} sm={6}>
+        <Grid>
           <EventTypes
             selectedEventType={getType}
             onUpdateEventType={updateEventType}
           />
         </Grid>
 
-        <FormButtons
-          disableMainButton={false}
-          onCancel={handleCancelButton}
-          onSubmit={handleSubmitButton}
-        />
+        <Grid className={classes.contentButton}>
+          <FormButtons
+            disableMainButton={false}
+            onCancel={handleCancelButton}
+            onSubmit={handleSubmitButton}
+          />
+        </Grid>
       </Grid>
     </Box>
   )

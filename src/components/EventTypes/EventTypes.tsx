@@ -12,7 +12,9 @@ import {
 const useStyles = makeStyles(() =>
   createStyles({
     eventTypeContainerControl: {
-      marginTop: '8px',
+      margin: '10px 0px',
+      width: '100%',
+      textAlign: 'initial',
     },
     eventTypeContainer: {
       transformOrigin: 'top left',
@@ -20,6 +22,7 @@ const useStyles = makeStyles(() =>
     },
     radioGroupEventTypes: {
       height: '2em',
+      flexDirection: 'initial',
     },
     radioOptionLabel: {
       height: '1.5em',
