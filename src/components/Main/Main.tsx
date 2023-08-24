@@ -1,5 +1,5 @@
 import { useContext, ReactNode } from 'react'
-import { Paper, createStyles, makeStyles } from '@material-ui/core'
+import { Paper} from '@material-ui/core'
 import { useMediaQuery } from '@mui/material'
 import { useTheme } from '@mui/material/styles'
 
@@ -9,44 +9,17 @@ import NavBarMobile from '../../components/NavBarMobile/NavBarMobile'
 import NavigationBar from '../Navigation/NavigationBar'
 import LayoutContext, { LayoutTypes } from '../../shared/contexts/LayoutContext'
 import config from '../../environment/environment'
-import { colors } from '../../styles/theme/colors'
+import { mainStyles } from '../../shared/styles/main'
 
 export interface MainProps {
   version: string
   children: ReactNode
 }
 
-const useStyles = makeStyles((theme) =>
-  createStyles({
-    mainContainer: {
-      boxShadow: 'none',
-    },
-    innerContainer: {
-      marginTop: '5em',
-      marginBottom: '5em',
-      marginRight: '5em',
-      marginLeft: '5em',
-      [theme.breakpoints.down('sm')]: {
-        marginRight: '1.5em',
-        marginLeft: '1.5em',
-        marginTop: '6em',
-      },
-
-      overflow: 'auto',
-      backgroundColor: colors.white,
-    },
-    full: {
-      margin: '0',
-      height: '100%',
-      width: '100%',
-    },
-  })
-)
-
 export default function Main({ version, children }: MainProps): JSX.Element {
   const { layout, title, showLogo } = useContext(LayoutContext)
 
-  const classes = useStyles()
+  const classes = mainStyles()
   const theme = useTheme()
   const matchesDesktopDisplay = useMediaQuery(theme.breakpoints.up('sm'))
 

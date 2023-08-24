@@ -77,7 +77,7 @@ export default function EventEditView({
   //TODO: ccomponent table refactor(create), use in add event and edit event
   return (
     <Box component="form" autoComplete="off">
-      <Grid container className={classes.container} xs={12} sm={6}>
+      <Grid container className={classes.container} sm={6}>
         <h1>Edit event</h1>
 
         <Grid>

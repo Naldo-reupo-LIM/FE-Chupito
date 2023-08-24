@@ -7,10 +7,12 @@ export const colors = {
   blue: '#1f6ae2',
   red: '#ff0505',
   dark: '#3c3c3c',
-  darkGray: '#567077',
   gray: '#9a9a9a',
   lightGray: '#f6f7f7',
+  mediumGray: '#cdcdcd',
+  darkGray: '#567077',
   white: '#ffffff',
   transparentWhite : '#ffffff69',
-  transparentBlack: '#0808087d'
+  transparentBlack: '#0808087d',
+  shadowGray: '#959595',
 } as const

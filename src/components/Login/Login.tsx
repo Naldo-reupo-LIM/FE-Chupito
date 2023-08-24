@@ -5,97 +5,13 @@ import {
   FormGroup,
   TextField,
   Button,
-  CardMedia,
-  makeStyles,
-  createStyles,
+  CardMedia
 } from '@material-ui/core'
 
 import NoneLayout from '../../hocs/NoneLayout'
 import { validateEmail } from '../../tools'
-import { colors } from '../../styles/theme/colors'
 import { useAuth } from '../../shared/hooks/useAuth'
-
-const useStyles = makeStyles((theme) =>
-  createStyles({
-    container: {
-      position: 'absolute',
-      top: '30%',
-      left: '35%',
-      width: '30%',
-      minHeight: '35%',
-      maxHeight: '35%',
-      [theme.breakpoints.down('sm')]: {
-        top: 0,
-        left: 0,
-        width: '100%',
-      },
-      [theme.breakpoints.only('md')]: {
-        top: '25%',
-        left: '25%',
-        width: '50%',
-        minHeight: '45%',
-      },
-      [theme.breakpoints.between(1280, 1439)]: {
-        top: '25%',
-        left: '25%',
-        width: '50%',
-        minHeight: '30%',
-        maxHeight: '60%',
-      },
-      [theme.breakpoints.only('lg')]: {
-        top: '25%',
-        left: '25%',
-        width: '50%',
-        minHeight: '50%',
-        maxHeight: '80%',
-      },
-      [theme.breakpoints.up('lg')]: {
-        top: '30%',
-        left: '30%',
-        width: '40%',
-        minHeight: '50%',
-        maxHeight: '80%',
-      },
-    },
-    form: {
-      minHeight: '100%',
-      justifyContent: 'center',
-      paddingBottom: '2em',
-      textAlign: 'center',
-    },
-    title: {
-      marginBottom: '4em',
-    },
-    input: {
-      marginLeft: '2em',
-      marginRight: '2em',
-      marginBottom: '2em',
-      [theme.breakpoints.up('sm')]: {
-        marginLeft: '8em',
-        marginRight: '8em',
-      },
-      [theme.breakpoints.up('md')]: {
-        marginLeft: '2em',
-        marginRight: '2em',
-      },
-    },
-    button: {
-      margin: theme.spacing(2),
-      marginLeft: '2em',
-      marginRight: '2em',
-    },
-    loginLogo: {
-      backgroundRepeat: 'no-repeat',
-      backgroundPosition: 'center center',
-      width: '100%',
-      height: '4em',
-      backgroundColor: colors.transparentBlack,
-      backgroundSize: '12em auto',
-      padding: '1em 0',
-      marginBottom: '1.5em',
-    },
-  })
-)
+import { loginStyle } from '../../shared/styles/login'
 
 export interface LoginProps {
   onLogin: (userName: string, password: string) => void
@@ -110,7 +26,7 @@ export default function Login({ onLogin, loading }: LoginProps): JSX.Element {
   const params = new URLSearchParams(window.location.search)
   const eventId = params.get('eventId')
 
-  const classes = useStyles()
+  const classes = loginStyle()
   const history = useHistory()
   const user = useAuth()
 

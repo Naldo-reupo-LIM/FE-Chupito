@@ -1,15 +1,19 @@
 import { colors } from '../../styles/theme/colors'
 
-export const modalStyle = {
+export const modalStyle ={
   position: 'absolute',
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
   width: 400,
-  bgcolor: '#ffffff',
+  bgcolor: colors.white,
   boxShadow: 24,
   p: 4,
   borderRadius: '10px',
+
+  "@media (max-width: 480px)" : {
+    width: '70%',
+  }
 }
 
 export const title = {
