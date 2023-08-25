@@ -12,6 +12,8 @@ export const colors = {
   mediumGray: '#cdcdcd',
   darkGray: '#567077',
   white: '#ffffff',
+  yellow: '#E9B741',
+  transparentYellow: '#FEFBF5',
   transparentWhite : '#ffffff69',
   transparentBlack: '#0808087d',
   shadowGray: '#959595',

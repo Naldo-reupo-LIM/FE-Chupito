@@ -8,7 +8,7 @@ const useStyles = makeStyles(() =>
   createStyles({
     status: {
       backgroundColor: colors.white,
-      padding: '0.15em 0.76em',
+      padding: '0px 5px',
       borderRadius: '5%',
     },
     statusCreated: {

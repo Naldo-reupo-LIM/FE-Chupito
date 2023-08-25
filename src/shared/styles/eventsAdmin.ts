@@ -1,4 +1,4 @@
-import { createStyles, makeStyles} from '@material-ui/core'
+import { createStyles, makeStyles } from '@material-ui/core'
 import { colors } from '../themes/colors'
 
 export const eventStyle = makeStyles((theme) =>
@@ -33,6 +33,7 @@ export const eventStyle = makeStyles((theme) =>
       marginBottom: '2em',
       paddingBottom: '20px',
       boxShadow: `0px 1px 1px ${colors.mediumGray}`,
+      justifyContent: 'space-around',
     },
     centeredContent: {
       justifyContent: 'center',

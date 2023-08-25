@@ -4,9 +4,7 @@ import {
   Card,
   CardActions,
   CardMedia,
-  createStyles,
   Grid,
-  makeStyles,
   Button,
   Typography,
   Avatar,
@@ -18,110 +16,15 @@ import AddIcon from '@material-ui/icons/Add'
 
 import ConferenceStatusSection from './ConferenceStatusSection'
 import { Conference } from '../../shared/entities'
-import { colors } from '../../styles/theme/colors'
 import eventImage from '../../assets/programmingImg.png'
-
-const useStyles = makeStyles(() =>
-  createStyles({
-    card: {
-      width: '100%',
-      height: '20em',
-      overflow: 'hidden',
-      backgroundColor: colors.transparentYellow,
-    },
-    cardGridItem: {
-      padding: '0.3em',
-    },
-    image: {
-      width: '90%',
-      objectFit: 'cover',
-      borderRadius: '0.2em',
-      marginRight: '1em',
-      marginLeft: '1em',
-    },
-    date: {
-      paddingTop: '0.5em',
-      paddingLeft: '1em',
-      paddingRight: '1em',
-    },
-    day: {
-      color: colors.orange,
-      fontFamily: 'Exo',
-      margin: 0,
-    },
-    top: {
-      display: 'flex',
-      flexDirection: 'row',
-      width: '100%',
-      padding: '0.7em',
-      backgroundColor: colors.black,
-      bottom: '20em',
-    },
-    titleSection: {
-      display: 'flex',
-      justifyContent: 'start',
-      overflow: 'hidden',
-    },
-    title: {
-      color: colors.white,
-      fontFamily: 'Exo',
-      whiteSpace: 'nowrap',
-      margin: 0,
-      marginRight: '1em',
-      textOverflow: 'ellipsis',
-      fontWeight: 'bold',
-    },
-    eventStatus: {
-      display: 'flex',
-      justifyContent: 'right',
-    },
-    userActionsSection: {
-      display: 'flex',
-      flexDirection: 'column',
-      marginRight: '1em',
-      marginLeft: '1em',
-    },
-    button: {
-      display: 'flex',
-      position: 'relative',
-      color: colors.white,
-      backgroundColor: colors.yellow,
-      marginLeft: '15em',
-    },
-    link: {
-      position: 'relative',
-      left: '6.4em',
-      color: colors.blue,
-    },
-    subscribersSection: {
-      display: 'flex',
-    },
-    subscribedUserIcon: {
-      color: colors.black,
-      backgroundColor: colors.white,
-      left: '0.8em',
-      bottom: '3.2em',
-      position: 'relative',
-    },
-    subscribedUsersNumber: {
-      bottom: '4.5em',
-      position: 'relative',
-    },
-    text: {
-      color: colors.black,
-      left: '0.5em',
-      bottom: '3.5em',
-      position: 'relative',
-    },
-  })
-)
+import { eventCardStyles } from './EventCardStyle'
 
 export interface EventCardProps {
   event: Conference
 }
 
 export default function EventCard({ event }: EventCardProps): JSX.Element {
-  const classes = useStyles()
+  const classes = eventCardStyles()
 
   const getDatePart = (date: string) => {
     const dateObject = Moment(date, 'YYYY-MM-DD')
@@ -161,34 +64,38 @@ export default function EventCard({ event }: EventCardProps): JSX.Element {
           height={150}
           title={event.name}
         />
-        <CardActions className={classes.userActionsSection}>
-          <Button
-            variant="contained"
-            className={classes.button}
-            disabled={event.subscribed}
-          >
-            {event.subscribed ? 'Subscribed' : 'Register'}
-          </Button>
-          <Link
-            underline="always"
-            className={classes.link}
-            onClick={handleLinkMoreInfo}
-          >
-            {'+more info '}
-          </Link>
-        </CardActions>
-        <div className={classes.subscribersSection}>
-          <Avatar
-            className={classes.subscribedUserIcon}
-            src={'/avatar.png'}
-          ></Avatar>
-          <Fab size="small" className={classes.subscribedUsersNumber}>
-            <AddIcon />
-            {+15}
-          </Fab>
-          <div className={classes.text}>
-            <Typography>{'Joined'}</Typography>
+
+        <div className={classes.contentSubscribe}>
+          <div className={classes.subscribersSection}>
+            <Avatar
+              className={classes.subscribedUserIcon}
+              src={'/avatar.png'}
+            ></Avatar>
+            <Fab size="small">
+              <AddIcon />
+              {+15}
+            </Fab>
+            <div className={classes.text}>
+              <Typography>{'Joined'}</Typography>
+            </div>
           </div>
+
+          <CardActions className={classes.userActionsSection}>
+            <Button
+              variant="contained"
+              className={classes.button}
+              disabled={event.subscribed}
+            >
+              {event.subscribed ? 'Subscribed' : 'Register'}
+            </Button>
+            <Link
+              underline="always"
+              className={classes.link}
+              onClick={handleLinkMoreInfo}
+            >
+              {'+more info '}
+            </Link>
+          </CardActions>
         </div>
       </Card>
     </Grid>

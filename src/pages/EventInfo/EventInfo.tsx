@@ -1,6 +1,6 @@
+import { useState, useEffect } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
 import Moment from 'moment'
-import { useState, useEffect } from 'react'
 import {
   Typography,
   Grid,
@@ -8,8 +8,6 @@ import {
   Avatar,
   Fab,
   Chip,
-  createStyles,
-  makeStyles,
 } from '@material-ui/core'
 import AddIcon from '@material-ui/icons/Add'
 import Stack from '@mui/material/Stack'
@@ -17,13 +15,12 @@ import ImageList from '@mui/material/ImageList'
 import ImageListItem from '@mui/material/ImageListItem'
 
 import { useAuth } from '../../shared/hooks/useAuth'
-
-import { colors } from '../../styles/theme/colors'
 import eventImage from '../../assets/programmingImg.png'
 import image1 from '../../assets/image1.jpg'
 import image2 from '../../assets/image2.jpg'
 import image3 from '../../assets/image3.jpg'
 import EventsApi from '../../api/events'
+import { eventInfoStyles } from './EventInfoStyle'
 
 const imageItems = [
   {
@@ -44,69 +41,6 @@ const imageItems = [
   },
 ]
 
-const useStyles = makeStyles((theme) =>
-  createStyles({
-    titleContainer: {
-      background: colors.transparentYellow,
-      display: 'flex',
-      flexDirection: 'row',
-    },
-    eventTitleRow: {
-      padding: theme.spacing(2),
-    },
-    eventDateRow: {
-      display: 'flex',
-      flexDirection: 'column',
-      padding: theme.spacing(1),
-    },
-    button: {
-      backgroundColor: colors.yellow,
-      marginLeft: '3em',
-      marginRight: '3em',
-    },
-    body: {
-      background: colors.white,
-    },
-    description: {
-      marginLeft: '1em',
-    },
-    subscribersSection: {
-      display: 'flex',
-      marginTop: theme.spacing(4),
-    },
-    subscribedUserIcon: {
-      color: colors.black,
-      backgroundColor: colors.white,
-      left: '0.8em',
-    },
-    text: {
-      color: colors.black,
-      marginTop: '0.5em',
-      marginBottom: '2em',
-      marginLeft: '0.5em',
-    },
-    tagsContainer: { marginLeft: '1em' },
-    tagPrimary: {
-      backgroundColor: colors.dark,
-      color: colors.white,
-    },
-    tagSecondary: {
-      backgroundColor: colors.blue,
-      color: colors.white,
-    },
-    tagOptional: {
-      backgroundColor: colors.lightOrange,
-    },
-    imagesContainer: {
-      width: '100%',
-      height: '25em',
-      padding: theme.spacing(3),
-      display: 'flex',
-      flexDirection: 'row',
-    },
-  })
-)
-
 export interface EventInfoPageProps {
   name: string
   id: string
@@ -114,7 +48,7 @@ export interface EventInfoPageProps {
 }
 
 export default function EventInfoPage(): JSX.Element {
-  const classes = useStyles()
+  const classes = eventInfoStyles()
   const history = useHistory()
   const { id } = useParams<{ id: string }>() as { id: string }
   const [isSubscribed, setIsSubscribed] = useState(false)
@@ -169,13 +103,13 @@ export default function EventInfoPage(): JSX.Element {
   return (
     <>
       <Grid className={classes.titleContainer}>
-        <Grid xs={6} md={8} className={classes.eventTitleRow}>
+        <Grid xs={12} sm={7} className={classes.eventTitleRow}>
           <Typography variant="h4" component="div">
             {eventDetails?.name}
           </Typography>
         </Grid>
-        <Grid xs={6} md={4} className={classes.eventDateRow}>
-          <Typography variant="h5" align="center">
+        <Grid xs={12} sm={4} className={classes.eventDateRow}>
+          <Typography variant="h5" align="center" className={classes.date}>
             {getDatePart(eventDetails?.eventDate)}
           </Typography>
           <Button

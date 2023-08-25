@@ -1,20 +1,8 @@
 import React, { useState } from 'react'
 import { Grid, MenuItem, Select } from '@material-ui/core'
-import { makeStyles, createStyles } from '@material-ui/core/styles'
 
 import { Headquarter } from '../../shared/entities'
-
-const useStyles = makeStyles(() =>
-  createStyles({
-    headquarterFilterLabel: {
-      fontWeight: 'bold',
-      marginRight: '1em',
-    },
-    headquarterSelect: {
-      width: '15em',
-    },
-  })
-)
+import { headquartersStyles } from '../../shared/styles/FilterEvents'
 
 export interface HeadquartersProps {
   loading: boolean
@@ -31,7 +19,7 @@ export default function Headquarters({
 }: HeadquartersProps): JSX.Element {
   const [currentSelectedHeadquarter, setCurrentSelectedHeadquarter] =
     useState(selectedHeadquarter)
-  const classes = useStyles()
+  const classes = headquartersStyles()
 
   const handleHeadquarterChanged = (
     e: React.ChangeEvent<{ value: unknown }>
@@ -63,7 +51,7 @@ export default function Headquarters({
   })
 
   return (
-    <Grid item xs={10} sm={8}>
+    <Grid item xs={11} sm={4}>
       <Select
         data-testid="list-headquarters"
         inputProps={{

@@ -1,24 +1,11 @@
 import { useEffect, useState } from 'react'
-import { Grid, makeStyles, createStyles } from '@material-ui/core'
+import { Grid } from '@material-ui/core'
 
 import YearFilter from './YearFilter'
 import SortFilter from './SortFilter'
 
 import { ConferenceFilters } from '../../shared/entities'
-
-const useStyles = makeStyles((theme) =>
-  createStyles({
-    filterSelector: {
-      textAlign: 'right',
-      marginTop: '0',
-      [theme.breakpoints.up('sm')]: {
-        marginTop: '-0.5em',
-      },
-      border: '0px solid #f00',
-      maxWidth: '100px',
-    },
-  })
-)
+import { dashboardFiltersStyles } from '../../shared/styles/FilterEvents'
 
 export type DashboardFiltersProps = {
   onChangeFilters: ({ year, sortBy }: ConferenceFilters) => void
@@ -27,7 +14,7 @@ export type DashboardFiltersProps = {
 export default function DashboardFilters({
   onChangeFilters,
 }: DashboardFiltersProps): JSX.Element {
-  const classes = useStyles()
+  const classes = dashboardFiltersStyles()
   const [filterSelectedYear, setFilterSelectedYear] = useState('')
   const [filterSelectedSort, setFilterSelectedSort] = useState('')
 
@@ -45,8 +32,8 @@ export default function DashboardFilters({
   }, [filterSelectedYear, filterSelectedSort])
 
   return (
-    <div data-testid="gridDashboardFilters">
-      <Grid item xs={2} sm={4} className={classes.filterSelector}>
+    <div data-testid="gridDashboardFilters" className={classes.contentFilters}>
+      <Grid item xs={12} sm={4} className={classes.filterSelector}>
         <YearFilter onChange={onChangeYear} />
         <SortFilter onChange={onChangeSort} />
       </Grid>
