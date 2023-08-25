@@ -1,7 +1,7 @@
 import { createStyles, makeStyles } from "@material-ui/core";
 import { colors } from "../../styles/theme/colors";
 
-export const mobileStyles = makeStyles(() =>
+export const headerStyles = makeStyles(() =>
   createStyles({
     header: {
       backgroundColor: colors.white,
@@ -26,5 +26,21 @@ export const mobileStyles = makeStyles(() =>
     userEmail: {
       color: colors.black,
     },
+    hamburgerIcon: {
+      color: colors.white,
+    },
+    buttonLogin: {
+      color: colors.black,
+      marginLeft: '20px'
+    },
+    logout: {
+      display: 'flex'
+    },
+    appTitle: {
+      display: 'flex',
+      alignItems: 'center',
+      borderRight: '1px solid rgba(255,255,255,.3)',
+      paddingRight: '20px'
+    }
   })
 )

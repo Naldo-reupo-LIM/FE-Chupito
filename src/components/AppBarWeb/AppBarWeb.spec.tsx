@@ -2,13 +2,14 @@ import { render, screen } from '@testing-library/react'
 
 import AppBarWeb, { AppBarWebProps } from './AppBarWeb'
 import { useAuth } from '../../shared/hooks/useAuth'
+import { AuthProvider } from '../../shared/contexts/Auth/AuthProvider'
 
 jest.mock('../../shared/hooks/useAuth')
 const mockedUseAuth = useAuth as jest.Mock
 mockedUseAuth.mockReturnValue({ state: { isAuth: false, userUid: '' } })
 
 const renderComponent = (props: AppBarWebProps) =>
-  render(<AppBarWeb {...props} />)
+  render(<AuthProvider> <AppBarWeb {...props} /> </AuthProvider>)
 
 const props: AppBarWebProps = {
   title: 'Super title',
@@ -17,6 +18,18 @@ const props: AppBarWebProps = {
 beforeEach(() => {
   renderComponent(props)
 })
+
+jest.mock('axios')
+const mockHistoryPush = jest.fn()
+jest.mock('react-router-dom', () => ({
+  ...jest.requireActual('react'),
+  ...jest.requireActual('react-router-dom'),
+  useRouteMatch: () => ({ url: '/login' }),
+
+  useHistory: () => ({
+    push: mockHistoryPush,
+  }),
+}))
 
 describe('AppBarWeb component', () => {
   it('should render all elements', () => {

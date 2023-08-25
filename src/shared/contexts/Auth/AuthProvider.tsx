@@ -3,16 +3,10 @@ import { AuthContext } from './AuthContext'
 import { Authentication } from '../../api'
 import { reducer } from './AuthReducer'
 import Users from '../../../api/users'
+import { VerifyApiResponse } from '../../entities/auth'
 
 type Props = {
   children: ReactNode
-}
-interface VerifyApiResponse {
-  isAuth: boolean
-  userUid: string
-  email: string
-  userName?: string | null
-  isAdmin?: boolean | null
 }
 
 export const AuthProvider = ({ children }: Props) => {

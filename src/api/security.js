@@ -8,8 +8,7 @@ import baseRequest from './baseRequest';
 export default class Security extends baseRequest {
   constructor() {
     super();
-    this.loginMethod = 'authenticate/login';
-    this.logoutMethod = 'authenticate/logout';
+    this.method = 'authenticate';
   }
 
   login = (credentials) => {
@@ -17,7 +16,5 @@ export default class Security extends baseRequest {
     // return firebase.auth().signInWithEmailAndPassword(credentials.email, credentials.password);
   }
 
-  logout = () => {
-    // return firebase.auth().signOut();
-  }
+  logout = async () => await this.post(`${this.method}/revoke-token`)
 }

@@ -2,13 +2,14 @@ import { render, screen } from '@testing-library/react'
 
 import AppBarMobile, { AppBarMobileProps } from './AppBarMobile'
 import { useAuth } from '../../shared/hooks/useAuth'
+import { AuthProvider } from '../../shared/contexts/Auth/AuthProvider'
 
 jest.mock('../../shared/hooks/useAuth')
 const mockedUseAuth = useAuth as jest.Mock
 mockedUseAuth.mockReturnValue({ state: { isAuth: false, userUid: '' } })
 
 const renderComponent = (props: AppBarMobileProps) =>
-  render(<AppBarMobile {...props} />)
+  render(<AuthProvider> <AppBarMobile {...props} /> </AuthProvider>)
 
 const props: AppBarMobileProps = {
   version: '1.2',
@@ -16,6 +17,18 @@ const props: AppBarMobileProps = {
 beforeEach(() => {
   renderComponent(props)
 })
+
+jest.mock('axios')
+const mockHistoryPush = jest.fn()
+jest.mock('react-router-dom', () => ({
+  ...jest.requireActual('react'),
+  ...jest.requireActual('react-router-dom'),
+  useRouteMatch: () => ({ url: '/login' }),
+
+  useHistory: () => ({
+    push: mockHistoryPush,
+  }),
+}))
 
 describe('AppBarMobile component', () => {
   it('should render all elements', () => {

@@ -4,64 +4,52 @@ import {
   IconButton,
   Toolbar,
   Typography,
-  makeStyles,
-  createStyles,
 } from '@material-ui/core'
 import MenuIcon from '@material-ui/icons/Menu'
 import { useHistory } from 'react-router-dom'
 
-import { colors } from '../../styles/theme/colors'
 import { useAuth } from '../../shared/hooks/useAuth'
+import { ExitToApp } from '@material-ui/icons'
+import { headerStyles } from '../../shared/styles/Headers'
+import { useContext } from 'react'
+import { AuthContext } from '../../shared/contexts/Auth/AuthContext'
+import { logout } from '../../utils/logout'
 
 export interface AppBarWebProps {
   title: string
   version: string
 }
 
-const useStyles = makeStyles(() =>
-  createStyles({
-    toolbarWeb: {
-      justifyContent: 'space-between',
-    },
-    hamburgerIcon: {
-      color: colors.white,
-    },
-    buttonLogin: {
-      color: colors.white,
-    },
-
-    appTitle: {},
-    version: {
-      color: colors.transparentWhite,
-      position: 'absolute',
-      top: '0',
-      right: '1em',
-      fontSize: 'xx-small',
-    },
-  })
-)
-
 export default function AppBarWeb({
   title,
   version,
 }: AppBarWebProps): JSX.Element {
-  const classes = useStyles()
-
+  const classes = headerStyles()
+  const { setLoginData, getUserInfo } = useContext(AuthContext)
+  const history = useHistory()
   const { state } = useAuth()
 
-  const history = useHistory()
   return (
     <>
       <AppBar position="fixed">
-        <Toolbar className={classes.toolbarWeb}>
+        <Toolbar className={classes.toolbar}>
           <IconButton aria-label="Menu">
             <MenuIcon className={classes.hamburgerIcon} />
           </IconButton>
-          <Typography className={classes.appTitle} variant="h5">
+          <Typography variant="h5">
             {title}
           </Typography>
           {state.isAuth ? (
-            <Typography variant="h6">{state.username}</Typography>
+            <div className={classes.logout}>
+              <Typography className={classes.appTitle} variant="h6">{state.username}</Typography>
+              <Button
+                variant="contained"
+                onClick={()=> logout(history, setLoginData, getUserInfo)}
+                className={classes.buttonLogin}
+              >
+               <ExitToApp /> Logout
+              </Button>
+            </div>
           ) : (
             <Button
               variant="contained"
