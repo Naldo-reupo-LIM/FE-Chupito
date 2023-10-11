@@ -1,6 +1,6 @@
 export const colors = {
   black: '#000000',
-  orange: '#ff6d00',
+  mainBlue: '#5669FF',
   orangeTransparent: '#ff6d007d',
   lightOrange: '#f89937',
   green: '#387b30',

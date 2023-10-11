@@ -4,8 +4,6 @@ import {
   Typography,
   Toolbar,
 } from '@material-ui/core'
-import SearchIcon from '@material-ui/icons/Search'
-import SettingsIcon from '@material-ui/icons/Settings'
 import { useHistory } from 'react-router-dom'
 import { useAuth } from '../../shared/hooks/useAuth'
 import { headerStyles } from '../../shared/styles/Headers'
@@ -44,9 +42,6 @@ export default function AppBarMobile({ version }: AppBarMobileProps) {
     <>
       <AppBar className={classes.header}>
         <Toolbar className={classes.toolbar}>
-          <IconButton aria-label="Menu">
-            <SearchIcon className={classes.searchIcon} />
-          </IconButton>
 
           <div>
             <IconButton
@@ -56,7 +51,6 @@ export default function AppBarMobile({ version }: AppBarMobileProps) {
               aria-controls={open ? 'account-menu' : undefined}
               aria-haspopup="true"
               aria-expanded={open ? 'true' : undefined}>
-              <SettingsIcon className={classes.settingsIcon} />
             </IconButton>
             
             {state.isAuth ? (

@@ -1,20 +1,13 @@
-import { createStyles, makeStyles } from "@material-ui/core";
-import { colors } from "../../styles/theme/colors";
+import { createStyles, makeStyles } from '@material-ui/core'
+import { colors } from '../../styles/theme/colors'
 
 export const headerStyles = makeStyles(() =>
   createStyles({
     header: {
-      backgroundColor: colors.white,
       position: 'fixed',
     },
     toolbar: {
       justifyContent: 'space-between',
-    },
-    searchIcon: {
-      color: colors.black,
-    },
-    settingsIcon: {
-      color: colors.yellow,
     },
     version: {
       color: colors.transparentWhite,
@@ -26,21 +19,18 @@ export const headerStyles = makeStyles(() =>
     userEmail: {
       color: colors.black,
     },
-    hamburgerIcon: {
-      color: colors.white,
-    },
     buttonLogin: {
       color: colors.black,
-      marginLeft: '20px'
+      marginLeft: '20px',
     },
     logout: {
-      display: 'flex'
+      display: 'flex',
     },
     appTitle: {
       display: 'flex',
       alignItems: 'center',
       borderRight: '1px solid rgba(255,255,255,.3)',
-      paddingRight: '20px'
-    }
+      paddingRight: '20px',
+    },
   })
 )

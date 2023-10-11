@@ -61,8 +61,8 @@ export default function NavigationBar({
             <img
               className={classes.logo}
               data-testid="navigation-logo-img"
-              src="/images/Logo.png"
-              alt="Special Spider"
+              src="/assets/chupito-logo.svg"
+              alt="Chupito events logo"
             />
           )}
         </Toolbar>

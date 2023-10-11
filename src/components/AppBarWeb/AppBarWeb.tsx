@@ -1,11 +1,9 @@
 import {
   AppBar,
   Button,
-  IconButton,
   Toolbar,
   Typography,
 } from '@material-ui/core'
-import MenuIcon from '@material-ui/icons/Menu'
 import { useHistory } from 'react-router-dom'
 
 import { useAuth } from '../../shared/hooks/useAuth'
@@ -33,9 +31,6 @@ export default function AppBarWeb({
     <>
       <AppBar position="fixed">
         <Toolbar className={classes.toolbar}>
-          <IconButton aria-label="Menu">
-            <MenuIcon className={classes.hamburgerIcon} />
-          </IconButton>
           <Typography variant="h5">
             {title}
           </Typography>

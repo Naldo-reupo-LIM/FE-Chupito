@@ -1,5 +1,5 @@
-import { createStyles, makeStyles } from "@material-ui/core";
-import { colors } from "../../shared/themes/colors";
+import { createStyles, makeStyles } from '@material-ui/core'
+import { colors } from '../../shared/themes/colors'
 
 export const eventCardStyles = makeStyles(() =>
   createStyles({
@@ -24,10 +24,10 @@ export const eventCardStyles = makeStyles(() =>
       marginLeft: '1em',
     },
     date: {
-      padding: '0.5em 1em 0em 1em'
+      padding: '0.5em 1em 0em 1em',
     },
     day: {
-      color: colors.orange,
+      color: colors.black,
       fontFamily: 'Exo',
       margin: 0,
     },
