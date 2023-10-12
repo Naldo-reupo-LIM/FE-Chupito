@@ -12,7 +12,6 @@ const renderComponent = (props: AppBarWebProps) =>
   render(<AuthProvider> <AppBarWeb {...props} /> </AuthProvider>)
 
 const props: AppBarWebProps = {
-  title: 'Super title',
   version: '1.2',
 }
 beforeEach(() => {
@@ -33,9 +32,6 @@ jest.mock('react-router-dom', () => ({
 
 describe('AppBarWeb component', () => {
   it('should render all elements', () => {
-    const title = screen.getByText(/super title/i)
-    expect(title).toBeInTheDocument()
-
     const version = screen.getByText(/v1.2/i)
     expect(version).toBeInTheDocument()
   })

@@ -21,7 +21,7 @@ import { sortAscending, sortDescending } from '../../tools/sorting'
 const useStyles = makeStyles(() =>
   createStyles({
     title: {
-      margin: '0',
+      margin: '1.5em 0 0 0',
       marginBottom: '0.5em',
     },
     headquarterFilter: {

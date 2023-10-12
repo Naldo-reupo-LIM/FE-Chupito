@@ -10,8 +10,8 @@ export const theme = createTheme({
   colors: colors,
   palette: {
     primary: {
-      main: colors.black,
-      contrastText: colors.white,
+      main: colors.white,
+      contrastText: colors.black,
     },
     secondary: {
       main: colors.lightOrange,

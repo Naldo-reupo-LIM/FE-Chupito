@@ -10,5 +10,5 @@ const Template: Story<AppBarWebProps> = (args) => <AppBarWeb {...args} />
 
 export const Empty = Template.bind({})
 Empty.args = {
-  title: '14.1',
+  version: '14.1',
 }

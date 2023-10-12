@@ -1,6 +1,5 @@
 import { createStyles, makeStyles } from '@material-ui/core'
 import { colors } from '../../styles/theme/colors'
-
 export const headerStyles = makeStyles(() =>
   createStyles({
     header: {
@@ -10,7 +9,7 @@ export const headerStyles = makeStyles(() =>
       justifyContent: 'space-between',
     },
     version: {
-      color: colors.transparentWhite,
+      color: colors.gray,
       position: 'absolute',
       top: '0',
       right: '1em',
@@ -18,19 +17,26 @@ export const headerStyles = makeStyles(() =>
     },
     userEmail: {
       color: colors.black,
+      marginTop:'15px',
+      paddingRight: '13.5px',
+      fontFamily:'Exo',
+      fontWeight: 'bold'
     },
     buttonLogin: {
-      color: colors.black,
-      marginLeft: '20px',
+      color: colors.white,
+      backgroundColor: colors.mainBlue,
+      fontSize: 'small',
+    },
+
+    logoContainer: {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
     },
     logout: {
       display: 'flex',
-    },
-    appTitle: {
-      display: 'flex',
       alignItems: 'center',
-      borderRight: '1px solid rgba(255,255,255,.3)',
-      paddingRight: '20px',
+      marginLeft:'auto'
     },
   })
 )
