@@ -55,7 +55,7 @@ describe('login view component', () => {
     const passwordField = screen.getByLabelText(/password/i)
     expect(passwordField).toBeInTheDocument()
 
-    const buttonField = screen.getByRole('button', { name: /log in/i })
+    const buttonField = screen.getByRole('button', { name: /login/i })
     expect(buttonField).toBeInTheDocument()
     expect(buttonField).not.toBeEnabled()
   })
@@ -74,7 +74,7 @@ describe('login view component', () => {
     const passwordField = screen.getByLabelText(/password/i)
     expect(passwordField).toBeInTheDocument()
 
-    const buttonField = screen.getByRole('button', { name: /Log In/i })
+    const buttonField = screen.getByRole('button', { name: /Login/i })
     expect(buttonField).toBeInTheDocument()
 
     userEvent.type(userField, 'test@test.com')

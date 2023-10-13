@@ -1,7 +1,8 @@
-import { useContext, ReactNode } from 'react'
-import { Paper} from '@material-ui/core'
+import { useContext,ReactNode } from 'react'
+import { Paper } from '@material-ui/core'
 import { useMediaQuery } from '@mui/material'
 import { useTheme } from '@mui/material/styles'
+import { useLocation } from 'react-router-dom'
 
 import AppBarMobile from '../../components/AppBarMobile/AppBarMobile'
 import AppBarWeb from '../../components/AppBarWeb/AppBarWeb'
@@ -17,28 +18,41 @@ export interface MainProps {
 
 export default function Main({ version, children }: MainProps): JSX.Element {
   const { layout, title, showLogo } = useContext(LayoutContext)
-
   const classes = mainStyles()
   const theme = useTheme()
   const matchesDesktopDisplay = useMediaQuery(theme.breakpoints.up('sm'))
+  const location = useLocation()
+
+  const shouldShowAppBars = location.pathname !== '/login'
+
+  function renderAppBar(
+    shouldShowAppBars: boolean,
+    matchesDesktopDisplay: boolean,
+    config: { version: string | undefined }, 
+    version: string 
+  ): JSX.Element | null { 
+    if (shouldShowAppBars) {
+      if (matchesDesktopDisplay) {
+        return <AppBarWeb version={config.version || ''} />;
+      } else {
+        return <AppBarMobile version={version} />;
+      }
+    }
+  
+    return null;
+  }
 
   return (
     <>
-      {matchesDesktopDisplay ? (
-        <AppBarWeb
-          version={config.version || ''}
-        />
-      ) : (
-        <AppBarMobile version={version} />
-      )}
-
+      {renderAppBar(shouldShowAppBars, matchesDesktopDisplay, config, version)}
+      
       {layout === LayoutTypes.NAVIGATION && (
         <NavigationBar title={title} showLogo={showLogo} />
       )}
+
       <Paper className={classes.mainContainer}>
         <div className={classes.innerContainer}>{children}</div>
       </Paper>
-
     </>
   )
 }

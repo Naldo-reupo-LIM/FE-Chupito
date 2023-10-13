@@ -1,17 +1,17 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
-import {
-  Paper,
-  FormGroup,
-  TextField,
-  Button,
-  CardMedia
-} from '@material-ui/core'
+import { Paper, TextField, Button, InputAdornment } from '@material-ui/core'
+import Container from '@mui/material/Container'
+import MailOutlineIcon from '@material-ui/icons/MailOutline'
+import LockIcon from '@material-ui/icons/Lock'
+import VisibilityIcon from '@material-ui/icons/Visibility'
+import VisibilityOffIcon from '@material-ui/icons/VisibilityOff'
 
 import NoneLayout from '../../hocs/NoneLayout'
 import { validateEmail } from '../../tools'
 import { useAuth } from '../../shared/hooks/useAuth'
 import { loginStyle } from '../../shared/styles/login'
+import chupitoLogo from '../../assets/chupito-logo.svg'
 
 export interface LoginProps {
   onLogin: (userName: string, password: string) => void
@@ -22,6 +22,8 @@ export default function Login({ onLogin, loading }: LoginProps): JSX.Element {
   const [userName, setUserName] = useState('')
   const [password, setPassword] = useState('')
   const [disableLogin, setDisableLogin] = useState(true)
+  const [showPassword, setShowPassword] = useState(false)
+  const hasText = !!userName
 
   const params = new URLSearchParams(window.location.search)
   const eventId = params.get('eventId')
@@ -30,8 +32,13 @@ export default function Login({ onLogin, loading }: LoginProps): JSX.Element {
   const history = useHistory()
   const user = useAuth()
 
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword)
+  }
   const handleUserChanged = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUserName(e.target.value)
+    const text = e.target.value
+    setUserName(text)
+
     verifyCredentials()
   }
 
@@ -71,56 +78,81 @@ export default function Login({ onLogin, loading }: LoginProps): JSX.Element {
 
   return (
     <NoneLayout>
-      <div className={classes.container}>
-        <Paper className={classes.form}>
-          <CardMedia
-            className={classes.loginLogo}
-            src="https://carerite.greysignal.com/img/links/poc.png"
-          ></CardMedia>
-          <FormGroup>
+      <Container className={`${classes.input} ${hasText ? 'hasText' : ''}`}>
+        <div className={classes.logoContainer}>
+          <img src={chupitoLogo} alt="Chupito logo" />
+        </div>
+        <div className={classes.loginBoxContainer}>
+          <Paper elevation={3} className={classes.formContainer}>
             <TextField
               className={classes.input}
               id="userName"
               name="userName"
               label="Email"
+              placeholder="abc@email.com"
               value={userName}
-              margin="dense"
               variant="outlined"
-              autoComplete="off"
-              InputLabelProps={{ shrink: true }}
+              margin="normal"
+              fullWidth
               onChange={handleUserChanged}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <MailOutlineIcon className={classes.icons} />
+                  </InputAdornment>
+                ),
+              }}
             />
-          </FormGroup>
-          <FormGroup>
+
             <TextField
               className={classes.input}
+              label="Password"
+              placeholder="password"
               id="password"
               name="password"
-              type="password"
-              label="Password"
+              type={showPassword ? 'text' : 'password'}
               value={password}
-              margin="dense"
               variant="outlined"
-              InputLabelProps={{
-                shrink: true,
-              }}
+
+              fullWidth
               onChange={handlePasswordChanged}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <LockIcon className={classes.icons} />
+                  </InputAdornment>
+                ),
+                endAdornment: (
+                  <InputAdornment position="end">
+                    {showPassword ? (
+                      <VisibilityIcon
+                        onClick={togglePasswordVisibility}
+                        className={classes.icons}
+                      />
+                    ) : (
+                      <VisibilityOffIcon
+                        onClick={togglePasswordVisibility}
+                        className={classes.icons}
+                      />
+                    )}
+                  </InputAdornment>
+                ),
+              }}
             />
-          </FormGroup>
-          <FormGroup>
             <Button
               className={classes.button}
-              disabled={loading || !isValidLoginData()}
               type="submit"
               variant="contained"
+              fullWidth
+              disabled={loading || !isValidLoginData()}
               onClick={handleLoginClicked}
               data-testid={'login-button'}
             >
-              Log In
+              Login
             </Button>
-          </FormGroup>
-        </Paper>
-      </div>
+          </Paper>
+        </div>
+      </Container>
     </NoneLayout>
   )
 }

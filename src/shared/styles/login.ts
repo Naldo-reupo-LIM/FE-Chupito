@@ -1,60 +1,77 @@
-import { createStyles, makeStyles } from "@material-ui/core";
-import { colors } from "../themes/colors";
+import { createStyles, makeStyles } from '@material-ui/core'
+import { colors } from '../themes/colors'
 
 export const loginStyle = makeStyles((theme) =>
   createStyles({
     container: {
-      position: 'absolute',
-      top: '30%',
-      left: '30%',
-      width: '40%',
-      minHeight: '35%',
-      maxHeight: '35%',
-      [theme.breakpoints.down('sm')]: {
-        top: '20%',
-        left: 0,
-        width: '100%',
+      marginBottom: '250px',
+      [theme.breakpoints.up('md')]: {
+        marginLeft: '50px',
+        marginRight: '50px',
+        marginBottom: '50px',
       },
-      [theme.breakpoints.only('md')]: {
-        top: '25%',
-        left: '25%',
-        width: '50%',
-        minHeight: '45%',
-      }
     },
-    form: {
-      minHeight: '100%',
-      paddingBottom: '2em',
-
-      [theme.breakpoints.down('sm')]: {
-        width: '95%',
-        margin: '0 auto',
-        paddingBottom: '1em'
-      },
+    loginBoxContainer: {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
     },
     input: {
-      marginLeft: '4em',
-      marginRight: '4em',
-      marginBottom: '2em',
-
-      [theme.breakpoints.down('sm')]: {
-        marginLeft: '2em',
-        marginRight: '2em',
+      marginBottom: '15px',
+      marginTop: '15px',
+      '& .MuiOutlinedInput-root': {
+        '& fieldset': {
+          borderColor: 'gray',
+          borderRadius: '12px',
+          height: '60px',
+        },
+      },
+      '&.hasText .MuiOutlinedInput-root': {
+        '& fieldset': {
+          borderColor: 'black',
+        },
+      },
+      [theme.breakpoints.up('md')]: {
+        marginBottom: '20px',
+        marginTop: '20px',
       },
     },
-    button: {
-      width: '100px',
-      margin: 'auto',
+    icons: {
+      color: colors.gray,
     },
-    loginLogo: {
-      backgroundRepeat: 'no-repeat',
-      backgroundPosition: 'center center',
-      width: '100%',
-      height: '4em',
-      backgroundColor: colors.transparentBlack,
-      backgroundSize: '12em auto',
-      padding: '1em 0',
-      marginBottom: '1.5em',
+    button: {
+      marginTop: '14px',
+      backgroundColor: colors.mainBlue,
+      color: colors.white,
+      fontFamily: 'Exo',
+      borderRadius: '8px',
+      '&.MuiButton-root.Mui-disabled': {
+        backgroundColor: colors.disabledButton,
+      },
+      [theme.breakpoints.up('md')]: {
+        height: '90px',
+      },
+    },
+
+    logoContainer: {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      margin: '150px',
+    },
+    formContainer: {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderRadius: '16px',
+      padding: '20px 30px',
+      marginBottom: '200px',
+      [theme.breakpoints.up('md')]: {
+        width: '650px',
+        height: '250px',
+        padding: '150px 80px',
+      },
     },
   })
 )

@@ -32,7 +32,7 @@ export default function AppBarMobile({ version }: AppBarMobileProps) {
   }
   return (
     <>
-      <AppBar position="fixed">
+      <AppBar >
         <Toolbar >
           <div className={classes.logoContainer}>
             <img src={chupitoLogo} alt="Chupito logo" width="180" height="40" />

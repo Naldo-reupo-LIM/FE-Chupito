@@ -21,7 +21,7 @@ export default function AppBarWeb({ version }: AppBarWebProps): JSX.Element {
 
   return (
     <>
-      <AppBar position="fixed">
+      <AppBar >
         <Toolbar>
           <div className={classes.logoContainer}>
             <img src={chupitoLogo} alt="Chupito logo" width="180" height="40" style={{ marginLeft: '30px' }} />

@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react'
 import useMediaQuery from '@mui/material/useMediaQuery'
+import { MemoryRouter, Route } from 'react-router-dom'
 
 import Main, { MainProps } from './Main'
 
@@ -31,5 +32,19 @@ describe('Main component', () => {
     renderMainComponent(props)
     const webAppBarVersion = screen.getByText(/v14/)
     expect(webAppBarVersion).toBeInTheDocument()
+  })
+
+  it('should not render AppBar components on /login route', () => {
+    render(
+      <MemoryRouter initialEntries={['/login']}>
+        <Main version="v14"></Main>
+      </MemoryRouter>
+    )
+
+    const appBarWeb = screen.queryByText('AppBarWeb')
+    const appBarMobile = screen.queryByText('AppBarMobile')
+
+    expect(appBarWeb).toBeNull()
+    expect(appBarMobile).toBeNull()
   })
 })
