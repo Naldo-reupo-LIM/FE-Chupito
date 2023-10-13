@@ -1,8 +1,6 @@
-import Moment from 'moment'
 import { useHistory } from 'react-router-dom'
 import {
   Card,
-  CardActions,
   CardMedia,
   Grid,
   Button,
@@ -10,9 +8,9 @@ import {
   Avatar,
   Link,
   Fab,
-  Box,
+  CardContent,
+  CardActionArea,
 } from '@material-ui/core'
-import AddIcon from '@material-ui/icons/Add'
 
 import ConferenceStatusSection from './ConferenceStatusSection'
 import { Conference } from '../../shared/entities'
@@ -26,10 +24,15 @@ export interface EventCardProps {
 export default function EventCard({ event }: EventCardProps): JSX.Element {
   const classes = eventCardStyles()
 
-  const getDatePart = (date: string) => {
-    const dateObject = Moment(date, 'YYYY-MM-DD')
-    return dateObject.format('D MMM YYYY')
+  const getDateParts = (date: string) => {
+    const dateObject = new Date(date)
+    const year = dateObject.getFullYear()
+    const month = dateObject.toLocaleString('default', { month: 'short' })
+    const day = dateObject.getDate()
+
+    return { year, month, day }
   }
+  const dateParts = getDateParts(event.eventDate)
   const history = useHistory()
 
   const handleLinkMoreInfo = () => {
@@ -39,64 +42,81 @@ export default function EventCard({ event }: EventCardProps): JSX.Element {
   const url = event.images?.[0]?.url || eventImage
 
   return (
-    <Grid className={classes.cardGridItem} item xs={12} sm={5} md={4} lg={3}>
+    <Grid>
       <Card className={classes.card}>
-        <Box className={classes.top}>
-          <Box className={classes.titleSection}>
-            <Typography variant="h5" className={classes.title}>
-              {event.name}
-            </Typography>
-          </Box>
-          <Box className={classes.eventStatus}>
-            <ConferenceStatusSection status={event.status} />
-          </Box>
-        </Box>
-        <Box className={classes.date}>
-          <Typography variant="h6" className={classes.day}>
-            {getDatePart(event.eventDate)}
-          </Typography>
-        </Box>
-
-        <CardMedia
-          className={classes.image}
-          component="img"
-          image={url}
-          height={150}
-          title={event.name}
-        />
-
-        <div className={classes.contentSubscribe}>
-          <div className={classes.subscribersSection}>
-            <Avatar
-              className={classes.subscribedUserIcon}
-              src={'/avatar.png'}
-            ></Avatar>
-            <Fab size="small">
-              <AddIcon />
-              {+15}
-            </Fab>
-            <div className={classes.text}>
-              <Typography>{'Joined'}</Typography>
-            </div>
-          </div>
-
-          <CardActions className={classes.userActionsSection}>
-            <Button
-              variant="contained"
-              className={classes.button}
-              disabled={event.subscribed}
-            >
-              {event.subscribed ? 'Subscribed' : 'Register'}
-            </Button>
-            <Link
-              underline="always"
-              className={classes.link}
-              onClick={handleLinkMoreInfo}
-            >
-              {'+more info '}
-            </Link>
-          </CardActions>
-        </div>
+        <CardActionArea>
+          <CardMedia
+            component="img"
+            alt="Event image"
+            image={url}
+            className={classes.cardImage}
+          />
+          <CardContent className={classes.cardContent}>
+            <Grid container direction="column" className={classes.columns}>
+              <Grid item>
+                <Typography variant="h5" className={classes.day}>
+                  {dateParts.day}
+                </Typography>
+              </Grid>
+              <Grid item>
+                <Typography variant="body1" className={classes.month}>
+                  {dateParts.month}
+                </Typography>
+              </Grid>
+              <Grid item>
+                <Typography variant="body1" className={classes.year}>
+                  {dateParts.year}
+                </Typography>
+              </Grid>
+            </Grid>
+            <Grid container direction="column" className={classes.mainColumn}>
+              <Grid item>
+                <Typography variant="subtitle2" className={classes.eventTitle}>
+                  {event.name}{' '}
+                </Typography>
+              </Grid>
+              <Grid item>
+                <Link className={classes.link} onClick={handleLinkMoreInfo}>
+                  {'+more info '}
+                </Link>
+              </Grid>
+              <Grid>
+                <div className={classes.subscribersSection}>
+                  <Avatar
+                    className={classes.subscribedAvatar}
+                    src={'/avatar.png'}
+                  ></Avatar>
+                  <Fab className={classes.subscribedAddIcon}>
+                    <Typography className={classes.subscribersNumber}>
+                      {'+15'}
+                    </Typography>
+                  </Fab>
+                  <div className={classes.joinedTextBox}>
+                    <Typography className={classes.joinedText}>
+                      {'Joined'}
+                    </Typography>
+                  </div>
+                </div>
+              </Grid>
+            </Grid>
+            <Grid container direction="column" className={classes.columns}>
+              <Grid item>
+                <ConferenceStatusSection status={event.status} />
+              </Grid>
+              <Grid item>
+                <Button
+                  variant="outlined"
+                  color="primary"
+                  className={classes.button}
+                  disabled={event.subscribed}
+                  onClick={handleLinkMoreInfo}
+                >
+                  {event.subscribed ? 'Subscribed' : 'Register'}
+                </Button>
+              </Grid>
+            </Grid>
+          </CardContent>
+        </CardActionArea>
       </Card>
     </Grid>
   )

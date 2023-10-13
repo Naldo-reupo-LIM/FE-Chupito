@@ -25,7 +25,6 @@ const useStyles = makeStyles(() =>
       marginBottom: '0.5em',
     },
     headquarterFilter: {
-      marginBottom: '1em',
       paddingBottom: '20px',
       boxShadow: '0px 1px 1px #cdcdcd',
     },

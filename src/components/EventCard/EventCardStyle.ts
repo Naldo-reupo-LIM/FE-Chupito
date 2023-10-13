@@ -1,84 +1,118 @@
 import { createStyles, makeStyles } from '@material-ui/core'
 import { colors } from '../../shared/themes/colors'
 
-export const eventCardStyles = makeStyles(() =>
+export const eventCardStyles = makeStyles((theme) =>
   createStyles({
-    contentSubscribe: {
-      display: 'flex',
-      justifyContent: 'space-around',
-    },
     card: {
-      width: '100%',
-      height: '21em',
-      overflow: 'hidden',
-      backgroundColor: colors.transparentYellow,
+      display: 'flex',
+      border: '1px solid #ccc',
+      borderRadius: '18px',
+      width: '325px',
+      marginBottom: '10px',
+      [theme.breakpoints.up('sm')]: {
+        width: '450px',
+        heigth: '200px',
+        marginRight: '20px',
+      },
     },
-    cardGridItem: {
-      padding: '0.3em',
-    },
-    image: {
-      width: '90%',
+    cardImage: {
+      height: '150px',
       objectFit: 'cover',
-      borderRadius: '0.2em',
-      marginRight: '1em',
-      marginLeft: '1em',
+      borderRadius: '0.2em 0.2em 0 0',
+      [theme.breakpoints.up('sm')]: {
+        height: '250px',
+      },
     },
-    date: {
-      padding: '0.5em 1em 0em 1em',
-    },
-    day: {
-      color: colors.black,
-      fontFamily: 'Exo',
-      margin: 0,
-    },
-    top: {
+    cardContent: {
       display: 'flex',
+      flexDirection: 'row',
       alignItems: 'center',
-      width: '94%',
-      padding: '0.7em',
-      flexWrap: 'wrap',
-      backgroundColor: colors.black,
-      bottom: '20em',
-      justifyContent: 'space-between',
-    },
-    titleSection: {
-      display: 'flex',
-      justifyContent: 'start',
-      overflow: 'hidden',
-    },
-    title: {
-      color: colors.white,
-      fontFamily: 'Exo',
-      margin: 0,
-      marginRight: '1em',
-      textOverflow: 'ellipsis',
-      fontWeight: 'bold',
-    },
-    eventStatus: {
-      justifyContent: 'right',
-    },
-    userActionsSection: {
-      display: 'grid',
+      height: '100px',
+      [theme.breakpoints.up('sm')]: {
+        flex: '1',
+      },
     },
     button: {
-      color: colors.white,
-      backgroundColor: colors.yellow,
+      color: colors.darkerBlue,
+      height: '40px',
+      '&.MuiButton-outlined': {
+        borderWidth: '2px',
+        borderColor: colors.mainBlue,
+      },
+      [theme.breakpoints.up('sm')]: {
+        height: '50px',
+        width: '80px',
+      },
+    },
+    day: {
+      color: colors.darkerBlue,
+      fontWeight: 'bold',
+    },
+    month: {
+      color: colors.black,
+      fontWeight: 'bold',
+    },
+    year: {
+      color: colors.boldGray,
+      fontWeight: 'bold',
+    },
+    eventTitle: {
+      fontSize: '18px',
+      [theme.breakpoints.up('sm')]: {
+        fontSize: '30px',
+      },
+    },
+    columns: {
+      width: '50px',
+      [theme.breakpoints.up('sm')]: {
+        width: '100px',
+      },
+    },
+    mainColumn: {
+      width: '140px',
+      [theme.breakpoints.up('sm')]: {
+        width: '400px',
+      },
     },
     link: {
-      color: colors.blue,
+      color: colors.mainBlue,
       marginTop: '5px',
+      fontSize: '15px',
+      [theme.breakpoints.up('sm')]: {
+        fontSize: '20px',
+        marginBottom: '5px',
+      },
     },
     subscribersSection: {
       display: 'flex',
       alignItems: 'center',
+      marginBottom: '5px',
     },
-    subscribedUserIcon: {
+    subscribedAvatar: {
       backgroundColor: colors.white,
-      left: '0.8em',
+      width: '35px',
+      height: '35px',
+      [theme.breakpoints.up('sm')]: {
+        height: '30px',
+      },
     },
-    text: {
+    subscribedAddIcon: {
+      backgroundColor: colors.pink,
+      right: '12px',
+      width: theme.spacing(4),
+      height: theme.spacing(4),
+    },
+
+    subscribersNumber: {
+      fontSize: '10px',
+      textAlign: 'center',
+      color: colors.white,
+    },
+    joinedText: {
       color: colors.black,
-      marginLeft: '10px',
+    },
+    joinedTextBox: {
+      marginRight: '16px',
     },
   })
 )

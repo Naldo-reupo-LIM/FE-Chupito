@@ -1,15 +1,17 @@
 import { createStyles, makeStyles, Typography } from '@material-ui/core'
 
 import { ConferenceStatus } from '../../shared/entities'
-
-import { colors } from '../../styles/theme/colors'
+import { colors } from '../../shared/themes/colors'
 
 const useStyles = makeStyles(() =>
   createStyles({
     status: {
       backgroundColor: colors.white,
-      padding: '0px 5px',
-      borderRadius: '5%',
+      padding: ' 5px',
+      marginBottom:'15px',
+      borderRadius: '4px',
+      textAlign:'center',
+      width: '45px'
     },
     statusCreated: {
       backgroundColor: colors.green,
@@ -27,7 +29,8 @@ const useStyles = makeStyles(() =>
       color: colors.white,
       textTransform: 'uppercase',
       fontFamily: 'Exo',
-      lineHeight: '1.5em',
+      fontSize:'10px',
+      lineHeight: '10px',
     },
     statusNameContrast: {
       color: colors.dark,
