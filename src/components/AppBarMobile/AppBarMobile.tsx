@@ -32,8 +32,8 @@ export default function AppBarMobile({ version }: AppBarMobileProps) {
   }
   return (
     <>
-      <AppBar >
-        <Toolbar >
+      <AppBar>
+        <Toolbar>
           <div className={classes.logoContainer}>
             <img src={chupitoLogo} alt="Chupito logo" width="180" height="40" />
           </div>
@@ -41,7 +41,7 @@ export default function AppBarMobile({ version }: AppBarMobileProps) {
             {state.isAuth ? (
               <>
                 <Typography className={classes.userEmail} variant="h5">
-                  {state.username}
+                  {state.username || state.email}
                 </Typography>
                 <Button
                   variant="contained"

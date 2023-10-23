@@ -7,9 +7,12 @@ export default class baseRequest {
     const storageData = storage.getItem('token')
 
     if (storageData) {
-      const token = JSON.parse(storage.getItem('token'))
-
-      axios.defaults.headers.common['Authorization'] = token
+      try {
+        const token = JSON.parse(storage.getItem('token'))
+        axios.defaults.headers.common['Authorization'] = token
+      } catch (error) {
+        console.error('Error parsing token:', error)
+      }
     }
   }
 

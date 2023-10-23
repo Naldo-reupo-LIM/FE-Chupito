@@ -6,6 +6,7 @@ import MailOutlineIcon from '@material-ui/icons/MailOutline'
 import LockIcon from '@material-ui/icons/Lock'
 import VisibilityIcon from '@material-ui/icons/Visibility'
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff'
+import GoogleButton from 'react-google-button'
 
 import NoneLayout from '../../hocs/NoneLayout'
 import { validateEmail } from '../../tools'
@@ -16,9 +17,14 @@ import chupitoLogo from '../../assets/chupito-logo.svg'
 export interface LoginProps {
   onLogin: (userName: string, password: string) => void
   loading: boolean
+  googleOnLogin: (userName: string) => void
 }
 
-export default function Login({ onLogin, loading }: LoginProps): JSX.Element {
+export default function Login({
+  onLogin,
+  googleOnLogin,
+  loading,
+}: LoginProps): JSX.Element {
   const [userName, setUserName] = useState('')
   const [password, setPassword] = useState('')
   const [disableLogin, setDisableLogin] = useState(true)
@@ -60,10 +66,15 @@ export default function Login({ onLogin, loading }: LoginProps): JSX.Element {
   const handleLoginClicked = () => {
     onLogin(userName, password)
   }
+  const handleGoogleLoginClicked = () => {
+    googleOnLogin(userName)
+  }
 
   const handleRedirect = useCallback(() => {
     const userState = user.state
+
     let shouldRedirectTo = '/login'
+
     if (userState.username) {
       shouldRedirectTo = userState.isAdmin ? '/events/list' : '/'
     } else if (eventId) {
@@ -113,7 +124,6 @@ export default function Login({ onLogin, loading }: LoginProps): JSX.Element {
               type={showPassword ? 'text' : 'password'}
               value={password}
               variant="outlined"
-
               fullWidth
               onChange={handlePasswordChanged}
               InputProps={{
@@ -150,6 +160,10 @@ export default function Login({ onLogin, loading }: LoginProps): JSX.Element {
             >
               Login
             </Button>
+            <span>or</span>
+            <div className={classes.googleButtonContainer}>
+              <GoogleButton onClick={handleGoogleLoginClicked} />
+            </div>
           </Paper>
         </div>
       </Container>

@@ -39,6 +39,26 @@ export default function LoginPage(): JSX.Element {
       console.error(err)
     }
   }
+  const handleGoogleLogin = async () => {
+    try {
+      setLoading(true)
+      const user = await api.googleSignIn()
 
-  return <Login onLogin={handleLoginClicked} loading={loading} />
+      if (user) {
+        window.localStorage.setItem('token', JSON.stringify(user.token))
+        await getUserInfo(user.uid, user.displayName)
+      }
+    } catch (error) {
+      console.error('Google login error:', error)
+    } finally {
+      setLoading(false)
+    }
+  }
+  return (
+    <Login
+      onLogin={handleLoginClicked}
+      googleOnLogin={handleGoogleLogin}
+      loading={loading}
+    />
+  )
 }

@@ -21,16 +21,22 @@ export default function AppBarWeb({ version }: AppBarWebProps): JSX.Element {
 
   return (
     <>
-      <AppBar >
+      <AppBar>
         <Toolbar>
           <div className={classes.logoContainer}>
-            <img src={chupitoLogo} alt="Chupito logo" width="180" height="40" style={{ marginLeft: '30px' }} />
+            <img
+              src={chupitoLogo}
+              alt="Chupito logo"
+              width="180"
+              height="40"
+              style={{ marginLeft: '30px' }}
+            />
           </div>
           <div className={classes.logout}>
             {state.isAuth ? (
               <>
                 <Typography className={classes.userEmail} variant="h6">
-                  {state.username}
+                  {state.username || state.email}
                 </Typography>
                 <Button
                   variant="contained"

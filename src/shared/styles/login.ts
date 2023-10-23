@@ -52,6 +52,9 @@ export const loginStyle = makeStyles((theme) =>
         height: '90px',
       },
     },
+    googleButtonContainer: {
+      marginTop: '14px',
+    },
 
     logoContainer: {
       display: 'flex',

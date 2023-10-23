@@ -1,4 +1,10 @@
-import { getAuth, signInWithEmailAndPassword, signOut } from 'firebase/auth'
+import {
+  GoogleAuthProvider,
+  getAuth,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+  signOut,
+} from 'firebase/auth'
 
 import getFirebaseApp from '../backends/firebase'
 import { Credentials } from '../../entities'
@@ -45,10 +51,38 @@ function Authentication() {
     return signOut(auth)
   }
 
+  const googleSignIn = async () => {
+    const provider = new GoogleAuthProvider()
+    const auth = getAuth(getFirebaseApp())
+
+    provider.setCustomParameters({
+      prompt: 'select_account',
+    })
+    try {
+      const result = await signInWithPopup(auth, provider)
+      const user = result.user
+
+      const idTokenResult = await user.getIdTokenResult()
+      const displayName = idTokenResult.claims.name || user.displayName
+
+      const userData = {
+        uid: user.uid,
+        email: user.email,
+        displayName: displayName,
+        token: idTokenResult.token,
+      }
+
+      return userData
+    } catch (error) {
+      console.error('Error during sign-in', error)
+    }
+  }
+
   return {
     login,
     logout,
     verifyAuth,
+    googleSignIn,
   }
 }
 
