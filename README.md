@@ -1,10 +1,105 @@
-## Special Spider
+# Event Manager Frontend
 
-It is a web application built with react and integrate firestore.
+The Event Manager Frontend is a web application built with React designed to efficiently manage events. It provides essential features such as event creation, updating, removal, and event listing
+
+## Contents
+
+- [Event Manager Frontend](#event-manager-frontend)
+- [Contents](#contents)
+- [Dependencies](#dependencies)
+- [Getting started](#getting-started)
+- [Local Development](#local-development)
+- [Folder structure](#folder-structure)
+- [Testing](#testing)
+- [Resources](#resources)
+
+
+## Dependencies
+
+For this application, we are using Node.js v14. (You will check .nvmrc file)
+
+For MacOS:
+
+```bash
+brew install nvm
+nvm install v14.21.3
+```
+
+## Getting started
+
+### Local Development
+
+For local development, follow these steps:
+
+1. **Environment Configuration**
+
+  Copy the `.env.example` file and rename it as `.env`. Then, configure the environment variables according to your specific environment:
+
+| Key                       | Description                                               |
+| :-------------------------| :-------------------------------------------------------- |
+| **REACT_APP_BASE_PATH**   | Local URL for the app                                     |
+| **REACT_APP_VERSION**     | App version                                               |
+| **REACT_APP_API_KEY**     | API Identifier.                                           |
+| **REACT_APP_AUTH_DOMAIN** | App Domain for the project.                               |
+| **REACT_APP_DATABASE_URL**        | URL to Firebase GService Database.                |
+| **REACT_APP_PROJECT_ID**  | Project Identifier in GService.                           |
+| **REACT_APP_STORAGE_BUCKET**      | Storage URN for project GService.                 |
+| **REACT_APP_MESSAGING_SENDER_ID** | Firebase Cloud Messaging Identifier.              |
+| **TEST_USER_EMAIL**       | User profile email created for development tests.         |
+| **TEST_USER_PWD**         | User profile password created for development tests.      |
+| **TEST_USER_ID**          | User profile identifier generated for GService.           |
+
+**NOTE:**   Ensure that you have followed the necessary steps on the backend to have the required services up and running for managing, storing, and retrieving data for the app.
+
+2. **Installation:**
+
+Ensure you have the required Node.js version installed. If not, you can set it up using Node Version Manager (NVM), which should already be installed.
+To select the appropriate Node.js version, use the following command:
+
+```bash
+nvm use
+```
+
+Then, install project dependencies with:
+
+```bash
+yarn install
+```
+
+3. **Run the application**
+
+- To run the application, use the following command:
+
+```bash
+yarn start
+```
+
+These steps will help you set up your local development environment for the Event Manager Frontend.
+
+## Folder structure
+
+`api`: This folder groups HTTP requests to the backend API   
+`components`: This folder will group all the required UI components   
+`contexts`: This folder groups all contexts used in the UI   
+`database`: This folder groups all data configuration and operations for managing data, specifically within an IndexedDB database   
+`pages`: This folder groups all React components required for the UI   
+`providers`: This folder groups all React components that serve as context providers   
+`styles`: This folder groups all styles required for the UI.   
+
+## Testing:
+
+You can run tests for the application using the following command:
+
+```bash
+yarn test:ci
+```
+
+## Use Case Scenarios:
+
+TBD
 
 ### TODO
 
-- Describe development workflow
 - Pipelines for deployment
 - A/B Testing
 - Feature Toogles
