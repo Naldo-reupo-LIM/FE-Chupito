@@ -62,6 +62,7 @@ export default function EventsAdminPage(): JSX.Element {
   useEffect(() => {
     fetchHeadquarters()
     fetchEvents()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (

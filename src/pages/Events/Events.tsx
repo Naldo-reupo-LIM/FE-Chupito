@@ -74,6 +74,7 @@ export default function EventsPage(): JSX.Element {
     } else {
       fetchEvents()
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.isAuth])
 
   if (loading) {
