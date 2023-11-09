@@ -1,14 +1,14 @@
 export const mockTags = [
   {
-    id: "Architecture",
+    _id: "Architecture",
     name: "Architecture"
   },
   {
-    id: "Design",
+    _id: "Design",
     name: "Design"
   },
   {
-    id: "Devops",
+    _id: "Devops",
     name: "Devops"
   }
 ]

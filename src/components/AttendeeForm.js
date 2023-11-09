@@ -18,7 +18,7 @@ import NavigationLayout from '../hocs/NavigationLayout'
 import TextFieldWithValidation from './TextField/TextFieldWithValidation'
 import { withMessage } from '../hocs/Snackbar'
 
-import EventsApi from '../api/events'
+import EventsApi from '../shared/api/endpoints/events'
 import database from '../database/database'
 import DataService from '../database/dataService'
 import { uuidv4, validateEmail } from '../tools'

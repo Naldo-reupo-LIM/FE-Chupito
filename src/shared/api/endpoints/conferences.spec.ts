@@ -1,5 +1,5 @@
 import ConferenceAPI from './conferences'
-import { requests } from '../../../api/baseRequest'
+import { requests } from '../baseRequest'
 
 const mockResult = {
   data: {

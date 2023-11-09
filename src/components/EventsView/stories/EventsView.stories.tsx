@@ -13,10 +13,10 @@ const Template: Story<EventsViewProps> = (args) => <EventsView {...args} />
 export const BasicList = Template.bind({})
 const headquarters: Headquarter[] = [
   {
-    id: '0001',
+    _id: '0001',
     name: 'Piura'
   }, {
-    id: '002',
+    _id: '002',
     name: 'Lima'
   }
 ]

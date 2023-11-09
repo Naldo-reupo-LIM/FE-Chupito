@@ -1,12 +1,20 @@
+import { requests } from '../baseRequest'
 import { Headquarter } from '../../entities'
-import { getAppCollections } from './base'
 
-function HeadquarterAPI() {
-  const collectionName = 'headquarters'
+enum HeadquartersAPIEndpoints {
+  getAll = 'headquarters',
+}
 
+function HeadquartersAPI() {
   const getAll = async (): Promise<Headquarter[]> => {
-    const headquarters = await getAppCollections(collectionName)
-    return headquarters as Headquarter[]
+    const { data: allData } = await requests.get(
+      HeadquartersAPIEndpoints.getAll
+    )
+    const { data: headquarterData } = allData
+    const headquarters: Headquarter[] = headquarterData.map(
+      (headquarter: Headquarter) => headquarter
+    )
+    return headquarters
   }
 
   return {
@@ -14,4 +22,4 @@ function HeadquarterAPI() {
   }
 }
 
-export default HeadquarterAPI
+export default HeadquartersAPI

@@ -2,8 +2,7 @@ import { render, screen } from '@testing-library/react'
 import axios from 'axios';
 
 import EventView, { EventViewProps } from './EventView'
-import EventsApi from '../../api/events'
-
+import EventsApi from '../../shared/api/endpoints/events'
 
 const api = new EventsApi()
 
@@ -14,12 +13,12 @@ const mockOnChange = jest.fn()
 
 const props: EventViewProps = {
   headquarters: [
-    { id: '64c3f59244d9afa500ea1422', name: 'Piura' },
-    { id: '64c3f59244d9afa500ea1423', name: 'Lima' },
+    { _id: '64c3f59244d9afa500ea1422', name: 'Piura' },
+    { _id: '64c3f59244d9afa500ea1423', name: 'Lima' },
   ],
   tags: [
-    { id: 'Architecture', name: 'Architecture' },
-    { id: 'Design', name: 'Design' },
+    { _id: 'Architecture', name: 'Architecture' },
+    { _id: 'Design', name: 'Design' },
   ],
   headquarter: 'piura',
   eventType: 'Sales',
@@ -75,8 +74,6 @@ describe('event view component', () => {
     expect(description).toBeInTheDocument()
     expect(phoneNumber).toBeInTheDocument()
     expect(salesEventType).toBeInTheDocument()
-    expect(mockOnChange).resolves
-    expect(true).toBe(true)
   })
 
   it('create event', async () => {

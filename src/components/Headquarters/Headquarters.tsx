@@ -43,7 +43,7 @@ export default function Headquarters({
       <MenuItem
         data-testid={'option-headquarter-' + index}
         key={index}
-        value={headquarter.id}
+        value={headquarter._id}
       >
         {headquarter.name}
       </MenuItem>

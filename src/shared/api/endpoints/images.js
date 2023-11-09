@@ -1,4 +1,4 @@
-import baseRequest from './baseRequest';
+import baseRequest from '../baseRequest';
 
 export default class Images extends baseRequest {
   constructor() {

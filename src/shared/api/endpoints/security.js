@@ -1,6 +1,6 @@
 // import * as firebase from 'firebase/firebase';
 
-import baseRequest from './baseRequest';
+import baseRequest from '../baseRequest';
 // import firebaseConfig from '../environment/environment';
 
 // firebase.initializeApp(firebaseConfig);

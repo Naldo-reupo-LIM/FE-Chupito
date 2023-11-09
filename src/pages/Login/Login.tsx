@@ -2,7 +2,7 @@ import { useState, useContext } from 'react'
 
 import Login from '../../components/Login/Login'
 import { Authentication } from '../../shared/api'
-import EventsApi from '../../api/events'
+import EventsApi from '../../shared/api/endpoints/events'
 import { AuthContext } from '../../shared/contexts/Auth/AuthContext'
 
 export default function LoginPage(): JSX.Element {

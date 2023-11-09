@@ -8,12 +8,12 @@ const renderComponent = (props: EventsViewProps) =>
   render(<EventsView {...props} />)
 
 const mockHeadquarter01: Headquarter = {
-  id: '0001',
+  _id: '0001',
   name: 'Piura',
 }
 
 const mockHeadquarter02: Headquarter = {
-  id: '0002',
+  _id: '0002',
   name: 'Lima',
 }
 

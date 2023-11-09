@@ -5,7 +5,7 @@ import {withStyles, Grid, MenuItem, Select} from '@material-ui/core';
 import {withMessage} from '../../hocs/Snackbar';
 import {withUserContext} from '../../hocs/UserContext';
 
-import HeadquartersApi from '../../api/headquarters';
+import HeadquartersApi from '../../shared/api/endpoints/headquarters';
 
 import {styles} from '../../styles/Headquarters';
 

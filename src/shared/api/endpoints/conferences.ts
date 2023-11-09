@@ -1,4 +1,4 @@
-import { requests } from '../../../api/baseRequest'
+import { requests } from '../baseRequest'
 import { Conference } from './../../entities'
 
 enum ConferenceAPIEndpoints {

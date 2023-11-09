@@ -1,5 +1,5 @@
 import FileSaver from 'file-saver';
-import BaseRequest from './baseRequest';
+import BaseRequest from '../baseRequest';
 
 export default class Attendees extends BaseRequest {
   constructor() {

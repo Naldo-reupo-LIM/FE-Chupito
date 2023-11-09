@@ -1,10 +1,10 @@
 export const mockHeadquarters = [
   {
-    id: "64c3f59244d9afa500ea1422",
+    _id: "64c3f59244d9afa500ea1422",
     name: "Piura"
   },
   {
-    id: "64c3f59244d9afa500ea1423",
+    _id: "64c3f59244d9afa500ea1423",
     name: "Lima"
   }
 ]

@@ -17,8 +17,8 @@ import DownloadIcon from '@material-ui/icons/CloudDownload';
 
 import Loading from './Loading/Loading';
 import NavigationLayout from '../hocs/NavigationLayout';
-import EventsApi from '../api/events';
-import AttendeesApi from '../api/attendees';
+import EventsApi from '../shared/api/endpoints/events';
+import AttendeesApi from '../shared/api/endpoints/attendees';
 import {withMessage} from '../hocs/Snackbar';
 
 const styles = theme => ({

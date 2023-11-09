@@ -18,7 +18,7 @@ import DisableIcon from '@material-ui/icons/Clear'
 import EnableIcon from '@material-ui/icons/Check'
 import AddIcon from '@material-ui/icons/Add'
 
-import UsersApi from '../api/users'
+import UsersApi from '../shared/api/endpoints/users'
 import { styles } from '../styles/Users'
 
 import LayoutContext from '../shared/contexts/LayoutContext'

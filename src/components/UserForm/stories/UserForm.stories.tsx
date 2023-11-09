@@ -13,11 +13,11 @@ const Template: Story<UserFormProps> = (args) => <UserForm {...args} />
 export const Basic = Template.bind({})
 const roles: UserRole[] = [
   {
-    id: '01',
+    _id: '01',
     name: 'Role A',
   },
   {
-    id: '02',
+    _id: '02',
     name: 'Role B',
   },
 ]

@@ -1,7 +1,7 @@
 import { render, screen, fireEvent } from '@testing-library/react'
 import axios from 'axios'
 import { MemoryRouter } from 'react-router-dom'
-import EventsApi from '../../api/events'
+import EventsApi from '../../shared/api/endpoints/events'
 import EventEditView from './EventEditView'
 import { EventEditViewProps } from '../../shared/entities/props/eventEditViewProps'
 
@@ -12,12 +12,12 @@ const renderComponent = (props: EventEditViewProps) =>
 
 const props: EventEditViewProps = {
   headquarters: [
-    { id: '64c3f59244d9afa500ea1422', name: 'Piura' },
-    { id: '64c3f59244d9afa500ea1423', name: 'Lima' },
+    { _id: '64c3f59244d9afa500ea1422', name: 'Piura' },
+    { _id: '64c3f59244d9afa500ea1423', name: 'Lima' },
   ],
   tags: [
-    { id: 'Architecture', name: 'Architecture' },
-    { id: 'Design', name: 'Design' },
+    { _id: 'Architecture', name: 'Architecture' },
+    { _id: 'Design', name: 'Design' },
   ],
   isLoading: false,
   validation: { name: { error: false }, date: { error: false } },

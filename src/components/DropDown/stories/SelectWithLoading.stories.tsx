@@ -29,8 +29,8 @@ WithData.args = {
   attributeLabel: 'This is a Dropdown with Loader',
   attributeRequired: true,
   attributeOptions: [
-    { id: 'piura', name: 'Piura' },
-    { id: 'lima', name: 'Lima' },
+    { _id: 'piura', name: 'Piura' },
+    { _id: 'lima', name: 'Lima' },
   ],
   attributeValue: '',
   error: false,

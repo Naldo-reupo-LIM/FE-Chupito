@@ -2,7 +2,7 @@ import { useReducer, ReactNode } from 'react'
 import { AuthContext } from './AuthContext'
 import { Authentication } from '../../api'
 import { reducer } from './AuthReducer'
-import Users from '../../../api/users'
+
 import { VerifyApiResponse } from '../../entities/auth'
 
 type Props = {
@@ -52,20 +52,9 @@ export const AuthProvider = ({ children }: Props) => {
     })
   }
   const getUserInfo = async (userUid: string, displayName?: string) => {
-    const usersApi = new Users()
-    try {
-      const { firstName, isAdmin } = await usersApi.getUserById(userUid)
-
-      dispatch({
-        type: 'UPDATE_USER',
-        payload: {
-          username: firstName || (displayName as string),
-          isAdmin,
-        },
-      })
-    } catch (err) {
-      console.log(err)
-    }
+    // TODO: get user info from db
+    console.log('user id: ', userUid)
+    console.log('display name: ', displayName)
   }
 
   const [state, dispatch] = useReducer(reducer, initialState)

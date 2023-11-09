@@ -1,8 +1,13 @@
-import Security from "../api/security"
-import { Authentication } from "../shared/api"
-import { VerifyApiResponse } from "../shared/entities/auth"
+import Security from '../shared/api/endpoints/security'
+import { Authentication } from '../shared/api'
+import { VerifyApiResponse } from '../shared/entities/auth'
 
-export const logout = async (history: Array<{}>, setLoginData: (({ isAuth, userUid, email }: VerifyApiResponse) => void), getUserInfo: (() => void)) => {
+// TODO: Refactor logout to avoid using history
+export const logout = async (
+  history: Array<{}>,
+  setLoginData: ({ isAuth, userUid, email }: VerifyApiResponse) => void,
+  getUserInfo: () => void
+) => {
   const api = new Security()
   const firebase = Authentication()
 

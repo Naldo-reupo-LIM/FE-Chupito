@@ -1,12 +1,16 @@
+import { requests } from '../baseRequest'
 import { UserRole } from '../../entities'
-import { getAppCollections } from './base'
+
+enum RolesAPIEndpoints {
+  getAll = 'roles',
+}
 
 function RolesAPI() {
-  const collectionName = 'roles'
-
   const getAll = async (): Promise<UserRole[]> => {
-    const roles = await getAppCollections(collectionName)
-    return roles as UserRole[]
+    const { data: allData } = await requests.get(RolesAPIEndpoints.getAll)
+    const { data: rolesData } = allData
+    const roles: UserRole[] = rolesData.map((role: UserRole) => role)
+    return roles
   }
 
   return {

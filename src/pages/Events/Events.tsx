@@ -2,11 +2,11 @@ import { useState, useContext, useEffect } from 'react'
 
 import UserContext from '../../shared/contexts/UserContext'
 import EventsView from '../../components/EventsView/EventsView'
-import { HeadquarterAPI, ConferenceAPI } from '../../shared/api'
+import { HeadquartersAPI, ConferenceAPI } from '../../shared/api'
 import { Conference, Headquarter } from '../../shared/entities'
 import { sortAscending } from '../../tools/sorting'
 import { AuthContext } from '../../shared/contexts/Auth/AuthContext'
-import Events from '../../api/events'
+import Events from '../../shared/api/endpoints/events'
 
 export default function EventsPage(): JSX.Element {
   const [allHeadquarters, setAllHeadquarters] = useState<Headquarter[]>([])
@@ -14,7 +14,7 @@ export default function EventsPage(): JSX.Element {
   const [loadingHeadquarters, setLoadingHeadquarters] = useState(false)
   const [loading, setLoading] = useState(true)
 
-  const apiHeadquarters = HeadquarterAPI()
+  const apiHeadquarters = HeadquartersAPI()
   const apiConferences = ConferenceAPI()
   const apiEvents = new Events()
 

@@ -25,6 +25,6 @@ export interface UserSession extends UserInApp, UserCredentials {
 }
 
 export interface UserRole {
-  id: string
+  _id: string
   name: string
 }

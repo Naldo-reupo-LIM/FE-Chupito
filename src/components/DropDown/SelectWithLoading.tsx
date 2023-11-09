@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) =>
 )
 
 interface ElementOption {
-  id: string
+  _id: string
   name: string
 }
 
@@ -105,7 +105,7 @@ export default function SelectWithLoading({
         {attributeOptions &&
           attributeOptions.map((item) => {
             return (
-              <MenuItem key={item.name} value={item.id}>
+              <MenuItem key={item.name} value={item._id}>
                 {item.name}
               </MenuItem>
             )

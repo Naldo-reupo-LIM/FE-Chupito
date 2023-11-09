@@ -27,7 +27,7 @@ import {
   ConferenceStatus,
 } from '../../shared/entities'
 import { sortAscending, sortDescending } from '../../tools/sorting'
-import EventsApi from '../../api/events'
+import EventsApi from '../../shared/api/endpoints/events'
 import { EventsAdminViewProps } from '../../shared/entities/props/eventsAdminViewProps'
 import { buttonIcon } from '../../shared/themes/buttons'
 import { StatusEnum } from '../../shared/constants/status'

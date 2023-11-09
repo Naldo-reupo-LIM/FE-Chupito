@@ -9,7 +9,7 @@ import TextFieldWithValidation from '../TextField/TextFieldWithValidation'
 import FormButtons from '../FormButtons/FormButtons'
 
 import { ConferenceDataValidation, Headquarter } from '../../shared/entities'
-import EventsApi from '../../api/events'
+import EventsApi from '../../shared/api/endpoints/events'
 import { Tag } from '../../shared/entities/tag'
 import { eventStyle } from '../../shared/styles/eventsAdmin'
 

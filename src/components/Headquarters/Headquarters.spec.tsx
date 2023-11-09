@@ -7,6 +7,7 @@ import {
 } from '@testing-library/react'
 
 import Headquarters, { HeadquartersProps } from './Headquarters'
+import { Headquarter } from '../../shared/entities'
 
 const renderComponent = (props: HeadquartersProps) =>
   render(<Headquarters {...props} />)
@@ -35,12 +36,13 @@ describe('headquarters component', () => {
 
   it('should render with elements changing headquarter', () => {
     const mockOnChange = jest.fn()
+    const mockHeadquarters: Headquarter[] = [
+      { _id: '01', name: 'Lima' },
+      { _id: '02', name: 'Buenos Aires' },
+    ]
     const props: HeadquartersProps = {
       loading: false,
-      allHeadquarters: [
-        { id: '01', name: 'Lima' },
-        { id: '02', name: 'Buenos Aires' },
-      ],
+      allHeadquarters: mockHeadquarters,
       onChangeHeadquarter: mockOnChange
     }
     renderComponent(props)
@@ -56,11 +58,12 @@ describe('headquarters component', () => {
   })
 
   it('should render with elements with selected headquarter', () => {
+    const mockHeadquarters: Headquarter[] = [
+      { _id: '01', name: 'Lima' },
+      { _id: '02', name: 'Buenos Aires' },
+    ]
     const props: HeadquartersProps = {
-      allHeadquarters: [
-        { id: '01', name: 'Lima' },
-        { id: '02', name: 'Buenos Aires' },
-      ],
+      allHeadquarters: mockHeadquarters,
       selectedHeadquarter: '02',
       loading: false,
       onChangeHeadquarter: jest.fn(),

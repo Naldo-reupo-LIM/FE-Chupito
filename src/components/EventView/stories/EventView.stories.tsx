@@ -17,8 +17,8 @@ Empty.args = {
   address: '',
   phoneNumber: '',
   headquarters: [
-    { id: '1', name: 'Piura' },
-    { id: '2', name: 'Lima' },
+    { _id: '1', name: 'Piura' },
+    { _id: '2', name: 'Lima' },
   ],
   headquarter: '',
   isLoading: false,

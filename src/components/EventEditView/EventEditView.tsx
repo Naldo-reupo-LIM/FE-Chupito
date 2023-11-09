@@ -7,7 +7,7 @@ import EventTypes from '../EventTypes/EventTypes'
 import SelectWithLoading from '../DropDown/SelectWithLoading'
 import TextFieldWithValidation from '../TextField/TextFieldWithValidation'
 import FormButtons from '../FormButtons/FormButtons'
-import EventsApi from '../../api/events'
+import EventsApi from '../../shared/api/endpoints/events'
 import {
   EventEditViewProps,
   InputLabelProps,

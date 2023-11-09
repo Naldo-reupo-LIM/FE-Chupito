@@ -80,7 +80,7 @@ export default function EventsView({
     if (selectedHeadquarter !== '-1') {
       filteredByHeadquarter = filteredByHeadquarter.filter(
         (element: Conference) =>
-          element.headquarter && element.headquarter.id === selectedHeadquarter
+          element.headquarter && element.headquarter._id === selectedHeadquarter
       )
     }
 

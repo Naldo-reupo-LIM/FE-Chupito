@@ -17,7 +17,7 @@ import {withMessage} from './../../hocs/Snackbar';
 
 import {withUserContext} from './../../hocs/UserContext';
 
-import UsersApi from './../../api/users';
+import UsersApi from '../../shared/api/endpoints/users';
 
 import {styles} from './../../styles/ChangePassword';
 

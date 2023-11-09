@@ -9,7 +9,7 @@ import {
   ConferenceStatus,
   Headquarter,
 } from '../../shared/entities'
-import { ConferenceAPI, HeadquarterAPI } from '../../shared/api'
+import { ConferenceAPI, HeadquartersAPI } from '../../shared/api'
 import { sortAscending } from '../../tools/sorting'
 
 export default function EventsAdminPage(): JSX.Element {
@@ -18,7 +18,7 @@ export default function EventsAdminPage(): JSX.Element {
   const [loadingHeadquarters, setLoadingHeadquarters] = useState(false)
   const [loading, setLoading] = useState(true)
 
-  const apiHeadquarters = HeadquarterAPI()
+  const apiHeadquarters = HeadquartersAPI()
   const apiConferences = ConferenceAPI()
 
   const fetchHeadquarters = async () => {
