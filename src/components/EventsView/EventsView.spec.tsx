@@ -18,28 +18,34 @@ const mockHeadquarter02: Headquarter = {
 }
 
 const mockEvent01: Conference = {
-  id: '0001',
+  _id: '0001',
+  description: 'Event 01 description',
   eventDate: '2023-01-19',
   name: 'Event 01',
   status: 'created',
   year: 2023,
+  eventType: 'Sales',
   headquarter: mockHeadquarter01,
 }
 
 const mockEvent02: Conference = {
-  id: '0002',
+  _id: '0002',
+  description: 'Event 02 description',
   eventDate: '2023-04-19',
   name: 'Event 02',
   status: 'created',
   year: 2023,
+  eventType: 'Sales',
 }
 
 const mockEvent03: Conference = {
-  id: '0003',
+  _id: '0003',
+  description: 'Event 03 description',
   eventDate: '2023-08-19',
   name: 'Event 03',
   status: 'created',
   year: 2023,
+  eventType: 'Sales',
   headquarter: mockHeadquarter02,
 }
 

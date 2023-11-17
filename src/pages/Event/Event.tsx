@@ -1,37 +1,56 @@
+import { useHistory } from 'react-router-dom'
+
 import EventView from '../../components/EventView/EventView'
+import EventsApi from '../../shared/api/endpoints/events'
 
  //TODO: Get info from database (not provided)
 import { mockTags } from '../../mocks/tags'
 //TODO: Get info from database (not provided)
 import { mockHeadquarters } from '../../mocks/headquarter'
+import { Conference } from '../../shared/entities'
 
 export default function EventPage(): JSX.Element {
-  const onChangeEventName = () => {}
-  const onChangeEventDate = () => {}
-  const onChangeAddress = () => {}
-  const onChangePhoneNumber = () => {}
+  const newEvent: Conference = {
+    _id: '',
+    name: '',
+    eventDate: '',
+    address: '',
+    eventType: '',
+    description: '',
+    tags: [],
+    phoneNumber: '',
+    status: 'active',
+  }
+  const history = useHistory()
+
+  const handleCancelButton = () => {
+    history.push('/events/list')
+  }
+
+
+  const handleSubmitButton = async (newEvent: Conference) => {
+    const api = new EventsApi()
+    try {
+      await api.add(newEvent).then(
+        () => handleCancelButton()
+      )
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   return (
     <EventView
-      eventType=""
-      eventName=""
-      eventDate=""
-      address=""
-      phoneNumber=""
-      eventDescription=""
-      eventTag=""
+      eventData={newEvent}
       headquarters={mockHeadquarters}
-      headquarter=""
       tags={mockTags}
       isLoading={false}
       validation={{
         name: { error: false, message: '' },
-        date: { error: false, message: '' },
+        eventDate: { error: false, message: '' },
       }}
-      onChangeEventName={onChangeEventName}
-      onChangeEventDate={onChangeEventDate}
-      onChangeAddress={onChangeAddress}
-      onChangePhoneNumber={onChangePhoneNumber}
+      onSubmit={handleSubmitButton}
+      onCancel={handleCancelButton}
     />
   )
 }

@@ -1,15 +1,20 @@
-import { useState, useContext } from 'react'
+import { useState, useContext, useEffect, useCallback } from 'react'
+import { useHistory } from 'react-router-dom'
 
 import Login from '../../components/Login/Login'
 import { Authentication } from '../../shared/api'
 import EventsApi from '../../shared/api/endpoints/events'
 import { AuthContext } from '../../shared/contexts/Auth/AuthContext'
+import { useAuth } from '../../shared/hooks/useAuth'
+import NoneLayout from '../../hocs/NoneLayout'
 
 export default function LoginPage(): JSX.Element {
   const [loading, setLoading] = useState(false)
   const params = new URLSearchParams(window.location.search)
   const eventId = params.get('eventId')
-  const { setLoginData, getUserInfo } = useContext(AuthContext)
+  const { setLoginData } = useContext(AuthContext)
+  const history = useHistory()
+  const user = useAuth()
 
   const api = Authentication()
 
@@ -26,7 +31,6 @@ export default function LoginPage(): JSX.Element {
         userUid: result.user.uid,
         email: result.user.email,
       })
-      await getUserInfo(result.user.uid)
 
       if (eventId) {
         const eventsApi = new EventsApi()
@@ -35,6 +39,7 @@ export default function LoginPage(): JSX.Element {
           password,
         })
       }
+      handleRedirect()
     } catch (err) {
       console.error(err)
     }
@@ -46,7 +51,6 @@ export default function LoginPage(): JSX.Element {
 
       if (user) {
         window.localStorage.setItem('token', JSON.stringify(user.token))
-        await getUserInfo(user.uid, user.displayName)
       }
     } catch (error) {
       console.error('Google login error:', error)
@@ -54,11 +58,31 @@ export default function LoginPage(): JSX.Element {
       setLoading(false)
     }
   }
+
+  const handleRedirect = useCallback(() => {
+    const { username, isAdmin } = user.state
+
+    let shouldRedirectTo = '/login'
+
+    if (username) {
+      shouldRedirectTo = isAdmin ? '/events/list' : '/'
+    } else if (eventId) {
+      shouldRedirectTo = `/event-info/${eventId}`
+    }
+    history.push(shouldRedirectTo)
+  }, [eventId, history, user.state])
+
+  useEffect(() => {
+    handleRedirect()
+  }, [handleRedirect])
+
   return (
-    <Login
-      onLogin={handleLoginClicked}
-      googleOnLogin={handleGoogleLogin}
-      loading={loading}
-    />
+    <NoneLayout>
+      <Login
+        onLogin={handleLoginClicked}
+        googleOnLogin={handleGoogleLogin}
+        loading={loading}
+      />
+    </NoneLayout>
   )
 }

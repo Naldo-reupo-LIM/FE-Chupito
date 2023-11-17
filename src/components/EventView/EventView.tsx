@@ -1,6 +1,6 @@
 import { ChangeEvent, Dispatch, SetStateAction, useState } from 'react'
 import { Grid, TextField } from '@material-ui/core'
-import { useHistory } from 'react-router-dom'
+
 import { Box } from '@mui/material'
 
 import EventTypes from '../EventTypes/EventTypes'
@@ -8,105 +8,76 @@ import SelectWithLoading from '../DropDown/SelectWithLoading'
 import TextFieldWithValidation from '../TextField/TextFieldWithValidation'
 import FormButtons from '../FormButtons/FormButtons'
 
-import { ConferenceDataValidation, Headquarter } from '../../shared/entities'
-import EventsApi from '../../shared/api/endpoints/events'
+import {
+  Conference,
+  ConferenceDataValidation,
+  Headquarter,
+} from '../../shared/entities'
+
 import { Tag } from '../../shared/entities/tag'
 import { eventStyle } from '../../shared/styles/eventsAdmin'
 
 export interface EventViewProps {
   headquarters: Headquarter[]
   tags: Tag[]
-  headquarter: string
-  eventType: string
-  eventName:string
-  eventDate: string
-  eventDescription: string
-  address: string
-  phoneNumber: string
-  eventTag: string
+  eventData: Conference
   validation: ConferenceDataValidation
   isLoading: boolean
-  onChangeEventName: () => void
-  onChangeEventDate: () => void
-  onChangeAddress: () => void
-  onChangePhoneNumber: () => void
+  onSubmit: (data: Conference) => void
+  onCancel: () => void
 }
 
 export default function EventView({
   headquarters,
-  headquarter,
   tags,
-  eventType,
-  eventName,
-  eventDate,
-  eventTag,
-  eventDescription,
-  address,
-  phoneNumber,
+  eventData,
   validation,
   isLoading,
+  onSubmit,
+  onCancel,
 }: EventViewProps): JSX.Element {
-
-  const getValues = (setValue: Dispatch<SetStateAction<string>>, event:ChangeEvent<HTMLInputElement>) => {
+  const getValues = (
+    setValue: Dispatch<SetStateAction<string>>,
+    event: ChangeEvent<HTMLInputElement>
+  ) => {
     return setValue(event.target.value)
   }
 
-  const getValuesSelect = (setValue: Dispatch<SetStateAction<string>>, event:  ChangeEvent<{name?: string | undefined; value: unknown;}>) => {
-    return setValue(event.target.value as string)
-  }
-
   const classes = eventStyle()
-  const history = useHistory()
 
-  const [getName, setEventName] = useState<string>(eventName)
-  const [getType, setSelectedEventType] = useState<string>(eventType)
-  const [getDescription, setEventDescription] = useState<string>(eventDescription)
-  const [getDate, setEventDate] = useState<string>(eventDate)
-  const [getAddress, setAddress] = useState<string>(address)
-  const [getphone, setPhoneNumber] = useState<string>(phoneNumber)
-  const [getTag, setEventTag] = useState<string>(eventTag)
-  const [getHeadquarter, setEventHeadquarter] = useState<string>(headquarter)
+  const [getName, setEventName] = useState<string>(eventData.name)
+  const [getType, setSelectedEventType] = useState<string>(eventData.eventType)
+  const [getDescription, setEventDescription] = useState<string>(
+    eventData.description
+  )
+  const [getDate, setEventDate] = useState<string>(eventData.eventDate)
+  const [getAddress, setAddress] = useState<string>(eventData.address || '')
+  const [getphone, setPhoneNumber] = useState<string>(
+    eventData.phoneNumber || ''
+  )
+  const [getTag] = useState<string[]>(eventData.tags || [])
+  const [getHeadquarter] = useState<Headquarter>(
+    eventData.headquarter || ({} as Headquarter)
+  )
 
   const updateEventType = (selectedEventType: string) => {
     setSelectedEventType(selectedEventType)
   }
 
-  const onChangeName = (event: ChangeEvent<HTMLInputElement>) => getValues(setEventName, event)
-  const onChangeDescription = (event: ChangeEvent<HTMLInputElement>) => getValues(setEventDescription, event)
-  const onChangeDate = (event: ChangeEvent<HTMLInputElement>) => getValues(setEventDate, event)
-  const onChangeAdress = (event: ChangeEvent<HTMLInputElement>) => getValues(setAddress, event)
-  const onChangePhoneNumber = (event: ChangeEvent<HTMLInputElement>) => getValues(setPhoneNumber, event)
-  const onChangeTag = (event:ChangeEvent<{ name?: string | undefined; value: unknown; }>) => getValuesSelect(setEventTag, event)
-  const handleHeadquarterChanged = (event:ChangeEvent<{ name?: string | undefined; value: unknown; }>) => getValuesSelect(setEventHeadquarter, event)
-
-  const handleCancelButton = () => {
-    history.push('/events/list')
-  }
-
-  const handleSubmitButton = async () => {
-    const api = new EventsApi()
-    try {
-      await api.add(
-        {
-          "name": getName,
-          "eventDate": getDate,
-          "headquarter": getHeadquarter,
-          "address": getAddress,
-          "type": getType,
-          "description": getDescription,
-          "tags": getTag,
-          "phoneNumber": getphone 
-        }
-      ).then(() => handleCancelButton())
-      
-    } catch (error) {
-      console.log(error)
-    }
-  }
+  const onChangeName = (event: ChangeEvent<HTMLInputElement>) =>
+    getValues(setEventName, event)
+  const onChangeDescription = (event: ChangeEvent<HTMLInputElement>) =>
+    getValues(setEventDescription, event)
+  const onChangeDate = (event: ChangeEvent<HTMLInputElement>) =>
+    getValues(setEventDate, event)
+  const onChangeAdress = (event: ChangeEvent<HTMLInputElement>) =>
+    getValues(setAddress, event)
+  const onChangePhoneNumber = (event: ChangeEvent<HTMLInputElement>) =>
+    getValues(setPhoneNumber, event)
 
   return (
     <Box component="form" autoComplete="off">
-      <Grid container className={classes.container} xs={12} sm={6}>
+      <Grid container className={classes.container} xs={12} sm={6} item>
         <h1>Add event</h1>
 
         <Grid>
@@ -142,8 +113,8 @@ export default function EventView({
             required={true}
             label="Date"
             value={getDate}
-            error={validation.date.error}
-            helperText={validation.date.message}
+            error={validation.eventDate.error}
+            helperText={validation.eventDate.message}
             type="datetime-local"
             InputLabelProps={{
               shrink: true,
@@ -154,14 +125,14 @@ export default function EventView({
 
         <Grid>
           <SelectWithLoading
-            attributeValue={getHeadquarter}
+            attributeValue={getHeadquarter._id}
             attributeRequired={true}
             attributeOptions={headquarters}
             attributeName="headquarter"
             attributeLabel="HQ"
             error={false}
             errorMessage=""
-            onChange={handleHeadquarterChanged}
+            onChange={() => {}}
             isLoading={isLoading}
           />
         </Grid>
@@ -190,15 +161,16 @@ export default function EventView({
         </Grid>
 
         <Grid>
+          {/* TODO: Evaluate this component for event tags */}
           <SelectWithLoading
-            attributeValue={getTag}
+            attributeValue={getTag.join(' ')}
             attributeRequired={true}
             attributeOptions={tags}
             attributeName="tag"
             attributeLabel="Tag"
             error={false}
             errorMessage=""
-            onChange={onChangeTag}
+            onChange={() => {}}
             isLoading={isLoading}
           />
         </Grid>
@@ -213,8 +185,8 @@ export default function EventView({
         <Grid className={classes.contentButton}>
           <FormButtons
             disableMainButton={false}
-            onCancel={handleCancelButton}
-            onSubmit={handleSubmitButton}
+            onCancel={onCancel}
+            onSubmit={() => onSubmit(eventData)}
           />
         </Grid>
       </Grid>

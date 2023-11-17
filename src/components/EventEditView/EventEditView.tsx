@@ -1,201 +1,140 @@
-import { useEffect, useState } from 'react'
 import { Grid, TextField } from '@material-ui/core'
-import { useHistory, useParams } from 'react-router-dom'
 import { Box } from '@mui/material'
 
+import { Conference, ConferenceDataValidation } from '../../shared/entities/conference'
+import { Headquarter } from '../../shared/entities/headquarter'
+
 import EventTypes from '../EventTypes/EventTypes'
-import SelectWithLoading from '../DropDown/SelectWithLoading'
 import TextFieldWithValidation from '../TextField/TextFieldWithValidation'
 import FormButtons from '../FormButtons/FormButtons'
-import EventsApi from '../../shared/api/endpoints/events'
-import {
-  EventEditViewProps,
-  InputLabelProps,
-} from '../../shared/entities/props/eventEditViewProps'
+
+//TODO: Get info from database (not provided)
+import { mockTags } from '../../mocks/tags'
+
 import { eventStyle } from '../../shared/styles/eventsAdmin'
 
+export interface EventEditViewProps {
+  eventData: Conference
+  headquarters: Headquarter[]
+  validation: ConferenceDataValidation
+  isLoading: boolean
+  onSubmit: () => void
+  onBack: () => void
+}
+
+export const InputLabelProps = {
+  shrink: true,
+}
+
 export default function EventEditView({
+  eventData,
   headquarters,
-  tags,
   validation,
   isLoading,
+  onSubmit,
+  onBack,
 }: EventEditViewProps): JSX.Element {
-  const [getData, setData] = useState<{ [key: string]: string }>({})
+  const tags = mockTags
+
   const classes = eventStyle()
-  const history = useHistory()
-  const { id } = useParams<string>()
 
-  const fetchEventById = async (eventId: string | undefined) => {
-    const api = new EventsApi()
-    try {
-      const {
-        name,
-        description,
-        eventDate,
-        address,
-        phoneNumber,
-        tags,
-        headquarter,
-        type,
-      } = await api.getById(eventId)
+  if (isLoading) return <div>Loading...</div>
 
-      setData({
-        name,
-        description,
-        eventDate,
-        address,
-        phoneNumber,
-        tags,
-        headquarter,
-        type,
-      })
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  const redirectButton = () => {
-    history.push('/events/list')
-  }
-
-  const handleSubmitButton = async () => {
-    const api = new EventsApi()
-    try {
-      delete getData.tags
-      const data = await api.update(id, getData)
-
-      if (data.status) redirectButton()
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  useEffect(() => {
-    fetchEventById(id)
-  }, [id])
-
-  //TODO: ccomponent table refactor(create), use in add event and edit event
+  //TODO: component table refactor(create), use in add event and edit event
   return (
     <Box component="form" autoComplete="off">
-      <Grid container className={classes.container} sm={6}>
+      <Grid container className={classes.container} sm={6} item>
         <h1>Edit event</h1>
-
         <Grid>
           <TextFieldWithValidation
             id="eventName"
             className={classes.textField}
             required={true}
             label="Title"
-            value={getData.name}
+            value={eventData.name}
             error={validation.name.error}
             helperText={validation.name.message}
-            onChange={(e) => setData({ ...getData, name: e.target.value })}
+            onChange={(e) => (eventData.name = e.target.value)}
             InputLabelProps={InputLabelProps}
           />
         </Grid>
-
         <Grid>
           <TextFieldWithValidation
             id="eventDescription"
             className={classes.textField}
             required={true}
             label="Description"
-            value={getData.description}
+            value={eventData.description}
             error={validation.name.error}
             helperText={validation.name.message}
-            onChange={(e) =>
-              setData({ ...getData, description: e.target.value })
-            }
+            onChange={(e) => (eventData.description = e.target.value)}
             InputLabelProps={InputLabelProps}
           />
         </Grid>
-
         <Grid>
           <TextFieldWithValidation
             id="eventDate"
             className={classes.textField}
             required={true}
             label="Date"
-            value={getData.eventDate}
-            error={validation.date.error}
-            helperText={validation.date.message}
+            value={eventData.eventDate}
+            error={validation.eventDate.error}
+            helperText={validation.eventDate.message}
             type="datetime-local"
             InputLabelProps={{
               shrink: true,
             }}
-            onChange={(e) => setData({ ...getData, eventDate: e.target.value })}
+            onChange={(e) => (eventData.eventDate = e.target.value)}
           />
         </Grid>
-
         <Grid>
-          <SelectWithLoading
-            attributeValue={getData.headquarter ? getData.headquarter : ''}
-            attributeRequired={true}
-            attributeOptions={headquarters}
-            attributeName="headquarter"
-            attributeLabel="HQ"
-            onChange={(e) =>
-              setData({ ...getData, headquarter: e.target.value as string })
-            }
-            isLoading={isLoading}
-          />
+          {/* TODO: This should be refactor */}
+          {JSON.stringify(headquarters)}
+          {eventData.headquarter && (<span>{eventData.headquarter._id}</span>)}
         </Grid>
-
         <Grid>
           <TextField
             id="eventAddress"
             name="address"
             className={classes.textField}
             label="Address"
-            value={getData.address}
+            value={eventData.address}
             margin="dense"
-            onChange={(e) => setData({ ...getData, address: e.target.value })}
+            onChange={(e) => (eventData.address = e.target.value)}
             InputLabelProps={InputLabelProps}
           />
         </Grid>
-
         <Grid>
           <TextField
             name="phoneNumber"
             className={classes.textField}
             label="Phone"
-            value={getData.phoneNumber}
+            value={eventData.phoneNumber}
             margin="dense"
-            onChange={(e) =>
-              setData({ ...getData, phoneNumber: e.target.value })
-            }
+            onChange={(e) => (eventData.phoneNumber = e.target.value)}
             InputLabelProps={InputLabelProps}
           />
         </Grid>
-
         <Grid className={classes.disabled}>
-          <SelectWithLoading
-            attributeValue={getData.tags ? getData.tags : ''}
-            attributeRequired={true}
-            attributeOptions={tags}
-            attributeName="tag"
-            attributeLabel="Tag"
-            onChange={(e) =>
-              setData({ ...getData, tags: e.target.value as string })
-            }
-            isLoading={isLoading}
-          />
+          {/* TODO: This should be refactor */}
+          {JSON.stringify(tags)}
+          {eventData.tags}
         </Grid>
 
         <Grid>
+          {/* TODO: This should be refactor */}
           <EventTypes
-            selectedEventType={getData.type}
-            onUpdateEventType={(e) => setData({ ...getData, type: e })}
+            selectedEventType={eventData.eventType}
+            onUpdateEventType={() => {}}
           />
         </Grid>
-
         <Grid className={classes.contentButton}>
           <FormButtons
             roleSave="edit"
             roleCancel="redirect"
             disableMainButton={false}
-            onCancel={redirectButton}
-            onSubmit={handleSubmitButton}
+            onCancel={onBack}
+            onSubmit={onSubmit}
           />
         </Grid>
       </Grid>

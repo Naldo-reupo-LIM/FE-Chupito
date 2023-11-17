@@ -11,21 +11,16 @@ import { Credentials } from '../../entities'
 
 function Authentication() {
   const login = (credentials: Credentials) => {
-    const auth = getAuth(getFirebaseApp())
+    const fireApp = getFirebaseApp()
+    const auth = getAuth(fireApp)
 
-    signInWithEmailAndPassword(
-      auth,
-      credentials.email,
-      credentials.password
-    ).then((userCredential) => {
-      return userCredential.user
-    })
     return signInWithEmailAndPassword(
       auth,
       credentials.email,
       credentials.password
     )
   }
+
   const verifyAuth = () => {
     return new Promise<{ isAuth: boolean; userUid: string; email: string }>(
       (resolve, reject) => {

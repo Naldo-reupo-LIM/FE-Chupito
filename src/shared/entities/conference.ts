@@ -10,16 +10,19 @@ export type ConferenceStatus =
   | 'inactive'
 
 export interface Conference {
-  id: string
+  _id: string
   name: string
+  description: string
   eventDate: string
   status: ConferenceStatus
+  eventType: string
+  phoneNumber?: string
   address?: string
   year?: number
   images?: ImageMediaType[]
   headquarter?: Headquarter
-  _id?: string
   subscribed?: boolean
+  tags?: string[]
 }
 
 export interface ConferenceFilters {
@@ -34,5 +37,5 @@ export interface DataValidation {
 
 export interface ConferenceDataValidation {
   name: DataValidation
-  date: DataValidation
+  eventDate: DataValidation
 }

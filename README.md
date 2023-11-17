@@ -45,9 +45,8 @@ For local development, follow these steps:
 | **REACT_APP_PROJECT_ID**  | Project Identifier in GService.                           |
 | **REACT_APP_STORAGE_BUCKET**      | Storage URN for project GService.                 |
 | **REACT_APP_MESSAGING_SENDER_ID** | Firebase Cloud Messaging Identifier.              |
-| **TEST_USER_EMAIL**       | User profile email created for development tests.         |
-| **TEST_USER_PWD**         | User profile password created for development tests.      |
-| **TEST_USER_ID**          | User profile identifier generated for GService.           |
+| **REACT_APP_FIREBASE_APP_ID** | Firebase APP Identifier.              |
+| **REACT_APP_MEASUREMENT_ID** | Firebase Measurement Identifier.              |
 
 **NOTE:**   Ensure that you have followed the necessary steps on the backend to have the required services up and running for managing, storing, and retrieving data for the app.
 

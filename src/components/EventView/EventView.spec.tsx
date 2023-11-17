@@ -1,58 +1,41 @@
 import { render, screen } from '@testing-library/react'
-import axios from 'axios';
 
 import EventView, { EventViewProps } from './EventView'
-import EventsApi from '../../shared/api/endpoints/events'
-
-const api = new EventsApi()
+import { Conference } from '../../shared/entities'
 
 const renderComponent = (props: EventViewProps) =>
   render(<EventView {...props} />)
 
-const mockOnChange = jest.fn()
-
-const props: EventViewProps = {
-  headquarters: [
-    { _id: '64c3f59244d9afa500ea1422', name: 'Piura' },
-    { _id: '64c3f59244d9afa500ea1423', name: 'Lima' },
-  ],
-  tags: [
-    { _id: 'Architecture', name: 'Architecture' },
-    { _id: 'Design', name: 'Design' },
-  ],
-  headquarter: 'piura',
-  eventType: 'Sales',
-  eventTag: 'Design',
-  eventDescription: 'Test',
-  eventName: 'Test',
-  eventDate: '2023-03-15T17:00:00.000',
-  address: '121 Main Street',
-  phoneNumber: '3100000000',
-  isLoading: false,
-  validation: { name: { error: false }, date: { error: false } },
-  onChangeEventName: mockOnChange,
-  onChangeEventDate: mockOnChange,
-  onChangeAddress: mockOnChange,
-  onChangePhoneNumber: mockOnChange,
-}
-
-const service = {
-  name: "Pink day",
-  date: "2023-03-15T17:00:00.000",
-  headquarter: "64b979b96d50f43aaefa1a50",
-  address: "121 Main Street",
-  type: "Sales",
-  description: "Dress up green!",
-  tags: "Devops",
-  phoneNumber: "" 
-};
-
-const mockedAxios = axios as jest.Mocked<typeof axios>;
-axios.post = jest.fn();
-mockedAxios.post.mockResolvedValueOnce(service);
+const mockHeadquarters = [
+  { _id: '64c3f59244d9afa500ea1422', name: 'Piura' },
+  { _id: '64c3f59244d9afa500ea1423', name: 'Lima' },
+]
 
 describe('event view component', () => {
   it('should render all elements', () => {
+    const props: EventViewProps = {
+      headquarters: mockHeadquarters,
+      tags: [
+        { _id: 'Architecture', name: 'Architecture' },
+        { _id: 'Design', name: 'Design' },
+      ],
+      eventData: {
+        _id: '0',
+        eventType: 'Sales',
+        tags: ['Design'],
+        description: 'Test',
+        name: 'Test',
+        eventDate: '2023-03-15T17:00:00.000',
+        address: '121 Main Street',
+        phoneNumber: '3100000000',
+        status: 'active',
+        headquarter: mockHeadquarters[0],
+      } as Conference,
+      isLoading: false,
+      validation: { name: { error: false }, eventDate: { error: false } },
+      onSubmit: jest.fn(),
+      onCancel: jest.fn(),
+    }
     renderComponent(props)
 
     const eventName = screen.getByText(/title/i)
@@ -74,11 +57,5 @@ describe('event view component', () => {
     expect(description).toBeInTheDocument()
     expect(phoneNumber).toBeInTheDocument()
     expect(salesEventType).toBeInTheDocument()
-  })
-
-  it('create event', async () => {
-    expect(axios.post).not.toHaveBeenCalled();
-    await api.add(service)
-    expect(axios.post).toHaveBeenCalled(); 
   })
 })
