@@ -11,6 +11,7 @@ The Event Manager Frontend is a web application built with React designed to eff
 - [Local Development](#local-development)
 - [Folder structure](#folder-structure)
 - [Testing](#testing)
+- [Docker Integraton](#docker-integration)
 - [Resources](#resources)
 
 
@@ -24,6 +25,8 @@ For MacOS:
 brew install nvm
 nvm install v14.21.3
 ```
+
+> :bulb: **Tip:** If nvm isn't functioning correctly after installation, consider run the line ```source ~/.nvm/nvm.sh```. This ensures that nvm is properly initialized and integrated into your shell session.
 
 ## Getting started
 
@@ -93,7 +96,18 @@ You can run tests for the application using the following command:
 yarn test:ci
 ```
 
-## Use Case scenarios:
+## Docker Integration
+
+**Dockerfile:** Configuration file that specifies the environment setup, dependencies installation, and prepares the application for execution within a Docker container.
+
+**Make command:** To facilitate the Docker image creation process, a make command is  defined in the `Makefile`.
+To create a Docker image of the frontend, please execute:
+
+  ```bash
+      make build
+  ```
+
+## Use Case scenarios
 
 TBD
 
