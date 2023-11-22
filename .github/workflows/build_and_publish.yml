@@ -1,0 +1,35 @@
+name: CI - Build and Publish Docker Image
+
+on:
+  pull_request:
+    types:
+      - closed
+    branches:
+       - master
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  build:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-20.04
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Log into registry ${{ env.REGISTRY }}
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and Push Docker Image
+        run: |
+          IMAGE_TAG_LOWER=$(echo "$IMAGE_NAME" | tr '[:upper:]' '[:lower:]')
+          IMAGE_TAG="${REGISTRY}/${IMAGE_TAG_LOWER}:latest"
+          docker build -t $IMAGE_TAG .
+          docker push $IMAGE_TAG
