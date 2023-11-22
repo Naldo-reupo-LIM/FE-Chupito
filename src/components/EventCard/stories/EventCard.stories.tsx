@@ -11,10 +11,12 @@ export default {
 const Template: Story<EventCardProps> = (args) => <EventCard {...args} />
 
 const eventCreated: Conference = {
-  id: '0001',
+  _id: '0001',
+  description: 'Google IO 2021',
   name: 'Google IO 2021',
   status: 'created',
   eventDate: '2021-03-15T17:00:00.000',
+  eventType: 'Sales',
 }
 export const Created = Template.bind({})
 Created.args = {
@@ -22,11 +24,13 @@ Created.args = {
 }
 
 const eventOpened: Conference = {
-  id: '',
+  _id: '',
+  description: 'Google IO 2021',
   name: 'Google IO 2021',
   status: 'opened',
   eventDate: '2021-04-15T17:00:00.000',
   // photo: '/images/NoImage.png',
+  eventType: 'Sales',
 }
 export const Opened = Template.bind({})
 Opened.args = {
@@ -34,11 +38,13 @@ Opened.args = {
 }
 
 const eventPaused: Conference = {
-  id: '',
+  _id: '',
+  description: 'Google IO 2021',
   name: 'Google IO 2021',
   status: 'paused',
   eventDate: '2021-05-15T17:00:00.000',
   // photo: '/images/NoImage.png',
+  eventType: 'Sales',
 }
 export const Paused = Template.bind({})
 Paused.args = {
@@ -46,11 +52,13 @@ Paused.args = {
 }
 
 const eventClosed: Conference = {
-  id: '',
+  _id: '',
+  description: 'Google IO 2021',
   name: 'Google IO 2021',
   status: 'closed',
   eventDate: '2021-06-15T17:00:00.000',
   // photo: '/images/NoImage.png',
+  eventType: 'Sales',
 }
 export const Closed = Template.bind({})
 Closed.args = {

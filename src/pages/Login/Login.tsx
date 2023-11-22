@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect, useCallback } from 'react'
+import { useState, useContext, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 
 import Login from '../../components/Login/Login'
@@ -33,7 +33,7 @@ export default function LoginPage(): JSX.Element {
       })
 
       if (eventId) {
-        const eventsApi = new EventsApi()
+        const eventsApi = EventsApi()
         await eventsApi.addAttendees(eventId, {
           email: userName,
           password,
@@ -60,21 +60,22 @@ export default function LoginPage(): JSX.Element {
   }
 
   const handleRedirect = useCallback(() => {
-    const { username, isAdmin } = user.state
+    const { email, isAdmin } = user.state
 
     let shouldRedirectTo = '/login'
 
-    if (username) {
+    if (email) {
       shouldRedirectTo = isAdmin ? '/events/list' : '/'
     } else if (eventId) {
       shouldRedirectTo = `/event-info/${eventId}`
     }
     history.push(shouldRedirectTo)
-  }, [eventId, history, user.state])
+  }
 
   useEffect(() => {
     handleRedirect()
-  }, [handleRedirect])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <NoneLayout>

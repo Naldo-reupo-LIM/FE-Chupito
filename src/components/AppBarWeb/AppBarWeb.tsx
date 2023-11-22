@@ -7,7 +7,8 @@ import { useAuth } from '../../shared/hooks/useAuth'
 import { headerStyles } from '../../shared/styles/Headers'
 import { AuthContext } from '../../shared/contexts/Auth/AuthContext'
 import { logout } from '../../utils/logout'
-import chupitoLogo from '../../assets/chupito-logo.svg'
+
+import logo from '../../assets/chupito-logo.svg'
 
 export interface AppBarWebProps {
   version: string
@@ -19,14 +20,19 @@ export default function AppBarWeb({ version }: AppBarWebProps): JSX.Element {
   const { state } = useAuth()
   const { setLoginData, getUserInfo } = useContext(AuthContext)
 
+  const handleLogout = () => {
+    logout(setLoginData, getUserInfo)
+    history.push('/')
+  }
+
   return (
     <>
       <AppBar>
         <Toolbar>
           <div className={classes.logoContainer}>
             <img
-              src={chupitoLogo}
-              alt="Chupito logo"
+              src={logo}
+              alt="logo"
               width="180"
               height="40"
               style={{ marginLeft: '30px' }}
@@ -40,7 +46,7 @@ export default function AppBarWeb({ version }: AppBarWebProps): JSX.Element {
                 </Typography>
                 <Button
                   variant="contained"
-                  onClick={() => logout(history, setLoginData, getUserInfo)}
+                  onClick={() => handleLogout()}
                   className={classes.buttonLogin}
                 >
                   <ExitToApp /> Logout
@@ -60,6 +66,7 @@ export default function AppBarWeb({ version }: AppBarWebProps): JSX.Element {
           <label className={classes.version}>v{version}</label>
         </Toolbar>
       </AppBar>
+      <div data-testid='appbarweb'/>
     </>
   )
 }

@@ -1,22 +1,20 @@
+// TODO: this should be in api folder calls
+
 import Security from '../shared/api/endpoints/security'
 import { Authentication } from '../shared/api'
 import { VerifyApiResponse } from '../shared/entities/auth'
 
-// TODO: Refactor logout to avoid using history
 export const logout = async (
-  history: Array<{}>,
   setLoginData: ({ isAuth, userUid, email }: VerifyApiResponse) => void,
   getUserInfo: () => void
 ) => {
-  const api = new Security()
+  const api = Security()
   const firebase = Authentication()
 
   try {
-    const data = await api.logout()
+    const data = await api.revokeToken()
     await firebase.logout()
     if (data) {
-      history.push('/')
-
       setLoginData({ isAuth: false, userUid: '', email: '' })
       getUserInfo()
 

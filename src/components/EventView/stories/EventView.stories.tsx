@@ -9,25 +9,30 @@ export default {
 
 const Template: Story<EventViewProps> = (args) => <EventView {...args} />
 
+const headquarters = [
+  { _id: '1', name: 'Piura' },
+  { _id: '2', name: 'Lima' },
+]
+
 export const Empty = Template.bind({})
 Empty.args = {
-  eventType: '',
-  eventName: '',
-  eventDate: '',
-  address: '',
-  phoneNumber: '',
-  headquarters: [
-    { _id: '1', name: 'Piura' },
-    { _id: '2', name: 'Lima' },
-  ],
-  headquarter: '',
+  eventData: {
+    _id: '',
+    eventType: '',
+    name: '',
+    description: '',
+    eventDate: '',
+    address: '',
+    phoneNumber: '',
+    headquarter: headquarters[0],
+    status: 'created',
+  },
+  headquarters: headquarters,
   isLoading: false,
   validation: {
     name: { error: false, message: '' },
-    date: { error: false, message: '' },
+    eventDate: { error: false, message: '' },
   },
-  onChangeEventName: () => {},
-  onChangeEventDate: () => {},
-  onChangeAddress: () => {},
-  onChangePhoneNumber: () => {},
+  onSubmit: () => {},
+  onCancel: () => {},
 }

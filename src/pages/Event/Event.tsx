@@ -29,7 +29,7 @@ export default function EventPage(): JSX.Element {
 
 
   const handleSubmitButton = async (newEvent: Conference) => {
-    const api = new EventsApi()
+    const api = EventsApi()
     try {
       await api.add(newEvent).then(
         () => handleCancelButton()

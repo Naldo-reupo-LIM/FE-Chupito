@@ -20,6 +20,7 @@ export default function Main({ children }: MainProps): JSX.Element {
   const classes = mainStyles()
   const theme = useTheme()
   const matchesDesktopDisplay = useMediaQuery(theme.breakpoints.up('sm'))
+  
   const location = useLocation()
   // TODO: version should be gotten from package.json
   const version = ''
@@ -31,15 +32,17 @@ export default function Main({ children }: MainProps): JSX.Element {
     matchesDesktopDisplay: boolean,
     version: string 
   ): JSX.Element => { 
-    if (shouldShowAppBars) {
-      if (matchesDesktopDisplay) {
-        return <AppBarWeb version={version} />;
-      } else {
-        return <AppBarMobile version={version} />;
-      }
+
+    // TODO: This should be refactored to a separate component or be part of a layout component
+    if (!shouldShowAppBars) {
+      return <></>;
     }
-  
-    return <></>;
+    
+    if (matchesDesktopDisplay) {
+      return <AppBarWeb version={version} />;
+    }
+
+    return <AppBarMobile version={version} />;
   }
 
   return (

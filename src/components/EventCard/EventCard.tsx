@@ -38,6 +38,7 @@ export default function EventCard({ event }: EventCardProps): JSX.Element {
   const history = useHistory()
 
   const handleLinkMoreInfo = () => {
+    // TODO: history should be moved to a page
     history.push(`/event-info/${event._id}`)
   }
 

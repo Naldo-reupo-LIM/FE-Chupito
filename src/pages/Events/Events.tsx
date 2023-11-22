@@ -16,7 +16,7 @@ export default function EventsPage(): JSX.Element {
 
   const apiHeadquarters = HeadquartersAPI()
   const apiConferences = ConferenceAPI()
-  const apiEvents = new Events()
+  const apiEvents = Events()
 
   const { user } = useContext(UserContext)
   const { state } = useContext(AuthContext)

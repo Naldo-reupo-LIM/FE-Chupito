@@ -25,14 +25,26 @@ import {
   Conference,
   ConferenceFilters,
   ConferenceStatus,
+  Headquarter
 } from '../../shared/entities'
 import { sortAscending, sortDescending } from '../../tools/sorting'
+// TODO: This sould be move to the page
 import EventsApi from '../../shared/api/endpoints/events'
-import { EventsAdminViewProps } from '../../shared/entities/props/eventsAdminViewProps'
+
 import { buttonIcon } from '../../shared/themes/buttons'
 import { StatusEnum } from '../../shared/constants/status'
 import { modalStyle, title } from '../../shared/themes/modal'
 import { eventStyle } from '../../shared/styles/eventsAdmin'
+
+export interface EventsAdminViewProps {
+  events: Conference[]
+  allHeadquarters: Headquarter[]
+  loadingEvents: boolean
+  loadingHeadquarters: boolean
+  selectedHeadquarter?: string
+  updateEvents: (id: string | undefined) => void
+  updateStatusEvents: (id: string | undefined, status: ConferenceStatus) => void
+}
 
 export default function EventAdminView({
   events,
@@ -43,15 +55,15 @@ export default function EventAdminView({
   updateEvents,
   updateStatusEvents,
 }: EventsAdminViewProps): JSX.Element {
-  const api = new EventsApi()
+  const api = EventsApi()
   const [filteredEvents, setFilteredEvents] = useState<Conference[]>(events)
   const classes = eventStyle()
   const [open, setOpen] = useState<boolean>(false)
-  let [idEvent, setId] = useState<string | undefined>('')
+  let [idEvent, setId] = useState<string>('')
   let [modalTitle, setTitle] = useState<string>('')
   let [buttonSave, setButton] = useState<boolean>(true)
 
-  const handleOpen = (id: string | undefined) => {
+  const handleOpen = (id: string) => {
     setOpen(true)
     setId(id)
     setTitle('Are you sure?')
@@ -86,8 +98,8 @@ export default function EventAdminView({
 
     if (selectedHeadquarter !== '-1') {
       filteredByHeadquarter = filteredByHeadquarter.filter(
-        ({ headquarter, id }: Conference) =>
-          headquarter && id === selectedHeadquarter
+        ({ headquarter, _id }: Conference) =>
+          headquarter && _id === selectedHeadquarter
       )
     }
 
@@ -101,7 +113,7 @@ export default function EventAdminView({
 
   const removeEvent = async () => {
     try {
-      const data = await api.delete(idEvent)
+      const data = await api.deleteEvent(idEvent)
 
       if (data.status === 200) {
         setTitle('Successfully deleted!')
@@ -134,7 +146,7 @@ export default function EventAdminView({
   return (
     <>
       {!loadingEvents && (
-        <FullLayout title="Special Spider App">
+        <FullLayout title="Events">
           <h1>Events</h1>
 
           <Grid
@@ -170,7 +182,7 @@ export default function EventAdminView({
 
                 <TableBody>
                   {filteredEvents.map((row) => (
-                    <TableRow key={row.id}>
+                    <TableRow key={row._id}>
                       <TableCell component="th" scope="row">
                         {row.name}
                       </TableCell>

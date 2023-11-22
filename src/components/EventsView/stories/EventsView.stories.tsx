@@ -22,19 +22,23 @@ const headquarters: Headquarter[] = [
 ]
 const events: Conference[] = [
   {
-    id: '00001',
+    _id: '00001',
+    description: 'Description 01',
     eventDate: '2023-01-30T23:23:00.000',
     name: 'Event 01',
     status: 'created',
     headquarter: Object.assign({}, headquarters[0]),
     year: 2023,
+    eventType: 'Sales',
   },
   {
-    id: '00002',
+    _id: '00002',
+    description: 'Description 02',
     eventDate: '2023-10-30T23:23:00.000',
     name: 'Event 02',
     status: 'created',
     year: 2023,
+    eventType: 'Sales',
   }
 ]
 BasicList.args = {

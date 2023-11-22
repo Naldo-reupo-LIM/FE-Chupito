@@ -71,7 +71,7 @@ export default function EventInfoPage(): JSX.Element {
   }
 
   const fetchEventById = async (eventId: string) => {
-    const api = new EventsApi()
+    const api = EventsApi()
     try {
       const response = await api.getById(eventId)
       const { id, name, eventDate } = response
@@ -82,7 +82,7 @@ export default function EventInfoPage(): JSX.Element {
   }
   const fetchVerifySubscription = async (id: string) => {
     try {
-      const api = new EventsApi()
+      const api = EventsApi()
       const response = await api.verifyUserEventSubscribed(id)
       setIsSubscribed(response.attendanceConfirmed)
     } catch (err) {

@@ -19,9 +19,9 @@ export default function EventEditPage(): JSX.Element {
   }
 
   const handleSubmitButton = async () => {
-    const api = new EventsApi()
+    const api = EventsApi()
     try {
-      const data = await api.update(id, eventData)
+      const data = await api.update(eventData._id, eventData)
 
       if (data.status) redirectButton()
     } catch (error) {
@@ -34,7 +34,7 @@ export default function EventEditPage(): JSX.Element {
   }, [id])
 
   const fetchEventById = async (eventId: string) => {
-    const api = new EventsApi()
+    const api = EventsApi()
     try {
       const resultData: Conference = await api.getById(eventId)
 
@@ -51,7 +51,7 @@ export default function EventEditPage(): JSX.Element {
       eventData={eventData}
       validation={{
         name: { error: false, message: '' },
-        date: { error: false, message: '' },
+        eventDate: { error: false, message: '' },
       }}
       onSubmit={handleSubmitButton}
       onBack={redirectButton}

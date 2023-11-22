@@ -1,14 +1,14 @@
+import { useContext, useState } from 'react'
 import { AppBar, Button, Typography, Toolbar } from '@material-ui/core'
 import { ListItemIcon, Menu, MenuItem } from '@mui/material'
 import { ExitToApp } from '@material-ui/icons'
 import { useHistory } from 'react-router-dom'
-import { useContext, useState } from 'react'
 
 import { useAuth } from '../../shared/hooks/useAuth'
 import { headerStyles } from '../../shared/styles/Headers'
 import { AuthContext } from '../../shared/contexts/Auth/AuthContext'
 import { logout } from '../../utils/logout'
-import chupitoLogo from '../../assets/chupito-logo.svg'
+import logo from '../../assets/chupito-logo.svg'
 
 export interface AppBarMobileProps {
   version: string
@@ -28,14 +28,20 @@ export default function AppBarMobile({ version }: AppBarMobileProps) {
 
   const handleSubmitButton = async () => {
     handleClose()
-    logout(history, setLoginData, getUserInfo)
+    await logout(setLoginData, getUserInfo)
   }
+
+  const handleLogout = async () => {
+    await logout(setLoginData, getUserInfo)
+    history.push('/')
+  }
+
   return (
     <>
       <AppBar>
         <Toolbar>
           <div className={classes.logoContainer}>
-            <img src={chupitoLogo} alt="Chupito logo" width="180" height="40" />
+            <img src={logo} alt="logo" width="180" height="40" />
           </div>
           <div className={classes.logout}>
             {state.isAuth ? (
@@ -45,7 +51,7 @@ export default function AppBarMobile({ version }: AppBarMobileProps) {
                 </Typography>
                 <Button
                   variant="contained"
-                  onClick={() => logout(history, setLoginData, getUserInfo)}
+                  onClick={() => handleLogout()}
                   className={classes.buttonLogin}
                 >
                   <ExitToApp /> Logout
@@ -80,7 +86,7 @@ export default function AppBarMobile({ version }: AppBarMobileProps) {
           Logout
         </MenuItem>
       </Menu>
-      {/* TODO: Replace Drawer for handlers */}
+      <div data-testid='appbarmobile'/>
     </>
   )
 }

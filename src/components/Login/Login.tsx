@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-
 import { Paper, TextField, Button, InputAdornment } from '@material-ui/core'
 import Container from '@mui/material/Container'
 import MailOutlineIcon from '@material-ui/icons/MailOutline'
@@ -11,7 +10,7 @@ import GoogleButton from 'react-google-button'
 import { validateEmail } from '../../tools'
 
 import { loginStyle } from '../../shared/styles/login'
-import chupitoLogo from '../../assets/chupito-logo.svg'
+import logo from '../../assets/chupito-logo.svg'
 
 export interface LoginProps {
   onLogin: (userName: string, password: string) => void
@@ -66,7 +65,7 @@ export default function Login({
   return (
     <Container className={`${classes.input} ${hasText ? 'hasText' : ''}`}>
       <div className={classes.logoContainer}>
-        <img src={chupitoLogo} alt="Chupito logo" />
+        <img src={logo} alt="Chupito logo" />
       </div>
       <div className={classes.loginBoxContainer}>
         <Paper elevation={3} className={classes.formContainer}>

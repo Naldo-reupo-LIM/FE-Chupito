@@ -1,50 +1,97 @@
+
 import { render, screen } from '@testing-library/react'
-import useMediaQuery from '@mui/material/useMediaQuery'
-import { MemoryRouter, Route } from 'react-router-dom'
 
 import Main, { MainProps } from './Main'
+
+const mockUseMediaQuery = jest.fn()
+jest.mock('@mui/material', () => ({
+  useMediaQuery: () => mockUseMediaQuery(),
+}))
+
+const mockUseLocation = jest.fn()
+jest.mock('react-router-dom', () => ({
+  useLocation: () => ({
+    pathname: '/login',
+  }),
+}))
+
+const mockLogout = jest.fn()
+jest.mock('../../utils/logout', () => ({
+  logout: () => mockLogout(),
+}))
 
 // TODO: Make a research to handle unit tests with context
 const renderMainComponent = (props: MainProps) => render(<Main {...props} />)
 
 describe('Main component', () => {
-  xit('should render all elements', () => {
-    const props: MainProps = {
-      version: 'v14',
-      children: <div />,
-    }
-    renderMainComponent(props)
-    const versionMain = screen.getByText(/v14/i)
-    expect(versionMain).toBeInTheDocument()
-  })
+  describe('when no login', () => {
 
-  xit('should render AppBarWeb header when device is WEB', () => {
-    jest.mock('@mui/material/useMediaQuery', () =>
-      jest.fn().mockImplementation((query) => {
-        return true
+    describe('Device is MOBILE', () => {
+      afterEach(() => {
+        jest.resetAllMocks()
       })
-    )
-    const props: MainProps = {
-      version: 'v14',
-      children: <div />,
-    }
-
-    renderMainComponent(props)
-    const webAppBarVersion = screen.getByText(/v14/)
-    expect(webAppBarVersion).toBeInTheDocument()
+  
+      it.skip('should render all elements', () => {
+        mockUseLocation.mockReturnValue({
+          pathname: '/events',
+        })
+        mockUseMediaQuery.mockReturnValue(false)
+        
+        const props: MainProps = {
+          children: <div />,
+        }
+        
+        renderMainComponent(props)
+        
+        const appBar = screen.getByTestId('appbarweb')
+        expect(appBar).toBeInTheDocument()
+      })
+    })
+  
+    describe('Device is DESKTOP', () => {
+      afterEach(() => {
+        jest.resetAllMocks()
+      })
+  
+      it.skip('should render all elements', () => {
+        mockUseLocation.mockReturnValue({
+          pathname: '/events',
+        })
+        mockUseMediaQuery.mockReturnValue(true)
+        
+        const props: MainProps = {
+          children: <div />,
+        }
+        
+        renderMainComponent(props)
+        
+        const appBar = screen.getByText('appbarweb')
+        expect(appBar).toBeInTheDocument()
+      })
+    })
   })
 
-  it('should not render AppBar components on /login route', () => {
-    render(
-      <MemoryRouter initialEntries={['/login']}>
-        <Main version="v14"></Main>
-      </MemoryRouter>
-    )
+  describe('should not render when is login', () => {
+    beforeEach(() => {
+      mockUseLocation.mockReturnValue({
+        pathname: '/login',
+      })
+    })
 
-    const appBarWeb = screen.queryByText('AppBarWeb')
-    const appBarMobile = screen.queryByText('AppBarMobile')
-
-    expect(appBarWeb).toBeNull()
-    expect(appBarMobile).toBeNull()
-  })
+    it('should not render all elements', () => {
+      mockUseMediaQuery.mockReturnValue(false)
+      
+      const props: MainProps = {
+        children: <div />,
+      }
+      
+      renderMainComponent(props)
+      
+      const appBarWeb = screen.queryByTestId('appbarweb')
+      const appBarMobile = screen.queryByTestId('appbarmobile')
+      
+      expect(appBarWeb).not.toBeInTheDocument()
+      expect(appBarMobile).not.toBeInTheDocument()
+    })
+  });
 })
