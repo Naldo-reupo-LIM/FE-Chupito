@@ -1,6 +1,5 @@
-import { useState, useContext, useEffect } from 'react'
+import { useState, useContext, useEffect, useCallback } from 'react'
 import { useHistory } from 'react-router-dom'
-
 import Login from '../../components/Login/Login'
 import { Authentication } from '../../shared/api'
 import EventsApi from '../../shared/api/endpoints/events'
@@ -25,13 +24,11 @@ export default function LoginPage(): JSX.Element {
       const resultToken = await result.user.getIdToken()
       setLoading(false)
       window.localStorage.setItem('token', JSON.stringify(resultToken))
-
       setLoginData({
         isAuth: true,
         userUid: result.user.uid,
         email: result.user.email,
       })
-
       if (eventId) {
         const eventsApi = EventsApi()
         await eventsApi.addAttendees(eventId, {
@@ -39,7 +36,7 @@ export default function LoginPage(): JSX.Element {
           password,
         })
       }
-      handleRedirect()
+      handleRedirect(user.state)
     } catch (err) {
       console.error(err)
     }
@@ -58,10 +55,10 @@ export default function LoginPage(): JSX.Element {
       setLoading(false)
     }
   }
+  
+  const handleRedirect = useCallback((userState) => {
 
-  const handleRedirect = useCallback(() => {
-    const { email, isAdmin } = user.state
-
+    const { email, isAdmin } = userState
     let shouldRedirectTo = '/login'
 
     if (email) {
@@ -70,13 +67,12 @@ export default function LoginPage(): JSX.Element {
       shouldRedirectTo = `/event-info/${eventId}`
     }
     history.push(shouldRedirectTo)
-  }
+  }, [eventId, history])
 
   useEffect(() => {
-    handleRedirect()
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
+    handleRedirect(user.state)
+  }, [handleRedirect, user.state])
+    
   return (
     <NoneLayout>
       <Login
