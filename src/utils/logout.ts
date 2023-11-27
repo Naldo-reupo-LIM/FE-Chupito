@@ -4,6 +4,7 @@ import Security from '../shared/api/endpoints/security'
 import { Authentication } from '../shared/api'
 import { VerifyApiResponse } from '../shared/entities/auth'
 
+// TODO: is getUserInfo needed here?
 export const logout = async (
   setLoginData: ({ isAuth, userUid, email }: VerifyApiResponse) => void,
   getUserInfo: () => void
@@ -12,8 +13,8 @@ export const logout = async (
   const firebase = Authentication()
 
   try {
-    const data = await api.revokeToken()
     await firebase.logout()
+    const data = await api.revokeToken()
     if (data) {
       setLoginData({ isAuth: false, userUid: '', email: '' })
       getUserInfo()
