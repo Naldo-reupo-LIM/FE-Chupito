@@ -16,8 +16,12 @@ jest.mock('react-router-dom', () => ({
 }))
 
 const mockLogout = jest.fn()
-jest.mock('../../utils/logout', () => ({
-  logout: () => mockLogout(),
+jest.mock('../../shared/api', () => ({
+  Authentication: () => {
+    return {
+      logoutApp: () => mockLogout(),
+    }
+  },
 }))
 
 // TODO: Make a research to handle unit tests with context

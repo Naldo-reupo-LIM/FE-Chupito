@@ -6,7 +6,7 @@ import { useContext } from 'react'
 import { useAuth } from '../../shared/hooks/useAuth'
 import { headerStyles } from '../../shared/styles/Headers'
 import { AuthContext } from '../../shared/contexts/Auth/AuthContext'
-import { logout } from '../../utils/logout'
+import { Authentication } from '../../shared/api/'
 
 import logo from '../../assets/chupito-logo.svg'
 
@@ -18,11 +18,13 @@ export default function AppBarWeb({ version }: AppBarWebProps): JSX.Element {
   const classes = headerStyles()
   const history = useHistory()
   const { state } = useAuth()
-  const { setLoginData, getUserInfo } = useContext(AuthContext)
+  const { setLoginData } = useContext(AuthContext)
 
   const handleLogout = () => {
-    logout(setLoginData, getUserInfo)
-    history.push('/')
+    Authentication().logout().then(() => {
+      setLoginData({ isAuth: false, userUid: '', email: '' })
+      history.push('/')
+    })
   }
 
   return (

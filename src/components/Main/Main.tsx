@@ -37,7 +37,7 @@ export default function Main({ children }: MainProps): JSX.Element {
     if (!shouldShowAppBars) {
       return <></>;
     }
-    
+    // TODO: This 2 guys AppBarWeb and AppBarMobile are almost the same, they should be refactored to a single component
     if (matchesDesktopDisplay) {
       return <AppBarWeb version={version} />;
     }

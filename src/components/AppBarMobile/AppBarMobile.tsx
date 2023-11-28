@@ -7,7 +7,7 @@ import { useHistory } from 'react-router-dom'
 import { useAuth } from '../../shared/hooks/useAuth'
 import { headerStyles } from '../../shared/styles/Headers'
 import { AuthContext } from '../../shared/contexts/Auth/AuthContext'
-import { logout } from '../../utils/logout'
+import { Authentication } from '../../shared/api/'
 import logo from '../../assets/chupito-logo.svg'
 
 export interface AppBarMobileProps {
@@ -18,7 +18,7 @@ export default function AppBarMobile({ version }: AppBarMobileProps) {
   const classes = headerStyles()
   const history = useHistory()
   const { state } = useAuth()
-  const { setLoginData, getUserInfo } = useContext(AuthContext)
+  const { setLoginData } = useContext(AuthContext)
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const open = Boolean(anchorEl)
 
@@ -28,11 +28,14 @@ export default function AppBarMobile({ version }: AppBarMobileProps) {
 
   const handleSubmitButton = async () => {
     handleClose()
-    await logout(setLoginData, getUserInfo)
+    await Authentication().logout()
+    setLoginData({ isAuth: false, userUid: '', email: '' })
+    history.push('/')
   }
 
   const handleLogout = async () => {
-    await logout(setLoginData, getUserInfo)
+    await Authentication().logout()
+    setLoginData({ isAuth: false, userUid: '', email: '' })
     history.push('/')
   }
 

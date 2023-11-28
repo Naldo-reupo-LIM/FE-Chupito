@@ -5,6 +5,7 @@ import {
   signInWithPopup,
   signOut,
 } from 'firebase/auth'
+import Security from './security'
 
 import getFirebaseApp from '../backends/firebase'
 import { Credentials } from '../../entities'
@@ -73,9 +74,21 @@ function Authentication() {
     }
   }
 
+  const logoutApp = async () => {
+    const api = Security()
+
+    try {
+      await logout()
+      await api.revokeToken()
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return {
     login,
     logout,
+    logoutApp,
     verifyAuth,
     googleSignIn,
   }
