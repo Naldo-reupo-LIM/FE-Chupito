@@ -1,24 +1,29 @@
-import { useContext, useState } from 'react'
+import { useState } from 'react'
 import { AppBar, Button, Typography, Toolbar } from '@material-ui/core'
 import { ListItemIcon, Menu, MenuItem } from '@mui/material'
 import { ExitToApp } from '@material-ui/icons'
-import { useHistory } from 'react-router-dom'
 
-import { useAuth } from '../../shared/hooks/useAuth'
 import { headerStyles } from '../../shared/styles/Headers'
-import { AuthContext } from '../../shared/contexts/Auth/AuthContext'
-import { Authentication } from '../../shared/api/'
+
 import logo from '../../assets/chupito-logo.svg'
 
 export interface AppBarMobileProps {
-  version: string
+  isAuthenticated: boolean
+  username: string
+  onLogin: () => void
+  onLogout: () => void
+  version?: string
 }
 
-export default function AppBarMobile({ version }: AppBarMobileProps) {
+export default function AppBarMobile({
+  isAuthenticated,
+  username,
+  onLogin,
+  onLogout,
+  version = '',
+}: AppBarMobileProps): JSX.Element {
   const classes = headerStyles()
-  const history = useHistory()
-  const { state } = useAuth()
-  const { setLoginData } = useContext(AuthContext)
+
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const open = Boolean(anchorEl)
 
@@ -26,17 +31,9 @@ export default function AppBarMobile({ version }: AppBarMobileProps) {
     setAnchorEl(null)
   }
 
-  const handleSubmitButton = async () => {
+  const handleSubmitButton = () => {
     handleClose()
-    await Authentication().logout()
-    setLoginData({ isAuth: false, userUid: '', email: '' })
-    history.push('/')
-  }
-
-  const handleLogout = async () => {
-    await Authentication().logout()
-    setLoginData({ isAuth: false, userUid: '', email: '' })
-    history.push('/')
+    onLogout()
   }
 
   return (
@@ -47,14 +44,14 @@ export default function AppBarMobile({ version }: AppBarMobileProps) {
             <img src={logo} alt="logo" width="180" height="40" />
           </div>
           <div className={classes.logout}>
-            {state.isAuth ? (
+            {isAuthenticated ? (
               <>
                 <Typography className={classes.userEmail} variant="h5">
-                  {state.username || state.email}
+                  {username}
                 </Typography>
                 <Button
                   variant="contained"
-                  onClick={() => handleLogout()}
+                  onClick={onLogout}
                   className={classes.buttonLogin}
                 >
                   <ExitToApp /> Logout
@@ -63,7 +60,7 @@ export default function AppBarMobile({ version }: AppBarMobileProps) {
             ) : (
               <Button
                 variant="contained"
-                onClick={() => history.push('/login')}
+                onClick={onLogin}
                 className={classes.buttonLogin}
               >
                 LOGIN
@@ -89,7 +86,7 @@ export default function AppBarMobile({ version }: AppBarMobileProps) {
           Logout
         </MenuItem>
       </Menu>
-      <div data-testid='appbarmobile'/>
+      <div data-testid="appbarmobile" />
     </>
   )
 }

@@ -1,13 +1,13 @@
-import { useContext,ReactNode } from 'react'
+import { useContext, ReactNode } from 'react'
+import { useLocation, useHistory } from 'react-router-dom'
 import { Paper } from '@material-ui/core'
-import { useMediaQuery } from '@mui/material'
-import { useTheme } from '@mui/material/styles'
-import { useLocation } from 'react-router-dom'
 
-import AppBarMobile from '../../components/AppBarMobile/AppBarMobile'
-import AppBarWeb from '../../components/AppBarWeb/AppBarWeb'
+import TopBar from '../TopBar/TopBar'
 import NavigationBar from '../Navigation/NavigationBar'
 import LayoutContext, { LayoutTypes } from '../../shared/contexts/LayoutContext'
+import { AuthContext } from '../../shared/contexts/Auth/AuthContext'
+import { useAuth } from '../../shared/hooks/useAuth'
+import { Authentication } from '../../shared/api/'
 
 import { mainStyles } from '../../shared/styles/main'
 
@@ -17,38 +17,48 @@ export interface MainProps {
 
 export default function Main({ children }: MainProps): JSX.Element {
   const { layout, title, showLogo } = useContext(LayoutContext)
+  const { setLoginData } = useContext(AuthContext)
+  const { state } = useAuth()
+
   const classes = mainStyles()
-  const theme = useTheme()
-  const matchesDesktopDisplay = useMediaQuery(theme.breakpoints.up('sm'))
-  
+
   const location = useLocation()
-  // TODO: version should be gotten from package.json
-  const version = ''
+  const history = useHistory()
 
   const shouldShowAppBars = location.pathname !== '/login'
 
-  const renderAppBar = (
-    shouldShowAppBars: boolean,
-    matchesDesktopDisplay: boolean,
-    version: string 
-  ): JSX.Element => { 
+  const handleLogout = () => {
+    Authentication()
+      .logout()
+      .then(() => {
+        setLoginData({ isAuth: false, userUid: '', email: '' })
+        history.push('/')
+      })
+  }
 
+  const handleGoToLogin = () => {
+    history.push('/login')
+  }
+
+  const renderAppBar = (shouldShowAppBars: boolean): JSX.Element => {
     // TODO: This should be refactored to a separate component or be part of a layout component
     if (!shouldShowAppBars) {
-      return <></>;
+      return <></>
     }
-    // TODO: This 2 guys AppBarWeb and AppBarMobile are almost the same, they should be refactored to a single component
-    if (matchesDesktopDisplay) {
-      return <AppBarWeb version={version} />;
-    }
-
-    return <AppBarMobile version={version} />;
+    return (
+      <TopBar
+        onLogin={handleGoToLogin}
+        onLogout={handleLogout}
+        isAuthenticated={state.isAuth}
+        username={state.isAuth ? state.username || state.email : ''}
+      />
+    )
   }
 
   return (
     <>
-      {renderAppBar(shouldShowAppBars, matchesDesktopDisplay, version)}
-      
+      {renderAppBar(shouldShowAppBars)}
+
       {layout === LayoutTypes.NAVIGATION && (
         <NavigationBar title={title} showLogo={showLogo} />
       )}
