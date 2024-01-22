@@ -7,7 +7,7 @@ import VisibilityIcon from '@material-ui/icons/Visibility'
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff'
 import GoogleButton from 'react-google-button'
 
-import { validateEmail } from '../../tools'
+import { validateEmail } from '../../shared/tools'
 
 import { loginStyle } from '../../shared/styles/login'
 import logo from '../../assets/chupito-logo.svg'

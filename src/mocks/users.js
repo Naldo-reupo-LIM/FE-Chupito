@@ -1,5 +1,5 @@
 import {getRole} from './roles';
-import {uuidv4, getBase64} from '../tools';
+import {uuidv4, getBase64} from '../shared/tools';
 
 let staticUsers;
 

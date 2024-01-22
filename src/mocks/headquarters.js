@@ -1,4 +1,4 @@
-import {uuidv4} from '../tools';
+import {uuidv4} from '../shared/tools';
 
 let staticHeadquarters;
 

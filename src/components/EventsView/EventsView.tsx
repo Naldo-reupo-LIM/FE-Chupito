@@ -16,7 +16,7 @@ import {
   ConferenceFilters,
 } from '../../shared/entities'
 
-import { sortAscending, sortDescending } from '../../tools/sorting'
+import { sortAscending, sortDescending } from '../../shared/tools/sorting'
 
 const useStyles = makeStyles(() =>
   createStyles({

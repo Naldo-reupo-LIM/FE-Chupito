@@ -1,4 +1,4 @@
-import { Conference } from './../shared/entities/conference'
+import { Conference } from '../entities/conference'
 
 import { sortDescending, sortAscending } from './sorting'
 

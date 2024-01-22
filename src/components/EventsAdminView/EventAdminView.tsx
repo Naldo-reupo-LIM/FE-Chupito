@@ -27,7 +27,7 @@ import {
   ConferenceStatus,
   Headquarter
 } from '../../shared/entities'
-import { sortAscending, sortDescending } from '../../tools/sorting'
+import { sortAscending, sortDescending } from '../../shared/tools/sorting'
 // TODO: This sould be move to the page
 import EventsApi from '../../shared/api/endpoints/events'
 

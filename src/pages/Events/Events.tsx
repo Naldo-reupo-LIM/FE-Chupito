@@ -4,7 +4,7 @@ import UserContext from '../../shared/contexts/UserContext'
 import EventsView from '../../components/EventsView/EventsView'
 import { HeadquartersAPI, ConferenceAPI } from '../../shared/api'
 import { Conference, Headquarter } from '../../shared/entities'
-import { sortAscending } from '../../tools/sorting'
+import { sortAscending } from '../../shared/tools/sorting'
 import { AuthContext } from '../../shared/contexts/Auth/AuthContext'
 import Events from '../../shared/api/endpoints/events'
 

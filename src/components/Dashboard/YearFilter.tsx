@@ -1,6 +1,6 @@
 import CustomDropdown from '../CustomDropdown/CustomDropdown'
 
-import { getCurrentYear } from '../../tools'
+import { getCurrentYear } from '../../shared/tools'
 
 export type YearFilterProps = {
   onChange: (selectedYear: string) => void

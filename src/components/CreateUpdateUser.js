@@ -21,7 +21,7 @@ import RolesApi from '../shared/api/endpoints/roles'
 import ImagesApi from '../shared/api/endpoints/images'
 import SelectWithLoading from './DropDown/SelectWithLoading'
 import { withUserContext } from '../hocs/UserContext'
-import { getBase64, validateEmail } from '../tools'
+import { getBase64, validateEmail } from '../shared/tools'
 import TextFieldWithValidation from './TextField/TextFieldWithValidation'
 
 class CreateUpdateUser extends Component {

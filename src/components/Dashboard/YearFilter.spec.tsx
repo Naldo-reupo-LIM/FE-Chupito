@@ -11,7 +11,7 @@ import YearFilter, { YearFilterProps } from './YearFilter'
 const renderComponent = (props: YearFilterProps) => render(<YearFilter {...props} />)
 
 const mockCurrentYear = 2023
-jest.mock('../../tools', () => ({
+jest.mock('../../shared/tools', () => ({
   getCurrentYear: () => mockCurrentYear,
 }))
 

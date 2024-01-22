@@ -17,7 +17,7 @@ import { Conference } from '../../shared/entities'
 
 import { eventCardStyles } from './EventCardStyle'
 
-import eventImage from '../../assets/programmingImg.png'
+import eventImage from '../../assets/programmingImg.png';
 
 export interface EventCardProps {
   event: Conference

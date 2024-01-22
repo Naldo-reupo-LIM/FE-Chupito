@@ -1,7 +1,7 @@
 /* eslint-disable no-mixed-operators */
 import Moment from 'moment';
 
-import { Conference } from './../shared/entities/conference';
+import { Conference } from '../entities/conference';
 
 const customDateFormat: string = 'yyyy-MM-DDThh:mm:ss.SSS'
 

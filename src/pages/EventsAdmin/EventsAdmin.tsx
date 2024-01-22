@@ -10,7 +10,7 @@ import {
   Headquarter,
 } from '../../shared/entities'
 import { ConferenceAPI, HeadquartersAPI } from '../../shared/api'
-import { sortAscending } from '../../tools/sorting'
+import { sortAscending } from '../../shared/tools/sorting'
 
 export default function EventsAdminPage(): JSX.Element {
   const [allHeadquarters, setAllHeadquarters] = useState<Headquarter[]>([])

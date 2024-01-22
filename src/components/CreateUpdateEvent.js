@@ -15,7 +15,7 @@ import ImagesApi from '../shared/api/endpoints/images'
 import HeadquartersApi from '../shared/api/endpoints/headquarters'
 import UsersApi from '../shared/api/endpoints/users'
 import { styles } from '../styles/CreateUpdateEvent'
-import { getBase64, isValidMaxImageSize, isValidImageType } from '../tools'
+import { getBase64, isValidMaxImageSize, isValidImageType } from '../shared/tools'
 import { withMessage } from '../hocs/Snackbar'
 
 const defaultEventType = 'recruiting'

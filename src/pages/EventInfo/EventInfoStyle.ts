@@ -4,17 +4,20 @@ import { colors } from "../../shared/themes/colors";
 export const eventInfoStyles = makeStyles((theme) =>
   createStyles({
     titleContainer: {
-      background: colors.transparentYellow,
+      background: colors.white,
       display: 'flex',
       flexWrap: 'wrap',
+      paddingTop: theme.spacing(4),
     },
     eventTitleRow: {
-      padding: theme.spacing(2),
+      paddingTop: theme.spacing(4),
+      paddingLeft: theme.spacing(4),
+      color: colors.darkGray,
     },
     eventDateRow: {
       display: 'flex',
       justifyContent: 'flex-end',
-      padding: theme.spacing(1),
+      padding: theme.spacing(2),
       alignItems: 'center',
 
       [theme.breakpoints.up('sm')]: {
@@ -22,21 +25,27 @@ export const eventInfoStyles = makeStyles((theme) =>
       },
     },
     date: {
-      fontSize: '1.2em',
+      fontSize: '1em',
+      fontWeight: 400,
+      color: colors.darkGray,
+      paddingBottom: theme.spacing(2),
+      marginLeft: '1em',
     },
     button: {
-      backgroundColor: colors.yellow,
+      borderColor: colors.blue,
       marginLeft: '1em',
+      color: colors.blue,
     },
     body: {
       background: colors.white,
+      padding: theme.spacing(4),
     },
     description: {
       marginLeft: '1em',
     },
     subscribersSection: {
       display: 'flex',
-      marginTop: theme.spacing(4),
+      marginTop: theme.spacing(1),
     },
     subscribedUserIcon: {
       color: colors.black,
@@ -51,17 +60,6 @@ export const eventInfoStyles = makeStyles((theme) =>
     },
     tagsContainer: { 
       marginLeft: '1em',
-    },
-    tagPrimary: {
-      backgroundColor: colors.dark,
-      color: colors.white,
-    },
-    tagSecondary: {
-      backgroundColor: colors.blue,
-      color: colors.white,
-    },
-    tagOptional: {
-      backgroundColor: colors.lightOrange,
     },
     imagesContainer: {
       width: '100%',

@@ -21,7 +21,7 @@ import { withMessage } from '../hocs/Snackbar'
 import EventsApi from '../shared/api/endpoints/events'
 import database from '../database/database'
 import DataService from '../database/dataService'
-import { uuidv4, validateEmail } from '../tools'
+import { uuidv4, validateEmail } from '../shared/tools'
 import { styles } from '../styles/AttendeeForm'
 
 const strings = {
