@@ -5,7 +5,6 @@ import { Authentication } from '../../shared/api'
 import EventsApi from '../../shared/api/endpoints/events'
 import { AuthContext } from '../../shared/contexts/Auth/AuthContext'
 import { useAuth } from '../../shared/hooks/useAuth'
-import NoneLayout from '../../hocs/NoneLayout'
 
 export default function LoginPage(): JSX.Element {
   const [loading, setLoading] = useState(false)
@@ -74,12 +73,10 @@ export default function LoginPage(): JSX.Element {
   }, [handleRedirect, user.state])
     
   return (
-    <NoneLayout>
       <Login
         onLogin={handleLoginClicked}
         googleOnLogin={handleGoogleLogin}
         loading={loading}
       />
-    </NoneLayout>
   )
 }

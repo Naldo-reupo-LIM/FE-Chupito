@@ -5,7 +5,7 @@ import Login, { LoginProps } from './Login'
 
 const renderComponent = (props: LoginProps) => render(<Login {...props} />)
 
-xdescribe('login view component', () => {
+describe('login view component', () => {
   it('should render all elements', () => {
     const mockOnLogin = jest.fn()
     const props: LoginProps = {
@@ -44,15 +44,15 @@ xdescribe('login view component', () => {
     const buttonField = screen.getByRole('button', { name: /Login/i })
     expect(buttonField).toBeInTheDocument()
 
-    userEvent.type(userField, 'test@test.com')
-    expect(userField).toHaveValue('test@test.com')
+    userEvent.type(userField, 'testuser@chupito.com')
+    expect(userField).toHaveValue('testuser@chupito.com')
 
-    userEvent.type(passwordField, 'f2022TOO!')
-    expect(passwordField).toHaveValue('f2022TOO!')
+    userEvent.type(passwordField, 'TesT#975')
+    expect(passwordField).toHaveValue('TesT#975')
 
     waitFor(() => {
-      userEvent.click(buttonField)
-      expect(mockOnLogin).toHaveBeenCalled()
+      expect(screen.getByRole('button')).toHaveTextContent(/Login/i)
+       expect(mockOnLogin).toHaveBeenCalled()
       expect(mockOnLogin).toHaveBeenCalledTimes(1)
     })
   })

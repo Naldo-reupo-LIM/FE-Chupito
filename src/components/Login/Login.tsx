@@ -9,7 +9,7 @@ import GoogleButton from 'react-google-button'
 
 import { validateEmail } from '../../shared/tools'
 
-import { loginStyle } from '../../shared/styles/login'
+import { loginStyle, customButton } from '../../shared/styles/login'
 import logo from '../../assets/chupito-logo.svg'
 
 export interface LoginProps {
@@ -27,8 +27,8 @@ export default function Login({
   const [disableLogin, setDisableLogin] = useState(true)
   const [showPassword, setShowPassword] = useState(false)
   const hasText = !!userName
-
   const classes = loginStyle()
+  const formBox = `${classes.input} ${hasText ? 'hasText' : ''}`;
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword)
@@ -60,14 +60,14 @@ export default function Login({
   }
   const handleGoogleLoginClicked = () => {
     googleOnLogin(userName)
-  }
+  } 
 
   return (
-    <Container className={`${classes.input} ${hasText ? 'hasText' : ''}`}>
+    <Container className={classes.loginBoxContainer}>
       <div className={classes.logoContainer}>
         <img src={logo} alt="Chupito logo" />
       </div>
-      <div className={classes.loginBoxContainer}>
+      <div className={formBox}>
         <Paper elevation={3} className={classes.formContainer}>
           <TextField
             className={classes.input}
@@ -134,9 +134,8 @@ export default function Login({
           >
             Login
           </Button>
-          <span>or</span>
           <div className={classes.googleButtonContainer}>
-            <GoogleButton onClick={handleGoogleLoginClicked} />
+            <GoogleButton onClick={handleGoogleLoginClicked} type="light" style={customButton} />
           </div>
         </Paper>
       </div>

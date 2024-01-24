@@ -1,22 +1,34 @@
 import { createStyles, makeStyles } from '@material-ui/core'
 import { colors } from '../themes/colors'
 
+export const customButton = {
+  width: '100%',
+  borderRadius: '10px',
+  display: 'flex',
+  justifyContent: 'center',
+};
+
 export const loginStyle = makeStyles((theme) =>
   createStyles({
     container: {
-      marginBottom: '250px',
       [theme.breakpoints.up('md')]: {
         marginLeft: '50px',
         marginRight: '50px',
-        marginBottom: '50px',
       },
     },
     loginBoxContainer: {
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
+      flexDirection: 'column',
+      paddingTop: '15%',
+      [theme.breakpoints.up('md')]: {
+        paddingTop: '2%',
+      },
     },
     input: {
+      display: 'flex',
+      justifyContent: 'center',
       marginBottom: '15px',
       marginTop: '15px',
       '& .MuiOutlinedInput-root': {
@@ -40,27 +52,30 @@ export const loginStyle = makeStyles((theme) =>
       color: colors.gray,
     },
     button: {
-      marginTop: '14px',
+      marginTop: '20px',
       backgroundColor: colors.mainBlue,
       color: colors.white,
       fontFamily: 'Exo',
       borderRadius: '8px',
+      padding: '12px',
       '&.MuiButton-root.Mui-disabled': {
         backgroundColor: colors.disabledButton,
       },
-      [theme.breakpoints.up('md')]: {
-        height: '90px',
-      },
     },
     googleButtonContainer: {
-      marginTop: '14px',
+      marginTop: '20px',
+      width: '100%',
     },
-
     logoContainer: {
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      margin: '150px',
+      paddingTop: '6%',
+      paddingBottom: '5%',
+      marginBottom: '80px',
+      [theme.breakpoints.up('md')]: {
+       marginBottom: 0,
+      },
     },
     formContainer: {
       display: 'flex',
@@ -69,11 +84,10 @@ export const loginStyle = makeStyles((theme) =>
       justifyContent: 'center',
       borderRadius: '16px',
       padding: '20px 30px',
-      marginBottom: '200px',
       [theme.breakpoints.up('md')]: {
-        width: '650px',
+        width: '450px',
         height: '250px',
-        padding: '150px 80px',
+        padding: '8% 5%',
       },
     },
   })
