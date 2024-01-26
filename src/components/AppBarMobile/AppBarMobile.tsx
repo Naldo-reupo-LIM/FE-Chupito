@@ -41,12 +41,12 @@ export default function AppBarMobile({
       <AppBar>
         <Toolbar>
           <div className={classes.logoContainer}>
-            <img src={logo} alt="logo" width="180" height="40" />
+            <img src={logo} alt="logo" width="100" height="20" />
           </div>
           <div className={classes.logout}>
             {isAuthenticated ? (
               <>
-                <Typography className={classes.userEmail} variant="h5">
+                <Typography className={classes.userEmail} >
                   {username}
                 </Typography>
                 <Button
@@ -54,7 +54,7 @@ export default function AppBarMobile({
                   onClick={onLogout}
                   className={classes.buttonLogin}
                 >
-                  <ExitToApp /> Logout
+                  <ExitToApp fontSize='small' /> Logout
                 </Button>
               </>
             ) : (
@@ -67,7 +67,6 @@ export default function AppBarMobile({
               </Button>
             )}
           </div>
-
           <label className={classes.version}>v{version}</label>
         </Toolbar>
       </AppBar>
@@ -81,7 +80,7 @@ export default function AppBarMobile({
       >
         <MenuItem onClick={handleSubmitButton}>
           <ListItemIcon>
-            <ExitToApp fontSize="small" />
+            <ExitToApp fontSize='small' />
           </ListItemIcon>
           Logout
         </MenuItem>

@@ -12,20 +12,35 @@ export const headerStyles = makeStyles(() =>
       color: colors.gray,
       position: 'absolute',
       top: '0',
-      right: '1em',
+      right: 10,
       fontSize: 'xx-small',
     },
     userEmail: {
       color: colors.black,
-      marginTop:'15px',
-      paddingRight: '13.5px',
+      marginTop:15,
+      paddingRight: 13,
       fontFamily:'Exo',
-      fontWeight: 'bold'
+      fontWeight: 'bold',
+      fontSize: 10,
+    },
+    userEmailweb: {
+      color: colors.black,
+      marginTop:15,
+      paddingRight: 13,
+      fontFamily:'Exo',
+      fontWeight: 'bold',
+      fontSize: 14,
     },
     buttonLogin: {
       color: colors.white,
       backgroundColor: colors.mainBlue,
-      fontSize: 'small',
+      fontSize: 10,
+      width: 70,
+    },
+    buttonWeb: {
+      color: colors.white,
+      backgroundColor: colors.mainBlue,
+      fontSize: 12,
     },
 
     logoContainer: {

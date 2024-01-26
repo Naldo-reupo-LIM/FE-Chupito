@@ -18,15 +18,27 @@ import {
 
 import { sortAscending, sortDescending } from '../../shared/tools/sorting'
 
-const useStyles = makeStyles(() =>
+const useStyles = makeStyles((theme) =>
   createStyles({
+    container:{
+      paddingTop: '45px',
+      paddingLeft: '10px',
+      paddingRight: '10px',
+      [theme.breakpoints.up('sm')]: {
+        padding: '45px',
+      },
+    },
     title: {
-      margin: '1.5em 0 0 0',
+      marginTop: '1.5em',
       marginBottom: '0.5em',
     },
     headquarterFilter: {
       paddingBottom: '20px',
-      boxShadow: '0px 1px 1px #cdcdcd',
+      marginBottom: '20px',
+      boxShadow: '0px #cdcdcd',
+      [theme.breakpoints.up('sm')]: {
+        boxShadow: '0px 1px 0px #cdcdcd',
+      },
     },
     centeredContent: {
       justifyContent: 'center',
@@ -94,36 +106,38 @@ export default function EventsView({
   return (
     <>
       {!loadingEvents && (
-        <FullLayout title="Conferences">
-          {matchesDesktopDisplay && <h1 className={classes.title}>Events</h1>}
-          <Grid
-            container
-            justifyContent="center"
-            className={classes.headquarterFilter}
-          >
-            {loadingEvents && <>Loading Headquarters...</>}
-            {!loadingEvents && matchesDesktopDisplay ? (
-              <Headquarters
-                onChangeHeadquarter={handleHeadquarterChanged}
-                allHeadquarters={allHeadquarters}
-                selectedHeadquarter={selectedHeadquarter}
-                loading={loadingHeadquarters}
-              />
-            ) : null}
-            {matchesDesktopDisplay ? (
-              <DashboardFilters onChangeFilters={handleChangeFilters} />
-            ) : null}
-          </Grid>
-          <Grid container>
-            <EventList events={filteredEvents} />
-          </Grid>
-          {isAdmin && (
-            <NavigationWrapper path="/event/add">
-              <Fab color="primary">
-                <AddIcon />
-              </Fab>
-            </NavigationWrapper>
-          )}
+        <FullLayout title="Conferences" >
+          <div className={classes.container}>
+            {matchesDesktopDisplay && <h1 className={classes.title}>Events</h1>}
+            <Grid
+              container
+              justifyContent="space-evenly"
+              className={classes.headquarterFilter}
+            >
+              {loadingEvents && <>Loading Headquarters...</>}
+              {!loadingEvents && matchesDesktopDisplay ? (
+                <Headquarters
+                  onChangeHeadquarter={handleHeadquarterChanged}
+                  allHeadquarters={allHeadquarters}
+                  selectedHeadquarter={selectedHeadquarter}
+                  loading={loadingHeadquarters}
+                />
+              ) : null}
+              {matchesDesktopDisplay ? (
+                <DashboardFilters onChangeFilters={handleChangeFilters} />
+              ) : null}
+            </Grid>
+            <Grid container justifyContent="center">
+              <EventList events={filteredEvents} />
+            </Grid>
+            {isAdmin && (
+              <NavigationWrapper path="/event/add">
+                <Fab color="primary">
+                  <AddIcon />
+                </Fab>
+              </NavigationWrapper>
+            )}
+          </div>
         </FullLayout>
       )}
     </>

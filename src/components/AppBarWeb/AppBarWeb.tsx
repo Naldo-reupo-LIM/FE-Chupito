@@ -38,13 +38,13 @@ export default function AppBarWeb({
           <div className={classes.logout}>
             {isAuthenticated ? (
               <>
-                <Typography className={classes.userEmail} variant="h6">
+                <Typography className={classes.userEmailweb} variant="h6">
                   {username}
                 </Typography>
                 <Button
                   variant="contained"
                   onClick={onLogout}
-                  className={classes.buttonLogin}
+                  className={classes.buttonWeb}
                 >
                   <ExitToApp /> Logout
                 </Button>
@@ -53,7 +53,7 @@ export default function AppBarWeb({
               <Button
                 variant="contained"
                 onClick={onLogin}
-                className={classes.buttonLogin}
+                className={classes.buttonWeb}
               >
                 LOGIN
               </Button>
