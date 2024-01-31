@@ -1,12 +1,13 @@
 import { Story, Meta } from '@storybook/react/types-6-0'
-import AppBarWeb, { AppBarWebProps } from '../AppBarWeb'
+import Header from '../Header'
+import { HeaderProps } from '../types/types.header'
 
 export default {
   title: 'AppBarWeb',
-  component: AppBarWeb,
+  component: Header,
 } as Meta
 
-const Template: Story<AppBarWebProps> = (args) => <AppBarWeb {...args} />
+const Template: Story<HeaderProps> = (args) => <Header {...args} />
 
 export const Authenticated = Template.bind({})
 Authenticated.args = {

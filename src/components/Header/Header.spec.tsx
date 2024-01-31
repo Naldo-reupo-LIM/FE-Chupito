@@ -1,13 +1,13 @@
 import { render, screen } from '@testing-library/react'
 
-import AppBarWeb, { AppBarWebProps } from './AppBarWeb'
+import Header, { AppBarProps } from './Header'
 
-const renderComponent = (props: AppBarWebProps) =>
-  render(<AppBarWeb {...props} />)
+const renderComponent = (props: AppBarProps) =>
+  render(<Header {...props} />)
 
-describe('AppBarWeb component', () => {
+describe('Header component', () => {
   describe('when is not authenticated', () => {
-    const props: AppBarWebProps = {
+    const props: AppBarProps = {
       version: '1.2',
       isAuthenticated: false,
       username: '',
@@ -29,7 +29,7 @@ describe('AppBarWeb component', () => {
   });
 
   describe('when is authenticated', () => {
-    const props: AppBarWebProps = {
+    const props: AppBarProps = {
       isAuthenticated: true,
       username: 'user@test.com',
       onLogin: jest.fn(),

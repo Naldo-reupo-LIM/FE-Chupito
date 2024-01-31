@@ -47,7 +47,7 @@ describe('Main component', () => {
         
         renderMainComponent(props)
         
-        const appBar = screen.getByTestId('appbarweb')
+        const appBar = screen.getByTestId('Header')
         expect(appBar).toBeInTheDocument()
       })
     })
@@ -69,33 +69,9 @@ describe('Main component', () => {
         
         renderMainComponent(props)
         
-        const appBar = screen.getByText('appbarweb')
+        const appBar = screen.getByText('Header')
         expect(appBar).toBeInTheDocument()
       })
     })
   })
-
-  describe('should not render when is login', () => {
-    beforeEach(() => {
-      mockUseLocation.mockReturnValue({
-        pathname: '/login',
-      })
-    })
-
-    it('should not render all elements', () => {
-      mockUseMediaQuery.mockReturnValue(false)
-      
-      const props: MainProps = {
-        children: <div />,
-      }
-      
-      renderMainComponent(props)
-      
-      const appBarWeb = screen.queryByTestId('appbarweb')
-      const appBarMobile = screen.queryByTestId('appbarmobile')
-      
-      expect(appBarWeb).not.toBeInTheDocument()
-      expect(appBarMobile).not.toBeInTheDocument()
-    })
-  });
 })

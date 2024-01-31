@@ -2,7 +2,7 @@ import { useContext, ReactNode } from 'react'
 import { useLocation, useHistory } from 'react-router-dom'
 import { Paper } from '@material-ui/core'
 
-import TopBar from '../TopBar/TopBar'
+import Header from '../Header/Header'
 import NavigationBar from '../Navigation/NavigationBar'
 import LayoutContext, { LayoutTypes } from '../../shared/contexts/LayoutContext'
 import { AuthContext } from '../../shared/contexts/Auth/AuthContext'
@@ -46,7 +46,7 @@ export default function Main({ children }: MainProps): JSX.Element {
       return <></>
     }
     return (
-      <TopBar
+      <Header
         onLogin={handleGoToLogin}
         onLogout={handleLogout}
         isAuthenticated={state.isAuth}
@@ -58,7 +58,6 @@ export default function Main({ children }: MainProps): JSX.Element {
   return (
     <>
       {renderAppBar(shouldShowAppBars)}
-
       {layout === LayoutTypes.NAVIGATION && (
         <NavigationBar title={title} showLogo={showLogo} />
       )}

@@ -5,6 +5,7 @@ import ThemeProvider from './providers/ThemeProvider'
 import AppRoutes from './components/AppRoutes/AppRoutes'
 import { LayoutProvider, UserProvider } from './shared/contexts'
 import { AuthProvider } from './shared/contexts/Auth/AuthProvider'
+import './i18n'
 
 function App() {
   return (

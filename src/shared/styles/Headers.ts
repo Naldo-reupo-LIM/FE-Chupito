@@ -1,6 +1,6 @@
 import { createStyles, makeStyles } from '@material-ui/core'
 import { colors } from '../../styles/theme/colors'
-export const headerStyles = makeStyles(() =>
+export const headerStyles = makeStyles((theme) =>
   createStyles({
     header: {
       position: 'fixed',
@@ -16,18 +16,9 @@ export const headerStyles = makeStyles(() =>
       fontSize: 'xx-small',
     },
     userEmail: {
-      color: colors.black,
-      marginTop:15,
-      paddingRight: 13,
-      fontFamily:'Exo',
-      fontWeight: 'bold',
-      fontSize: 10,
-    },
-    userEmailweb: {
-      color: colors.black,
-      marginTop:15,
-      paddingRight: 13,
-      fontFamily:'Exo',
+      color: colors.blue,
+      padding: 17,
+      fontFamily: 'Exo',
       fontWeight: 'bold',
       fontSize: 14,
     },
@@ -36,13 +27,11 @@ export const headerStyles = makeStyles(() =>
       backgroundColor: colors.mainBlue,
       fontSize: 10,
       width: 70,
+      [theme.breakpoints.up('md')]: {
+        fontSize: 12,
+        width: '100%',
+      }
     },
-    buttonWeb: {
-      color: colors.white,
-      backgroundColor: colors.mainBlue,
-      fontSize: 12,
-    },
-
     logoContainer: {
       display: 'flex',
       alignItems: 'center',
@@ -51,7 +40,19 @@ export const headerStyles = makeStyles(() =>
     logout: {
       display: 'flex',
       alignItems: 'center',
-      marginLeft:'auto'
+      marginLeft: 'auto'
     },
+    sizeLogo: {
+      width: 100,
+      height: 30,
+      [theme.breakpoints.up('md')]: {
+        width: 180,
+        height: 40,
+      }
+    },
+    colorIcon:{
+      color: colors.blue,
+      fontSize: 30,
+    }
   })
 )
