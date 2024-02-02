@@ -1,13 +1,13 @@
 import { render, screen } from '@testing-library/react'
+import Header from './Header'
+import { HeaderProps } from './types';
 
-import Header, { AppBarProps } from './Header'
-
-const renderComponent = (props: AppBarProps) =>
+const renderComponent = (props: HeaderProps) =>
   render(<Header {...props} />)
 
 describe('Header component', () => {
   describe('when is not authenticated', () => {
-    const props: AppBarProps = {
+    const props: HeaderProps = {
       version: '1.2',
       isAuthenticated: false,
       username: '',
@@ -29,7 +29,7 @@ describe('Header component', () => {
   });
 
   describe('when is authenticated', () => {
-    const props: AppBarProps = {
+    const props: HeaderProps = {
       isAuthenticated: true,
       username: 'user@test.com',
       onLogin: jest.fn(),

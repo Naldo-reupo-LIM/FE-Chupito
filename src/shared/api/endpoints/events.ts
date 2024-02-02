@@ -18,8 +18,8 @@ function Events() {
     return response.data.data
   }
 
-  const getAllEventsAuth = async () => {
-    const { data } = await requests.get(`${APIEndpoints.users}/${APIEndpoints.events}`)
+  const getAllEventsAuth = async (id:string) => {
+    const { data } = await requests.get(`${APIEndpoints.events}/${id}`)
     return data.data
   }
 

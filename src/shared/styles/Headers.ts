@@ -2,11 +2,15 @@ import { createStyles, makeStyles } from '@material-ui/core'
 import { colors } from '../../styles/theme/colors'
 export const headerStyles = makeStyles((theme) =>
   createStyles({
-    header: {
-      position: 'fixed',
-    },
     toolbar: {
+      display: 'flex',
       justifyContent: 'space-between',
+      paddingLeft: 24,
+      paddingRight: 8,
+      [theme.breakpoints.up('md')]: {
+        paddingLeft: 10,
+        paddingRight: 16,
+      }
     },
     version: {
       color: colors.gray,
@@ -40,7 +44,6 @@ export const headerStyles = makeStyles((theme) =>
     logout: {
       display: 'flex',
       alignItems: 'center',
-      marginLeft: 'auto'
     },
     sizeLogo: {
       width: 100,
@@ -50,7 +53,7 @@ export const headerStyles = makeStyles((theme) =>
         height: 40,
       }
     },
-    colorIcon:{
+    colorIcon: {
       color: colors.blue,
       fontSize: 30,
     }

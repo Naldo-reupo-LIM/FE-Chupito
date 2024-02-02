@@ -1,6 +1,6 @@
 import { Story, Meta } from '@storybook/react/types-6-0'
 import Header from '../Header'
-import { HeaderProps } from '../types/types.header'
+import { HeaderProps } from '../types'
 
 export default {
   title: 'AppBarWeb',

@@ -5,67 +5,129 @@ export const eventInfoStyles = makeStyles((theme) =>
   createStyles({
     titleContainer: {
       background: colors.white,
-      display: 'flex',
-      flexWrap: 'wrap',
-      paddingTop: theme.spacing(4),
-    },
-    eventTitleRow: {
-      paddingTop: theme.spacing(4),
-      paddingLeft: theme.spacing(4),
-      color: colors.darkGray,
-    },
-    eventDateRow: {
-      display: 'flex',
-      justifyContent: 'flex-end',
-      padding: theme.spacing(2),
-      alignItems: 'center',
-
+      paddingTop: theme.spacing(13),
+      paddingLeft: theme.spacing(3),
+      paddingRight: theme.spacing(3),
+      backgroundColor: colors.lightBlue,
       [theme.breakpoints.up('sm')]: {
-        flexDirection: 'column'
+        padding: theme.spacing(4),
+        paddingTop: theme.spacing(13),
       },
+    },
+    eventInfo: {
+      display: 'flex',
+      justifyContent: 'space-between',
+      flexDirection: 'column',
+      color: colors.dark,
+      height: 130,
+      [theme.breakpoints.down('xs')]: {
+        justifyContent: 'space-evenly',
+       },
     },
     date: {
       fontSize: '1em',
-      fontWeight: 400,
       color: colors.darkGray,
       paddingBottom: theme.spacing(2),
       marginLeft: '1em',
     },
     button: {
-      borderColor: colors.blue,
-      marginLeft: '1em',
-      color: colors.blue,
+      borderColor: colors.darkerBlue,
+      color: colors.darkerBlue,
+      fontWeight: 600,
+      [theme.breakpoints.down('xs')]: {
+        fontSize: 11,
+      },
+    },
+    btnBack:{
+      color: colors.darkerBlue,
+    },
+    statebtn: {
+      color: colors.white,
+      backgroundColor: colors.mainBlue,
+      fontWeight: "bold",
+      width: "max-content",
+      textTransform: 'capitalize',
+      borderRadius: 5,
+      [theme.breakpoints.down('xs')]: {
+        fontSize: 12,
+       },
     },
     body: {
       background: colors.white,
-      padding: theme.spacing(4),
+      padding: theme.spacing(3),
+      backgroundColor: colors.lightBlue,
+      [theme.breakpoints.up('sm')]: {
+        padding: theme.spacing(4),
+      },
     },
     description: {
       marginLeft: '1em',
     },
     subscribersSection: {
       display: 'flex',
-      marginTop: theme.spacing(1),
+      marginTop: theme.spacing(5),
+    },
+    boldPinkColor: {
+      color: colors.white,
+      backgroundColor: colors.boldPink,
     },
     subscribedUserIcon: {
-      color: colors.black,
-      backgroundColor: colors.white,
-      left: '0.8em',
+      color: colors.white,
+      backgroundColor: colors.pink,
+      right: 20,
     },
     text: {
-      color: colors.black,
+      color: colors.mainBlue,
       marginTop: '0.5em',
       marginBottom: '2em',
-      marginLeft: '0.5em',
+      fontWeight: "bold",
+      marginLeft: "-15px",
     },
-    tagsContainer: { 
-      marginLeft: '1em',
+    pinkColor: {
+      color: colors.white,
+      backgroundColor: colors.darkPink,
+      fontWeight: 'bold',
     },
     imagesContainer: {
       width: '100%',
       padding: theme.spacing(3),
       display: 'flex',
       flexDirection: 'row',
+    },
+    month: {
+      color: colors.darkerBlue,
+      fontWeight: 'bold',
+      textTransform: 'uppercase',
+      fontSize: 20,
+      [theme.breakpoints.down('xs')]: {
+        fontSize: 11,
+       },
+    },
+    day: {
+      color: colors.black,
+      fontWeight: 'bold',
+      fontSize: 36,
+      [theme.breakpoints.down('xs')]: {
+       fontSize: 20,
+      },
+    },
+    year: {
+      color: colors.boldGray,
+      fontWeight: 'bold',
+      fontSize: 20,
+      [theme.breakpoints.down('xs')]: {
+        fontSize: 11,
+       },
+    },
+    position: {
+      right: 12,
+      bottom: 30,
+    },
+    columns: {
+      width: '50px',
+      [theme.breakpoints.up('sm')]: {
+        width: '100px',
+      },
     },
   })
 )

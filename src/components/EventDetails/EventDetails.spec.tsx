@@ -7,7 +7,11 @@ const renderComponent = (props: EventDetailsProps) =>
 const mockEventInfoProps = {
   name: 'Events',
   id: '029r72856736573',
-  eventDate: '',
+  eventDate: '2023-06-16T07:30:00.000',
+  status: 'Active',
+  description: ' An official designation shown on Know profile for technologists',
+  tags: "Desing",
+  type: 'Sales',
 }
 
 describe('event view component', () => {
@@ -16,6 +20,7 @@ describe('event view component', () => {
       eventDetails: mockEventInfoProps,
       isSubscribed: true,
       subscribedValidationHandler: jest.fn(),
+      goBack: jest.fn(),
     }
     renderComponent(props)
 

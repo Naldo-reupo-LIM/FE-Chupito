@@ -42,8 +42,12 @@ export const getCurrentYear = () => {
 }
 
 export const getDatePart = (date) => {
-  const dateObject = Moment(date, 'YYYY-MM-DD')
-  return dateObject.format('D MMM YYYY')
+  const dateObject = new Date(date)
+  const year = dateObject.getFullYear()
+  const month = dateObject.toLocaleString('default', { month: 'short' })
+  const day = dateObject.getDate()
+
+  return { year, month, day }
 }
 
 export const imageItems = [
@@ -64,5 +68,3 @@ export const imageItems = [
     title: 'Virtual',
   },
 ]
-
-export const titleChips =["Technology", "React", "FrontEnd"]

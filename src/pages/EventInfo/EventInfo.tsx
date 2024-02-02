@@ -8,6 +8,10 @@ export interface EventInfoPageProps {
   name: string
   id: string
   eventDate: string
+  status: string
+  description: string
+  tags: string
+  type: string
 }
 
 export default function EventInfoPage(): JSX.Element {
@@ -16,15 +20,21 @@ export default function EventInfoPage(): JSX.Element {
   const [isSubscribed, setIsSubscribed] = useState(false)
 
   const [eventDetails, setEventDetails] = useState<EventInfoPageProps>({
-    name: '',
     id: '',
+    name: '',
     eventDate: '',
+    status: '',
+    description: '',
+    tags: '',
+    type: '',
   })
   const { state: { isAuth } } = useAuth()
 
   const subscribedValidationHandler = () => {
-    history.push(`${isAuth ? '/event-info' : `/login?eventId=${id}`}`)
+    history.push(`${isAuth ? `/event-info/${id}` : `/login?eventId=${id}`}`)
   }
+
+  const goBack = () => window.history.back();
 
   const fetchEventAndSubscriptionDetails = async (eventId: string) => {
     try {
@@ -32,11 +42,9 @@ export default function EventInfoPage(): JSX.Element {
         EventsApi().getById(eventId),
         EventsApi().verifyUserEventSubscribed(eventId)
       ]);
-
-      const { id, name, eventDate } = eventResponse;
       const isSubscribed = subscriptionResponse.attendanceConfirmed;
 
-      setEventDetails({ id, name, eventDate });
+      setEventDetails(eventResponse);
       setIsSubscribed(isSubscribed);
     } catch (error) {
       console.error("Error fetching event or subscription data:", error);
@@ -54,6 +62,7 @@ export default function EventInfoPage(): JSX.Element {
       eventDetails={eventDetails}
       isSubscribed={isSubscribed}
       subscribedValidationHandler={subscribedValidationHandler}
+      goBack= {goBack}
     />
   )
 }

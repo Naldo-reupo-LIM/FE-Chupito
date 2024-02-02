@@ -29,58 +29,54 @@ export default function Header({
   };
 
   return (
-    <>
-      <AppBar>
-        <Toolbar>
-          <div className={classes.logoContainer}>
-            <img src={logo} alt="logo" className={classes.sizeLogo} />
-          </div>
-          <div className={classes.logout}>
-            {isAuthenticated ? (
-              <>
-                <IconButton
-                  aria-label="account"
-                  aria-controls="menu-appbar"
-                  aria-haspopup="true"
-                  onClick={handleMenu}
-                >
-                  <Person className={classes.colorIcon} />
-                </IconButton>
-                <Menu
-                  id="menu-appbar"
-                  anchorEl={anchorEl}
-                  anchorOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                  }}
-                  keepMounted
-                  transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                  }}
-                  open={Boolean(anchorEl)}
-                  onClose={handleClose}
-                >
-                  <Typography className={classes.userEmail}>{username}</Typography>
-                  <MenuItem >{t('profile')}</MenuItem>
-                  <MenuItem onClick={onLogout}>{t('logout')}</MenuItem>
-                </Menu>
-              </>
-            ) : (
-              <Button
-                variant="contained"
-                onClick={onLogin}
-                className={classes.buttonLogin}
+    <AppBar data-testid="header" >
+      <Toolbar className={classes.toolbar}>
+        <div className={classes.logoContainer}>
+          <img src={logo} alt="logo" className={classes.sizeLogo} />
+        </div>
+        <div className={classes.logout}>
+          {isAuthenticated ? (
+            <>
+              <IconButton
+                aria-label="account"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleMenu}
               >
-                {t('login')}
-              </Button>
-            )}
-          </div>
-
-          <label className={classes.version}>v{version}</label>
-        </Toolbar>
-      </AppBar>
-      <div data-testid="header" />
-    </>
+                <Person className={classes.colorIcon} />
+              </IconButton>
+              <Menu
+                id="menu-appbar"
+                anchorEl={anchorEl}
+                anchorOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                open={Boolean(anchorEl)}
+                onClose={handleClose}
+              >
+                <Typography className={classes.userEmail}>{username}</Typography>
+                <MenuItem >{t('profile')}</MenuItem>
+                <MenuItem onClick={onLogout}>{t('logout')}</MenuItem>
+              </Menu>
+            </>
+          ) : (
+            <Button
+              variant="contained"
+              onClick={onLogin}
+              className={classes.buttonLogin}
+            >
+              {t('login')}
+            </Button>
+          )}
+        </div>
+        <label className={classes.version}>v{version}</label>
+      </Toolbar>
+    </AppBar>
   )
 }

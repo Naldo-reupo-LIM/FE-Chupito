@@ -43,7 +43,7 @@ const baseRequest = () => {
     return axios.post(getUrl(method), data, config)
   }
 
-  const put = (method: string, data: any) => {
+  const put = (method: string, data: any= null) => {
     return axios.put(getUrl(method), data)
   }
 
