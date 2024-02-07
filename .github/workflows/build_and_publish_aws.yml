@@ -6,24 +6,22 @@ jobs:
     name: Build Docker Image
     runs-on: ubuntu-latest
     steps:
-   # Connects with AWS
+      # Connects with AWS
       - name: Configure AWS Credentials
-      uses: aws-actions/configure-aws-credentials@v1
-      with:
-        role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
-        aws-region: us-east-1
-        role-session-name: GitHubActions
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          aws-region: us-east-1
+          role-session-name: GitHubActions
 
       # Logs to ECR to host the image
       - name: Login to Amazon ECR
-      id: login-ecr 
-      uses: aws-actions/amazon-ecr-login@v1
-
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
 
       # Build Docker Image
       - name: Build the Docker image
-      run: docker build . --file 'Dockerfile' --tag ${{ secrets.AWS_ECR_URL }}/backend-o-frontened:${{github.sha}}
+        run: docker build . --file 'Dockerfile' --tag ${{ secrets.AWS_ECR_URL }}/backend-o-frontened:${{github.sha}}
 
-      #Publish Docker Container
       - name: Publish the Docker image
-      run: docker push ${{ secrets.AWS_ECR_URL }}/backend-o-frontened:${{github.sha}}
+        run: docker push ${{ secrets.AWS_ECR_URL }}/backend-o-frontened:${{github.sha}}
